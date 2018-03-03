@@ -1,0 +1,93 @@
+:root {
+  --page-bg: papayawhip;
+  --input-bg: #111;
+  --input-focus: #444;
+  --section-bg: #eee;
+  --header-colour: #008;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--page-bg);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.container {
+  max-width: 90vw;
+  min-width: 960px;
+}
+
+div#top-section {
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  grid-gap: 10px;
+  margin-top: 20px;
+}
+
+h1 {
+  color: var(--header-colour);
+  font-size: 24px;
+  text-align: center;
+}
+
+#input-box {
+  padding: 10px;
+  background: var(--section-bg);
+  display: grid;
+  grid-template-columns: 1fr 2fr 3fr;
+  grid-gap: 5px;
+  justify-items: center;
+  border: 1px solid var(--input-bg);
+
+  span {
+    color: var(--header-colour);   
+    font-weight: bold; 
+  }
+
+  label {
+    justify-self: start;
+  }
+  
+  input {
+    background: var(--input-bg);
+    border: 1px solid #fff;
+    color: #fff;
+    font-size: 14px;
+    padding: 0.3em 0.5em;
+    
+    &:focus {
+      background: var(--input-focus);
+    }
+  }
+}
+
+.rgb-input {
+  width: 6em; 
+}
+
+.hsl-input {
+  width: 4em;
+}
+
+#info-table {
+  background: var(--section-bg);
+  border: 2px solid #000;
+  border-collapse: collapse;
+
+  th, td {
+    border: 1px solid var(--input-bg);
+    padding: 0.3em;
+  }
+
+  th {
+    color: var(--header-colour);  
+  }
+
+  td {
+    text-align: right;
+    padding-right: 1em;
+  }
+}
