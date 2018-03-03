@@ -16,8 +16,9 @@ body {
 }
 
 .container {
-  max-width: 90vw;
-  min-width: 960px;
+  max-width: 95vw;
+  min-width: 900px;
+  margin: 20px auto;
 }
 
 div#top-section {
@@ -34,13 +35,13 @@ h1 {
 }
 
 #input-box {
-  padding: 10px;
   background: var(--section-bg);
-  display: grid;
-  grid-template-columns: 1fr 2fr 3fr;
-  grid-gap: 5px;
-  justify-items: center;
   border: 1px solid var(--input-bg);
+  display: grid;
+  grid-gap: 5px;
+  grid-template-columns: 1fr 2fr 3fr;
+  justify-items: center;
+  padding: 10px;
 
   span {
     color: var(--header-colour);   
@@ -89,5 +90,29 @@ h1 {
   td {
     text-align: right;
     padding-right: 1em;
+  }
+}
+
+#colour-blocks {
+  align-items: center;
+  display: grid;
+  grid-gap: 5px;
+  grid-template-columns: repeat(8, 1fr);
+  margin: 20px auto;
+  padding: 10px;
+  // width: 90%;
+
+  span {
+    color: var(--header-colour);   
+    font-weight: bold;    
+    justify-self: center;
+  }
+
+  span.line {
+    justify-self: start;
+  }
+
+  .block {
+    padding: 5px;
   }
 }
