@@ -1,4 +1,4 @@
-const CONST = {
+export const CONST = {
   ratio_threshold: 4.4    // Officially, it's 4.5:1
 };
 
