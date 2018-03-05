@@ -23,9 +23,10 @@ body {
 
 div#top-section {
   display: grid;
-  grid-template-columns: 5fr 7fr;
-  grid-gap: 10px;
-  margin-top: 20px;
+  grid-gap: 20px;
+  grid-template-columns: 5fr 6fr;
+  margin: 20px auto;
+  width: 90%;
 }
 
 h1 {
@@ -80,7 +81,7 @@ h1 {
 
   th, td {
     border: 1px solid var(--input-bg);
-    padding: 0.3em;
+    padding: 0.45em 0.3em;
   }
 
   th {
