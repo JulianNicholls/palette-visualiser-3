@@ -13,7 +13,7 @@ class RGBInput extends React.Component {
 
     this.setState(() => ({ value }));
 
-    this.props.handleChangeRGB(this.state.index, value);
+    if (value.length === 7) this.props.handleChangeRGB(this.state.index, value);
   };
 
   componentWillReceiveProps = newProps => {
