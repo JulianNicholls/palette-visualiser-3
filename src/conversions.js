@@ -1,14 +1,14 @@
 export const CONST = {
-  ratio_threshold: 4.4    // Officially, it's 4.5:1
+  ratio_threshold: 4.4 // Officially, it's 4.5:1
 };
 
 /**
- * Convert a string representation of a colour in RGB to an array of three 
+ * Convert a string representation of a colour in RGB to an array of three
  * values
- * 
- * @param {string} colour 
- * 
- * @return  Array           The RGB representation [0..255, 0..255, 0..255]
+ *
+ * @param {string}    colour
+ *
+ * @return  {Array}   The RGB representation [0..255, 0..255, 0..255]
  */
 export function rgbStrToArray(colour) {
   const rgb = colour.match(/#?(..)(..)(..)/);
@@ -22,9 +22,9 @@ export function rgbStrToArray(colour) {
 
 /**
  * Contrast Ratio = (Lighter + 0.05) / (Darker + 0.05)
- * @param {Array}     One colour 
+ * @param {Array}     One colour
  * @param {Array}     Other colour
- * 
+ *
  * @return {Number}   Contrast ratio between them
  */
 export function contrastRatio(rgbA, rgbB) {
@@ -76,7 +76,7 @@ export function sRGBLuminance(rgb) {
  * @param   {Number}  r       The red colour value    0..255
  * @param   {Number}  g       The green colour value  0..255
  * @param   {Number}  b       The blue colour value   0..255
- * 
+ *
  * @return  {Array}           The HSV representation  [0..360, 0..100%, 0..100%]
  */
 
@@ -107,7 +107,8 @@ export function RGBtoHSV(r, g, b) {
         h = (r - g) / d + 4;
         break;
 
-      default:    // Placate ESLint
+      default:
+        // Placate ESLint
         break;
     }
 
@@ -122,10 +123,10 @@ export function RGBtoHSV(r, g, b) {
  * adapted from Bob's answer on
  * https://stackoverflow.com/questions/3423214/convert-hsb-hsv-color-to-hsl
  *
- * @param   Number  h       Hue                 0..360
- * @param   Number  s       Saturation          0..100%
- * @param   Number  v       Value / Brightness  0..100%
- * 
+ * @param   {Number}  h       Hue                 0..360
+ * @param   {Number}  s       Saturation          0..100%
+ * @param   {Number}  v       Value / Brightness  0..100%
+ *
  * @return  Array           The HSL representation [0..360, 0..100%, 0..100%]
  */
 
@@ -152,10 +153,10 @@ export function HSVtoHSL(h, s, v) {
  * Converts an HSL colour value to RGB. Conversion formula
  * adapted from http://en.wikipedia.org/wiki/HSV_color_space.
  *
- * @param   Number  h       Hue         0..360
- * @param   Number  s       Saturation  0..100%
- * @param   Number  l       Luminance   0..100%
- * 
+ * @param   {Number}  h       Hue         0..360
+ * @param   {Number}  s       Saturation  0..100%
+ * @param   {Number}  l       Luminance   0..100%
+ *
  * @return  Array           The RGB representation [0..255, 0..255, 0..255]
  */
 

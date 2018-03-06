@@ -3,23 +3,22 @@ import React from 'react';
 import { rgbStrToArray, sRGBLuminance, RGBtoHSV } from '../conversions';
 
 class ColourInfo extends React.Component {
-  lines = () => {
+  lines() {
     const lines = [];
     const { rgbs } = this.props;
-    const numLines = rgbs.length;
 
-    for (let idx = 0; idx < numLines; ++idx) {
-      const rgb = rgbStrToArray(rgbs[idx]);
+    rgbs.forEach(rgbStr => {
+      const rgb = rgbStrToArray(rgbStr);
 
-      lines[idx] = {
+      lines.push({
         rgbs: rgb,
         rlum: sRGBLuminance(rgb).toFixed(3),
         hsvs: RGBtoHSV(rgb[0], rgb[1], rgb[2])
-      };
-    }
+      });
+    });
 
     return lines;
-  };
+  }
 
   render() {
     return (
@@ -32,15 +31,15 @@ class ColourInfo extends React.Component {
           </tr>
         </thead>
         <tbody>
-          {this.lines().map((line, idx) => (
+          {this.lines().map(({ rgbs, rlum, hsvs }, idx) => (
             <tr key={idx}>
-              <td>{line.rgbs[0]}</td>
-              <td>{line.rgbs[1]}</td>
-              <td>{line.rgbs[2]}</td>
-              <td>{line.rlum}</td>
-              <td>{line.hsvs[0]}&deg;</td>
-              <td>{line.hsvs[1]}%</td>
-              <td>{line.hsvs[2]}%</td>
+              <td>{rgbs[0]}</td>
+              <td>{rgbs[1]}</td>
+              <td>{rgbs[2]}</td>
+              <td>{rlum}</td>
+              <td>{hsvs[0]}&deg;</td>
+              <td>{hsvs[1]}%</td>
+              <td>{hsvs[2]}%</td>
             </tr>
           ))}
         </tbody>

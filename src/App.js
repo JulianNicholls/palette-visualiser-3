@@ -24,6 +24,10 @@ class App extends React.Component {
     }
   }
 
+  componentWillMount() {
+    this.setHSLsFromRGBs();
+  }
+
   setHSLFromRGB = (index, rgbStr = null) => {
     const hsls = this.state.hsls;
 
@@ -39,16 +43,10 @@ class App extends React.Component {
   };
 
   setHSLsFromRGBs = () => {
-    console.log('sHFR', this.state.rgbs);
-
     for (let idx = 0; idx < this.state.rgbs.length; ++idx) {
       this.setHSLFromRGB(idx);
     }
   };
-
-  componentWillMount() {
-    this.setHSLsFromRGBs();
-  }
 
   handleChangeRGB = (index, rgbStr) => {
     const { rgbs } = this.state;
