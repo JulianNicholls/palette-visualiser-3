@@ -61,11 +61,13 @@ class ColourBlocks extends React.Component {
         key={key}
         style={{ background: `${bgCol}`, color: `${fgCol}` }}
       >
-        {bgStr}
-        <br />
-        {fgStr}
-        <br />
-        {cr}:1
+        <p>
+          {bgStr}
+          <br />
+          {fgStr}
+          <br />
+          {cr}:1
+        </p>
       </div>
     );
   }
