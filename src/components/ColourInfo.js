@@ -5,7 +5,7 @@ const ColourInfo = ({ lines }) => (
     <thead>
       <tr>
         <th colSpan="3">RGB</th>
-        <th>Rel Lum.</th>
+        <th>sRGB Lum.</th>
         <th colSpan="3">HSV</th>
       </tr>
     </thead>
@@ -24,6 +24,5 @@ const ColourInfo = ({ lines }) => (
     </tbody>
   </table>
 );
-
 
 export default ColourInfo;

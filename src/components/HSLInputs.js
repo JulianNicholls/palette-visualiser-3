@@ -6,7 +6,7 @@ class HSLInput extends React.Component {
     index: this.props.index
   };
 
-  handleChange = (event) => {
+  handleChange = event => {
     const { target } = event;
     const name = target.name;
     const value = target.value;
@@ -19,16 +19,34 @@ class HSLInput extends React.Component {
     this.props.handleChangeHSL(index, colour);
   };
 
-  componentWillReceiveProps = (nextProps) => {
+  componentWillReceiveProps = nextProps => {
     this.setState(() => ({ colour: nextProps.initial }));
-  }
+  };
 
   render() {
     return (
       <div className="hsl-inputs">
-        <input className="hsl-input" type="number" name="h" value={this.state.colour.h} onChange={this.handleChange} />
-        <input className="hsl-input" type="number" name="s" value={this.state.colour.s} onChange={this.handleChange} />
-        <input className="hsl-input" type="number" name="l" value={this.state.colour.l} onChange={this.handleChange} />
+        <input
+          className="hsl-input"
+          type="number"
+          name="h"
+          value={this.state.colour.h}
+          onChange={this.handleChange}
+        />
+        <input
+          className="hsl-input"
+          type="number"
+          name="s"
+          value={this.state.colour.s}
+          onChange={this.handleChange}
+        />
+        <input
+          className="hsl-input"
+          type="number"
+          name="l"
+          value={this.state.colour.l}
+          onChange={this.handleChange}
+        />
       </div>
     );
   }
