@@ -2,119 +2,14 @@ export const CONST = {
   ratio_threshold: 4.4    // Officially, it's 4.5:1
 };
 
-/*
-function setFromRGB(event) {
-  const elem = event.target;
-  const id = elem.id;
-  const input_num = parseInt(id[id.length - 1]);
-
-  colours[input_num] = elem.value;
-
-  localStorage.setItem('show49', JSON.stringify(colours));
-
-  setHSLsFromRGBs();
-  setTableFromColours();
-  setBlocksFromColours();
-}
-
-function setFromHSL(event) {
-  const toHexStr = dec => {
-    const str = dec.toString(16).toUpperCase();
-
-    return dec < 16 ? '0' + str : str;
-  };
-
-  const id = event.target.id;
-  const input_num = parseInt(id[id.length - 1]);
-
-  const h = parseInt(document.getElementById(`input-h${input_num}`).value, 10);
-  const s = parseInt(document.getElementById(`input-s${input_num}`).value, 10);
-  const l = parseInt(document.getElementById(`input-l${input_num}`).value, 10);
-
-  const rgb = HSLtoRGB(h, s, l);
-  const rgbStr = '#' + rgb.map(value => toHexStr(value)).join('');
-
-  colours[input_num] = rgbStr;
-  rgb_inputs[input_num - 1].value = rgbStr;
-
-  localStorage.setItem('show49', JSON.stringify(colours));
-
-  setTableFromColours();
-  setBlocksFromColours();
-}
-
-function setHSLsFromRGBs() {
-  for (let i = 1; i <= 5; ++i) {
-    const rgb = rgbStrToArray(colours[i]);
-    const hsv = RGBtoHSV(rgb[0], rgb[1], rgb[2]);
-    const hsl = HSVtoHSL(hsv[0], hsv[1], hsv[2]);
-
-    document.getElementById(`input-h${i}`).value = hsl[0];
-    document.getElementById(`input-s${i}`).value = hsl[1];
-    document.getElementById(`input-l${i}`).value = hsl[2];
-  }
-}
-
-function setTableFromColours() {
-  for (let i = 1; i <= 5; ++i) {
-    const rgb = rgbStrToArray(colours[i]);
-    const hsv = RGBtoHSV(rgb[0], rgb[1], rgb[2]);
-    const row = document.querySelector(`tr#line-${i}`);
-
-    row.querySelector('td.r').textContent = rgb[0];
-    row.querySelector('td.g').textContent = rgb[1];
-    row.querySelector('td.b').textContent = rgb[2];
-
-    row.querySelector('td.luma').textContent = sRGBLuminance(rgb).toFixed(3);
-
-    row.querySelector('td.h').innerHTML = hsv[0] + '&deg;';
-    row.querySelector('td.s').textContent = hsv[1] + '%';
-    row.querySelector('td.v').textContent = hsv[2] + '%';
-  }
-}
-
-function setBlocksFromColours() {
-  const suppress = document.querySelector('input:checked');
-
-  for (let bg = 1; bg <= 7; ++bg) {
-    for (let fg = 1; fg <= 7; ++fg) {
-      const rgbB = rgbStrToArray(colours[bg]);
-      const rgbF = rgbStrToArray(colours[fg]);
-      const lumaD = contrastRatio(rgbB, rgbF);
-      const lumaStr = `<br />${lumaD}:1`;
-
-      const block = document.querySelector(`#block-${bg}${fg} p`);
-
-      if (fg === bg || (suppress && lumaD < CONST.ratio_threshold)) {
-        block.style.backgroundColor = '#999';
-        block.style.color = '#999';
-      } else {
-        if (colours[bg][0] !== '#') colours[bg] = `#${colours[bg]}`;
-
-        block.style.backgroundColor = colours[bg];
-
-        if (fg !== bg) {
-          if (colours[fg][0] !== '#') colours[fg] = `#${colours[fg]}`;
-
-          block.style.color = colours[fg];
-        }
-
-        block.innerHTML = `${colours[bg]}<br/>${colours[fg]}${lumaStr}`;
-      }
-    }
-  }
-}
-
-function colourTextDisplay(event) {
-  const td = document.getElementById('text-display');
-  const style = event.target.style;
-
-  td.style.backgroundColor = style.backgroundColor;
-  td.style.color = style.color;
-}
-
-*/
-
+/**
+ * Convert a string representation of a colour in RGB to an array of three 
+ * values
+ * 
+ * @param {string} colour 
+ * 
+ * @return  Array           The RGB representation [0..255, 0..255, 0..255]
+ */
 export function rgbStrToArray(colour) {
   const rgb = colour.match(/#?(..)(..)(..)/);
 
@@ -127,8 +22,11 @@ export function rgbStrToArray(colour) {
 
 /**
  * Contrast Ratio = (Lighter + 0.05) / (Darker + 0.05)
+ * @param {Array}     One colour 
+ * @param {Array}     Other colour
+ * 
+ * @return {Number}   Contrast ratio between them
  */
-
 export function contrastRatio(rgbA, rgbB) {
   const a = sRGBLuminance(rgbA) + 0.05;
   const b = sRGBLuminance(rgbB) + 0.05;
@@ -175,10 +73,11 @@ export function sRGBLuminance(rgb) {
  * Converts an RGB colour value to HSV. Conversion formula
  * adapted from http://en.wikipedia.org/wiki/HSV_color_space.
  *
- * @param   Number  r       The red colour value    0..255
- * @param   Number  g       The green colour value  0..255
- * @param   Number  b       The blue colour value   0..255
- * @return  Array           The HSV representation  [0..360, 0..100%, 0..100%]
+ * @param   {Number}  r       The red colour value    0..255
+ * @param   {Number}  g       The green colour value  0..255
+ * @param   {Number}  b       The blue colour value   0..255
+ * 
+ * @return  {Array}           The HSV representation  [0..360, 0..100%, 0..100%]
  */
 
 export function RGBtoHSV(r, g, b) {
@@ -207,6 +106,9 @@ export function RGBtoHSV(r, g, b) {
       case b:
         h = (r - g) / d + 4;
         break;
+
+      default:    // Placate ESLint
+        break;
     }
 
     h *= 60;
@@ -223,6 +125,7 @@ export function RGBtoHSV(r, g, b) {
  * @param   Number  h       Hue                 0..360
  * @param   Number  s       Saturation          0..100%
  * @param   Number  v       Value / Brightness  0..100%
+ * 
  * @return  Array           The HSL representation [0..360, 0..100%, 0..100%]
  */
 
@@ -252,6 +155,7 @@ export function HSVtoHSL(h, s, v) {
  * @param   Number  h       Hue         0..360
  * @param   Number  s       Saturation  0..100%
  * @param   Number  l       Luminance   0..100%
+ * 
  * @return  Array           The RGB representation [0..255, 0..255, 0..255]
  */
 
