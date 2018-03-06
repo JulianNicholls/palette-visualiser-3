@@ -2,7 +2,7 @@
   --page-bg: papayawhip;
   --input-bg: #111;
   --input-focus: #444;
-  --section-bg: #eee;
+  --section-bg: #f0f0f0;
   --header-colour: #008;
 }
 
@@ -17,16 +17,15 @@ body {
 }
 
 .container {
-  width: 1100px;
+  width: 950px;
   margin: 20px auto;
 }
 
-div#top-section {
+#top-section {
   display: grid;
   grid-gap: 20px;
-  grid-template-columns: 5fr 6fr;
+  grid-template-columns: 1fr 1fr;
   margin: 20px auto;
-  width: 90%;
 }
 
 h1 {
@@ -39,7 +38,6 @@ h1 {
   background: var(--section-bg);
   border: 1px solid var(--input-bg);
   display: grid;
-  grid-gap: 5px;
   grid-template-columns: 1fr 2fr 3fr;
   justify-items: center;
   padding: 10px;
@@ -91,7 +89,7 @@ h1 {
 
   td {
     text-align: right;
-    padding-right: 1em;
+    padding-right: 0.6em;
   }
 }
 
@@ -115,9 +113,10 @@ h1 {
   }
 
   .block {
-    height: 4em;
-    font-size: 18px;
-    padding: 5px;
-    text-align: center;
+    p {
+      font-size: 17px;
+      line-height: 21px;
+      text-align: center;
+    }
   }
 }
