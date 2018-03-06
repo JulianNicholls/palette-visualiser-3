@@ -4,13 +4,7 @@ import InputBox from './components/InputBox';
 import ColourInfo from './components/ColourInfo';
 import ColourBlocks from './components/ColourBlocks';
 
-import {
-  rgbStrToArray,
-  sRGBLuminance,
-  RGBtoHSV,
-  HSVtoHSL,
-  HSLtoRGB
-} from './conversions';
+import { rgbStrToArray, RGBtoHSV, HSVtoHSL, HSLtoRGB } from './conversions';
 
 const LS_KEY = 'pv30';
 
@@ -20,8 +14,7 @@ class App extends React.Component {
 
     this.state = {
       rgbs: ['#336699', '#669933', '#996633', '#663399', '#339966'],
-      hsls: [],
-      lines: []
+      hsls: []
     };
 
     const saveData = localStorage.getItem(LS_KEY);
@@ -45,20 +38,6 @@ class App extends React.Component {
     this.setState(() => ({ hsls }));
   };
 
-  setLine = (index, rgbStr = null) => {
-    const lines = this.state.lines;
-
-    rgbStr = rgbStr || this.state.rgbs[index];
-
-    const rgb = rgbStrToArray(rgbStr);
-    const rlum = sRGBLuminance(rgb).toFixed(3);
-    const hsv = RGBtoHSV(rgb[0], rgb[1], rgb[2]);
-
-    lines[index] = { rgbs: rgb, rlum, hsvs: hsv };
-
-    this.setState(() => ({ lines }));
-  };
-
   setHSLsFromRGBs = () => {
     console.log('sHFR', this.state.rgbs);
 
@@ -67,19 +46,12 @@ class App extends React.Component {
     }
   };
 
-  setLines = () => {
-    for (let idx = 0; idx < this.state.rgbs.length; ++idx) {
-      this.setLine(idx);
-    }
-  };
-
   componentWillMount() {
     this.setHSLsFromRGBs();
-    this.setLines();
   }
 
   handleChangeRGB = (index, rgbStr) => {
-    const rgbs = this.state.rgbs;
+    const { rgbs } = this.state;
 
     rgbs[index] = rgbStr;
     localStorage.setItem(LS_KEY, JSON.stringify(rgbs));
@@ -87,7 +59,6 @@ class App extends React.Component {
     this.setState(() => ({ rgbs }));
 
     this.setHSLFromRGB(index, rgbStr);
-    this.setLine(index, rgbStr);
   };
 
   handleChangeHSL = (index, colour) => {
@@ -97,8 +68,7 @@ class App extends React.Component {
       return dec < 16 ? '0' + str : str;
     };
 
-    const hsls = this.state.hsls;
-    const rgbs = this.state.rgbs;
+    const { rgbs, hsls } = this.state;
 
     const rgbArray = HSLtoRGB(colour.h, colour.s, colour.l);
     const rgbStr = '#' + rgbArray.map(value => toHexStr(value)).join('');
@@ -109,25 +79,25 @@ class App extends React.Component {
     localStorage.setItem(LS_KEY, JSON.stringify(rgbs));
 
     this.setState(() => ({ hsls, rgbs }));
-
-    this.setLine(index, rgbStr);
   };
 
   render() {
+    const { rgbs, hsls } = this.state;
+
     return (
       <div>
         <h1>Palette Visualiser</h1>
         <div className="container">
           <div id="top-section">
             <InputBox
-              rgbs={this.state.rgbs}
-              hsls={this.state.hsls}
+              rgbs={rgbs}
+              hsls={hsls}
               handleChangeRGB={this.handleChangeRGB}
               handleChangeHSL={this.handleChangeHSL}
             />
-            <ColourInfo lines={this.state.lines} />
+            <ColourInfo rgbs={rgbs} />
           </div>
-          <ColourBlocks rgbs={this.state.rgbs} />
+          <ColourBlocks rgbs={rgbs} />
         </div>
       </div>
     );
