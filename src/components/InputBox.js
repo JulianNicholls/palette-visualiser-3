@@ -11,6 +11,7 @@ class InputBox extends React.Component {
       <div id="input-box">
         <span>Colour</span>
         <span>RGB</span>
+        <span />
         <span>HSL</span>
         <label htmlFor="rgb-0">First</label>
         <RGBInput
@@ -18,6 +19,7 @@ class InputBox extends React.Component {
           initial={rgbs[0]}
           handleChangeRGB={this.props.handleChangeRGB}
         />
+        <div className="swatch" style={{ background: rgbs[0] }} />
         <HSLInputs
           index={0}
           initial={hsls[0]}
@@ -30,6 +32,7 @@ class InputBox extends React.Component {
           initial={rgbs[1]}
           handleChangeRGB={this.props.handleChangeRGB}
         />
+        <div className="swatch" style={{ background: rgbs[1] }} />
         <HSLInputs
           index={1}
           initial={hsls[1]}
@@ -42,6 +45,7 @@ class InputBox extends React.Component {
           initial={rgbs[2]}
           handleChangeRGB={this.props.handleChangeRGB}
         />
+        <div className="swatch" style={{ background: rgbs[2] }} />
         <HSLInputs
           index={2}
           initial={hsls[2]}
@@ -54,6 +58,7 @@ class InputBox extends React.Component {
           initial={rgbs[3]}
           handleChangeRGB={this.props.handleChangeRGB}
         />
+        <div className="swatch" style={{ background: rgbs[3] }} />
         <HSLInputs
           index={3}
           initial={hsls[3]}
@@ -66,6 +71,7 @@ class InputBox extends React.Component {
           initial={rgbs[4]}
           handleChangeRGB={this.props.handleChangeRGB}
         />
+        <div className="swatch" style={{ background: rgbs[4] }} />
         <HSLInputs
           index={4}
           initial={hsls[4]}
