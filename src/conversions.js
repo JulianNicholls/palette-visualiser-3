@@ -6,34 +6,33 @@ export const CONST = {
  * Convert a string representation of a colour in RGB to an array of three
  * values
  *
- * @param {string}    colour
+ * @param   {string}    colour
  *
- * @return  {Array}   The RGB representation [0..255, 0..255, 0..255]
+ * @return  {Array}     The RGB representation [0..255, 0..255, 0..255]
  */
 export function rgbStrToArray(colour) {
-  const rgb = colour.match(/#?(..)(..)(..)/);
+  const rgbArray = colour.match(/#?(..)(..)(..)/);
 
   for (let i = 0; i < 3; ++i) {
-    rgb[i] = parseInt(rgb[i + 1], 16);
+    rgbArray[i] = parseInt(rgbArray[i + 1], 16);
   }
 
-  return rgb;
+  return rgbArray;
 }
 
 /**
  * Contrast Ratio = (Lighter + 0.05) / (Darker + 0.05)
- * @param {Array}     One colour
- * @param {Array}     Other colour
  *
- * @return {Number}   Contrast ratio between them
+ * @param   {Array}    One colour
+ * @param   {Array}    Other colour
+ *
+ * @return  {Number}   Contrast ratio between them
  */
 export function contrastRatio(rgbA, rgbB) {
   const a = sRGBLuminance(rgbA) + 0.05;
   const b = sRGBLuminance(rgbB) + 0.05;
 
-  if (a > b) return (a / b).toFixed(2);
-
-  return (b / a).toFixed(2);
+  return a > b ? a / b : b / a;
 }
 
 /**
@@ -127,7 +126,7 @@ export function RGBtoHSV(r, g, b) {
  * @param   {Number}  s       Saturation          0..100%
  * @param   {Number}  v       Value / Brightness  0..100%
  *
- * @return  Array           The HSL representation [0..360, 0..100%, 0..100%]
+ * @return  {Array}           The HSL representation [0..360, 0..100%, 0..100%]
  */
 
 export function HSVtoHSL(h, s, v) {
@@ -157,7 +156,7 @@ export function HSVtoHSL(h, s, v) {
  * @param   {Number}  s       Saturation  0..100%
  * @param   {Number}  l       Luminance   0..100%
  *
- * @return  Array           The RGB representation [0..255, 0..255, 0..255]
+ * @return  {Array}           The RGB representation [0..255, 0..255, 0..255]
  */
 
 export function HSLtoRGB(h, s, l) {
