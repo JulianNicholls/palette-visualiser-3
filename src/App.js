@@ -3,6 +3,7 @@ import React from 'react';
 import InputBox from './components/InputBox';
 import ColourInfo from './components/ColourInfo';
 import ColourBlocks from './components/ColourBlocks';
+import SampleText from './components/SampleText';
 
 import { rgbStrToArray, RGBtoHSV, HSVtoHSL, HSLtoRGB } from './conversions';
 
@@ -14,7 +15,9 @@ class App extends React.Component {
 
     this.state = {
       rgbs: ['#336699', '#669933', '#996633', '#663399', '#339966'],
-      hsls: []
+      hsls: [],
+      selectedBG: '#000000',
+      selectedFG: '#ffffff'
     };
 
     const saveData = localStorage.getItem(LS_KEY);
@@ -79,8 +82,12 @@ class App extends React.Component {
     this.setState(() => ({ hsls, rgbs }));
   };
 
+  selectColour = (bg, fg) => {
+    this.setState(() => ({ selectedBG: bg, selectedFG: fg }));
+  };
+
   render() {
-    const { rgbs, hsls } = this.state;
+    const { rgbs, hsls, selectedBG, selectedFG } = this.state;
 
     return (
       <div>
@@ -95,7 +102,8 @@ class App extends React.Component {
             />
             <ColourInfo rgbs={rgbs} />
           </div>
-          <ColourBlocks rgbs={rgbs} />
+          <ColourBlocks rgbs={rgbs} selectColour={this.selectColour} />
+          <SampleText bg={selectedBG} fg={selectedFG} />
         </div>
       </div>
     );
