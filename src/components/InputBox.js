@@ -4,79 +4,40 @@ import RGBInput from './RGBInput';
 import HSLInputs from './HSLInputs';
 
 class InputBox extends React.Component {
-  render() {
+  renderSet(index, label) {
     const { rgbs, hsls } = this.props;
 
+    return (
+      <React.Fragment>
+        <label htmlFor={`rgb-${index}`}>{label}</label>
+        <RGBInput
+          index={index}
+          initial={rgbs[index]}
+          handleChangeRGB={this.props.handleChangeRGB}
+        />
+        <div className="swatch" style={{ background: rgbs[index] }} />
+        <HSLInputs
+          index={index}
+          initial={hsls[index]}
+          handleChangeHSL={this.props.handleChangeHSL}
+        />
+      </React.Fragment>
+    );
+  }
+
+  render() {
     return (
       <div id="input-box">
         <span>Colour</span>
         <span>RGB</span>
         <span />
         <span>HSL</span>
-        <label htmlFor="rgb-0">First</label>
-        <RGBInput
-          index={0}
-          initial={rgbs[0]}
-          handleChangeRGB={this.props.handleChangeRGB}
-        />
-        <div className="swatch" style={{ background: rgbs[0] }} />
-        <HSLInputs
-          index={0}
-          initial={hsls[0]}
-          handleChangeHSL={this.props.handleChangeHSL}
-        />
 
-        <label htmlFor="rgb-1">Second</label>
-        <RGBInput
-          index={1}
-          initial={rgbs[1]}
-          handleChangeRGB={this.props.handleChangeRGB}
-        />
-        <div className="swatch" style={{ background: rgbs[1] }} />
-        <HSLInputs
-          index={1}
-          initial={hsls[1]}
-          handleChangeHSL={this.props.handleChangeHSL}
-        />
-
-        <label htmlFor="rgb-2">Third</label>
-        <RGBInput
-          index={2}
-          initial={rgbs[2]}
-          handleChangeRGB={this.props.handleChangeRGB}
-        />
-        <div className="swatch" style={{ background: rgbs[2] }} />
-        <HSLInputs
-          index={2}
-          initial={hsls[2]}
-          handleChangeHSL={this.props.handleChangeHSL}
-        />
-
-        <label htmlFor="rgb-3">Fourth</label>
-        <RGBInput
-          index={3}
-          initial={rgbs[3]}
-          handleChangeRGB={this.props.handleChangeRGB}
-        />
-        <div className="swatch" style={{ background: rgbs[3] }} />
-        <HSLInputs
-          index={3}
-          initial={hsls[3]}
-          handleChangeHSL={this.props.handleChangeHSL}
-        />
-
-        <label htmlFor="rgb-4">Fifth</label>
-        <RGBInput
-          index={4}
-          initial={rgbs[4]}
-          handleChangeRGB={this.props.handleChangeRGB}
-        />
-        <div className="swatch" style={{ background: rgbs[4] }} />
-        <HSLInputs
-          index={4}
-          initial={hsls[4]}
-          handleChangeHSL={this.props.handleChangeHSL}
-        />
+        {this.renderSet(0, 'First')}
+        {this.renderSet(1, 'Second')}
+        {this.renderSet(2, 'Third')}
+        {this.renderSet(3, 'Fourth')}
+        {this.renderSet(4, 'Fifth')}
       </div>
     );
   }
