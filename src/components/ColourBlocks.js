@@ -2,18 +2,18 @@ import React from 'react';
 
 import { CONST, rgbStrToArray, contrastRatio } from '../conversions';
 
-const HEADERS = ['Black', 'First', 'Second', 'Third', 'Fourth', 'Fifth', 'White'];
+const HEADERS = ['First', 'Second', 'Third', 'Fourth', 'Fifth', 'Black', 'White'];
 
 class ColourBlocks extends React.Component {
   contrastRatio(bg, fg) {
     const bga = rgbStrToArray(bg);
     const fga = rgbStrToArray(fg);
 
-    return contrastRatio(bga, fga);
+    return contrastRatio(bga, fga).toFixed(2);
   }
 
   renderBlocks() {
-    const colours = ['#000000', ...this.props.rgbs, '#FFFFFF'];
+    const colours = [...this.props.rgbs, '#000000', '#FFFFFF'];
     const blocks = [];
 
     for (let bg = 0; bg < colours.length; ++bg) {
@@ -30,8 +30,8 @@ class ColourBlocks extends React.Component {
         let bgCol, fgCol;
 
         if (fgStr === bgStr) {
-          bgCol = '#555'; // Grey and invisible
-          fgCol = '#555';
+          bgCol = '#333'; // Grey and invisible
+          fgCol = '#333';
         } else if (cr >= CONST.ratio_threshold) {
           bgCol = bgStr; // Selected colours
           fgCol = fgStr;
@@ -52,7 +52,8 @@ class ColourBlocks extends React.Component {
       <div
         className="block"
         key={key}
-        style={{ background: `${bgCol}`, color: `${fgCol}` }}
+        style={{ background: bgCol, color: fgCol }}
+        onClick={() => this.props.selectColour(bgStr, fgStr)}
       >
         <p>
           {bgStr}
