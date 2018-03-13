@@ -7,13 +7,15 @@ class RGBInput extends React.Component {
   };
 
   handleChange = event => {
-    let value = event.target.value;
+    let value = event.target.value.toUpperCase();
 
     if (value[0] !== '#') value = `#${value}`;
 
-    this.setState(() => ({ value }));
+    if (/^#[0-9A-F]{0,6}$/.test(value)) {
+      this.setState(() => ({ value }));
 
-    if (value.length === 7) this.props.handleChangeRGB(this.state.index, value);
+      if (value.length === 7) this.props.handleChangeRGB(this.state.index, value);
+    }
   };
 
   componentWillReceiveProps = newProps => {
