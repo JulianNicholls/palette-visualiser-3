@@ -7,9 +7,7 @@ class HSLInput extends React.Component {
   };
 
   handleChange = event => {
-    const { target } = event;
-    const name = target.name;
-    const value = target.value;
+    const { name, value } = event.target;
     const { colour, index } = this.state;
 
     colour[name] = value;
@@ -29,6 +27,8 @@ class HSLInput extends React.Component {
         <input
           className="hsl-input"
           type="number"
+          min="0"
+          max="360"
           name="h"
           value={this.state.colour.h}
           onChange={this.handleChange}
@@ -36,6 +36,8 @@ class HSLInput extends React.Component {
         <input
           className="hsl-input"
           type="number"
+          min="0"
+          max="100"
           name="s"
           value={this.state.colour.s}
           onChange={this.handleChange}
@@ -43,6 +45,8 @@ class HSLInput extends React.Component {
         <input
           className="hsl-input"
           type="number"
+          min="0"
+          max="100"
           name="l"
           value={this.state.colour.l}
           onChange={this.handleChange}
