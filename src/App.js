@@ -5,7 +5,13 @@ import ColourInfo from './components/ColourInfo';
 import ColourBlocks from './components/ColourBlocks';
 import SampleText from './components/SampleText';
 
-import { rgbStrToArray, RGBtoHSV, HSVtoHSL, HSLtoRGB } from './conversions';
+import {
+  rgbStrToObject,
+  rgbObjectToStr,
+  RGBtoHSV,
+  HSVtoHSL,
+  HSLtoRGB
+} from './conversions';
 
 const LS_KEY = 'pv30';
 
@@ -32,15 +38,14 @@ class App extends React.Component {
   }
 
   setHSLFromRGB = (index, rgbStr = null) => {
-    const hsls = this.state.hsls;
+    const { rgbs, hsls } = this.state;
 
-    rgbStr = rgbStr || this.state.rgbs[index];
+    rgbStr = rgbStr || rgbs[index];
 
-    const rgb = rgbStrToArray(rgbStr);
-    const hsv = RGBtoHSV(rgb[0], rgb[1], rgb[2]);
-    const hsl = HSVtoHSL(hsv[0], hsv[1], hsv[2]);
+    const rgb = rgbStrToObject(rgbStr);
+    const hsv = RGBtoHSV(rgb);
 
-    hsls[index] = { h: hsl[0], s: hsl[1], l: hsl[2] };
+    hsls[index] = HSVtoHSL(hsv);
 
     this.setState(() => ({ hsls }));
   };
@@ -63,19 +68,12 @@ class App extends React.Component {
   };
 
   handleChangeHSL = (index, colour) => {
-    const toHexStr = dec => {
-      const str = dec.toString(16).toUpperCase();
-
-      return dec < 16 ? '0' + str : str;
-    };
-
     const { rgbs, hsls } = this.state;
 
-    const rgbArray = HSLtoRGB(colour.h, colour.s, colour.l);
-    const rgbStr = '#' + rgbArray.map(value => toHexStr(value)).join('');
+    const rgb = HSLtoRGB(colour);
 
     hsls[index] = colour;
-    rgbs[index] = rgbStr;
+    rgbs[index] = rgbObjectToStr(rgb);
 
     localStorage.setItem(LS_KEY, JSON.stringify(rgbs));
 

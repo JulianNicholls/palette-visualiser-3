@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { CONST, rgbStrToArray, contrastRatio } from '../conversions';
+import { CONST, rgbStrToObject, contrastRatio } from '../conversions';
 
 const HEADERS = ['First', 'Second', 'Third', 'Fourth', 'Fifth', 'Black', 'White'];
 
 class ColourBlocks extends React.Component {
   contrastRatio(bg, fg) {
-    const bga = rgbStrToArray(bg);
-    const fga = rgbStrToArray(fg);
+    const bga = rgbStrToObject(bg);
+    const fga = rgbStrToObject(fg);
 
     return contrastRatio(bga, fga).toFixed(2);
   }

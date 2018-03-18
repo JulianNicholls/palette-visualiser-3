@@ -5,3 +5,5 @@ This is a rewrite of the palette visualiser
 written with React and Webpack 4.
 
 The functionality is really complete now.
+
+Changed the colour conversions to use objects rather than arrays.

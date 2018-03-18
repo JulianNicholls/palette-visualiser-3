@@ -8,25 +8,46 @@ export const CONST = {
  *
  * @param   {string}    colour
  *
- * @return  {Array}     The RGB representation [0..255, 0..255, 0..255]
+ * @return  {Object}    The RGB representation [0..255, 0..255, 0..255]
  */
-export function rgbStrToArray(colour) {
+export function rgbStrToObject(colour) {
   const rgbArray = colour.match(/#?(..)(..)(..)/);
 
   for (let i = 0; i < 3; ++i) {
     rgbArray[i] = parseInt(rgbArray[i + 1], 16);
   }
 
-  return rgbArray;
+  return {
+    r: rgbArray[0],
+    g: rgbArray[1],
+    b: rgbArray[2]
+  };
+}
+
+/**
+ * Convert an object representation of a colour in RGB to a string
+ *
+ * @param    {Object}    The RGB representation [0..255, 0..255, 0..255]
+ *
+ * @return   {string}    colour
+ */
+export function rgbObjectToStr(colour) {
+  const toHexStr = dec => {
+    const str = dec.toString(16).toUpperCase();
+
+    return dec < 16 ? '0' + str : str;
+  };
+
+  return '#' + toHexStr(colour.r) + toHexStr(colour.g) + toHexStr(colour.b);
 }
 
 /**
  * Contrast Ratio = (Lighter + 0.05) / (Darker + 0.05)
  *
- * @param   {Array}    One colour
- * @param   {Array}    Other colour
+ * @param   {Object}    One colour
+ * @param   {Object}    Other colour
  *
- * @return  {Number}   Contrast ratio between them
+ * @return  {Number}    Contrast ratio between them
  */
 export function contrastRatio(rgbA, rgbB) {
   const a = sRGBLuminance(rgbA) + 0.05;
@@ -57,13 +78,13 @@ export function contrastRatio(rgbA, rgbB) {
  * wrong, so I am going to use 0.04045 from now on.
 */
 
-export function sRGBLuminance(rgb) {
+export function sRGBLuminance(colour) {
   const mapColour = value =>
     value <= 0.04045 ? value / 12.92 : Math.pow((value + 0.055) / 1.055, 2.4);
 
-  const r = mapColour(rgb[0] / 255);
-  const g = mapColour(rgb[1] / 255);
-  const b = mapColour(rgb[2] / 255);
+  const r = mapColour(colour.r / 255);
+  const g = mapColour(colour.g / 255);
+  const b = mapColour(colour.b / 255);
 
   return 0.2126 * r + 0.7152 * g + 0.0722 * b;
 }
@@ -72,17 +93,15 @@ export function sRGBLuminance(rgb) {
  * Converts an RGB colour value to HSV. Conversion formula
  * adapted from http://en.wikipedia.org/wiki/HSV_color_space.
  *
- * @param   {Number}  r       The red colour value    0..255
- * @param   {Number}  g       The green colour value  0..255
- * @param   {Number}  b       The blue colour value   0..255
+ * @param   {Object}    Colour
  *
- * @return  {Array}           The HSV representation  [0..360, 0..100%, 0..100%]
+ * @return  {Object}    The HSV representation  [0..360, 0..100%, 0..100%]
  */
 
-export function RGBtoHSV(r, g, b) {
-  r /= 255;
-  g /= 255;
-  b /= 255;
+export function RGBtoHSV(colour) {
+  const r = colour.r / 255,
+    g = colour.g / 255,
+    b = colour.b / 255;
 
   const max = Math.max(r, g, b);
   const min = Math.min(r, g, b);
@@ -114,7 +133,11 @@ export function RGBtoHSV(r, g, b) {
     h *= 60;
   }
 
-  return [Math.round(h), Math.round(s), Math.round(v)];
+  return {
+    h: Math.round(h),
+    s: Math.round(s),
+    v: Math.round(v)
+  };
 }
 
 /**
@@ -122,16 +145,15 @@ export function RGBtoHSV(r, g, b) {
  * adapted from Bob's answer on
  * https://stackoverflow.com/questions/3423214/convert-hsb-hsv-color-to-hsl
  *
- * @param   {Number}  h       Hue                 0..360
- * @param   {Number}  s       Saturation          0..100%
- * @param   {Number}  v       Value / Brightness  0..100%
+ * @param   {Object}    Colour
  *
- * @return  {Array}           The HSL representation [0..360, 0..100%, 0..100%]
+ * @return  {Object}    The HSL representation [0..360, 0..100%, 0..100%]
  */
 
-export function HSVtoHSL(h, s, v) {
-  s /= 100;
-  v /= 100;
+export function HSVtoHSL(colour) {
+  let { h } = colour,
+    s = colour.s / 100,
+    v = colour.v / 100;
 
   const l = (2 - s) * v / 2; // l -> 0..1
 
@@ -145,23 +167,26 @@ export function HSVtoHSL(h, s, v) {
     }
   }
 
-  return [Math.round(h), Math.round(s * 100), Math.round(l * 100)];
+  return {
+    h: Math.round(h),
+    s: Math.round(s * 100),
+    l: Math.round(l * 100)
+  };
 }
 
 /**
  * Converts an HSL colour value to RGB. Conversion formula
  * adapted from http://en.wikipedia.org/wiki/HSV_color_space.
  *
- * @param   {Number}  h       Hue         0..360
- * @param   {Number}  s       Saturation  0..100%
- * @param   {Number}  l       Luminance   0..100%
+ * @param   {Object}    Colour
  *
- * @return  {Array}           The RGB representation [0..255, 0..255, 0..255]
+ * @return  {Array}     The RGB representation [0..255, 0..255, 0..255]
  */
 
-export function HSLtoRGB(h, s, l) {
-  s /= 100; // % -> 0..1
-  l /= 100;
+export function HSLtoRGB(colour) {
+  const { h } = colour,
+    s = colour.s / 100, // % -> 0..1
+    l = colour.l / 100;
 
   const c = (1 - Math.abs(2 * l - 1)) * s;
   const hp = h / 60.0;
@@ -186,9 +211,9 @@ export function HSLtoRGB(h, s, l) {
     [r, g, b] = [0.9, 0.9, 0.9]; // Should never hit this
   }
 
-  return [
-    Math.round((r + m) * 255),
-    Math.round((g + m) * 255),
-    Math.round((b + m) * 255)
-  ];
+  return {
+    r: Math.round((r + m) * 255),
+    g: Math.round((g + m) * 255),
+    b: Math.round((b + m) * 255)
+  };
 }
