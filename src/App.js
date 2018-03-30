@@ -31,10 +31,8 @@ class App extends React.Component {
     if (saveData) {
       this.state.rgbs = JSON.parse(saveData);
     }
-  }
 
-  componentWillMount() {
-    this.setHSLsFromRGBs();
+    this.state.hsls = this.HSLsFromRGBs();
   }
 
   setHSLFromRGB = (index, rgbStr = null) => {
@@ -42,19 +40,28 @@ class App extends React.Component {
 
     rgbStr = rgbStr || rgbs[index];
 
-    const rgb = rgbStrToObject(rgbStr);
-    const hsv = RGBtoHSV(rgb);
-
-    hsls[index] = HSVtoHSL(hsv);
+    hsls[index] = this.HSLFromRGB(rgbStr);
 
     this.setState(() => ({ hsls }));
   };
 
-  setHSLsFromRGBs = () => {
+  HSLsFromRGBs() {
+    const { rgbs } = this.state;
+    const hsls = [];
+
     for (let idx = 0; idx < this.state.rgbs.length; ++idx) {
-      this.setHSLFromRGB(idx);
+      hsls[idx] = this.HSLFromRGB(rgbs[idx]);
     }
-  };
+
+    return hsls;
+  }
+
+  HSLFromRGB(rgbStr) {
+    const rgb = rgbStrToObject(rgbStr);
+    const hsv = RGBtoHSV(rgb);
+
+    return HSVtoHSL(hsv);
+  }
 
   handleChangeRGB = (index, rgbStr) => {
     const { rgbs } = this.state;
