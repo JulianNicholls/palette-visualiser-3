@@ -18,8 +18,8 @@ class RGBInput extends React.Component {
     }
   };
 
-  componentWillReceiveProps = newProps => {
-    this.setState(() => ({ value: newProps.initial }));
+  static getDerivedStateFromProps = newProps => {
+    return { value: newProps.initial };
   };
 
   render() {

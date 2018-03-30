@@ -17,8 +17,8 @@ class HSLInput extends React.Component {
     this.props.handleChangeHSL(index, colour);
   };
 
-  componentWillReceiveProps = nextProps => {
-    this.setState(() => ({ colour: nextProps.initial }));
+  static getDerivedStateFromProps = nextProps => {
+    return { colour: nextProps.initial };
   };
 
   render() {
