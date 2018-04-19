@@ -6,8 +6,8 @@ class RGBInput extends React.Component {
     index: this.props.index
   };
 
-  handleChange = event => {
-    let value = event.target.value.toUpperCase();
+  handleChange = () => {
+    let value = this.valueRef.value.toUpperCase();
 
     if (value[0] !== '#') value = `#${value}`;
 
@@ -32,6 +32,7 @@ class RGBInput extends React.Component {
         value={this.state.value}
         onChange={this.handleChange}
         autoFocus={index === 0}
+        ref={r => (this.valueRef = r)}
       />
     );
   }
