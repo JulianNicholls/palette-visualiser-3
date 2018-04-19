@@ -17,6 +17,20 @@ class ColourInfo extends React.Component {
     });
   }
 
+  line({ rgbs, rlum, hsvs }, idx) {
+    return (
+      <tr key={idx}>
+        <td>{rgbs.r}</td>
+        <td>{rgbs.g}</td>
+        <td>{rgbs.b}</td>
+        <td>{rlum}</td>
+        <td>{hsvs.h}&deg;</td>
+        <td>{hsvs.s}%</td>
+        <td>{hsvs.v}%</td>
+      </tr>
+    );
+  }
+
   render() {
     return (
       <table id="info-table">
@@ -27,19 +41,7 @@ class ColourInfo extends React.Component {
             <th colSpan="3">HSV</th>
           </tr>
         </thead>
-        <tbody>
-          {this.lines().map(({ rgbs, rlum, hsvs }, idx) => (
-            <tr key={idx}>
-              <td>{rgbs.r}</td>
-              <td>{rgbs.g}</td>
-              <td>{rgbs.b}</td>
-              <td>{rlum}</td>
-              <td>{hsvs.h}&deg;</td>
-              <td>{hsvs.s}%</td>
-              <td>{hsvs.v}%</td>
-            </tr>
-          ))}
-        </tbody>
+        <tbody>{this.lines().map((colour, idx) => this.line(colour, idx))}</tbody>
       </table>
     );
   }
