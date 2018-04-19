@@ -16,16 +16,14 @@ class ColourBlocks extends React.Component {
     const colours = [...this.props.rgbs, '#000000', '#FFFFFF'];
     const blocks = [];
 
-    for (let bg = 0; bg < colours.length; ++bg) {
-      const bgStr = colours[bg];
+    colours.forEach((bgStr, bg) => {
       blocks.push(
         <span className="line" key={bg}>
           {HEADERS[bg]}
         </span>
       );
 
-      for (let fg = 0; fg < colours.length; ++fg) {
-        const fgStr = colours[fg];
+      colours.forEach((fgStr, fg) => {
         const cr = this.contrastRatio(bgStr, fgStr);
         let bgCol, fgCol;
 
@@ -41,8 +39,8 @@ class ColourBlocks extends React.Component {
         }
 
         blocks.push(this.renderBlock(bgCol, fgCol, bgStr, fgStr, cr, `${bg}${fg}`));
-      }
-    }
+      });
+    });
 
     return blocks;
   }
