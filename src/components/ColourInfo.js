@@ -23,7 +23,7 @@ class ColourInfo extends React.Component {
         <td>{rgbs.r}</td>
         <td>{rgbs.g}</td>
         <td>{rgbs.b}</td>
-        <td>{rlum}</td>
+        <td className="luminance">{rlum}</td>
         <td>{hsvs.h}&deg;</td>
         <td>{hsvs.s}%</td>
         <td>{hsvs.v}%</td>
@@ -37,7 +37,7 @@ class ColourInfo extends React.Component {
         <thead>
           <tr>
             <th colSpan="3">RGB</th>
-            <th>sRGB Lum.</th>
+            <th className="luminance">sRGB Lum</th>
             <th colSpan="3">HSV</th>
           </tr>
         </thead>

@@ -59,7 +59,7 @@ h1 {
     background: var(--input-bg);
     border: 1px solid #fff;
     color: #fff;
-    font-size: 16px;
+    font-size: 1em;
     padding: 0.3em 0.5em;
 
     &:focus {
@@ -91,25 +91,36 @@ h1 {
 
   th,
   td {
-    border: 1px solid var(--input-bg);
     padding: 0.45em 0.3em;
   }
-
+  
   th {
     color: var(--header-colour);
+    border: 2px solid var(--input-bg);
   }
-
+  
+  th.luminance {
+    font-size: 90%;
+  }
+  
   td {
+    border: 1px solid var(--input-bg);
     text-align: right;
     padding-right: 0.6em;
   }
+
+  td.luminance {
+    border-left: 2px solid var(--input-bg);
+    border-right: 2px solid var(--input-bg);
+  }
 }
+
 
 #colour-blocks {
   align-items: center;
   background: var(--blocks-bg);
   display: grid;
-  font-size: 17px;
+  font-size: 1.06em;
   grid-template-columns: 0.6fr repeat(7, 1fr);
   margin: 20px auto;
   padding: 10px;

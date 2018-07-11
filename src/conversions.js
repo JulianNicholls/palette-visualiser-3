@@ -105,7 +105,7 @@ export function RGBtoHSV(colour) {
 
   const max = Math.max(r, g, b);
   const min = Math.min(r, g, b);
-  const v = max * 100; // V = MAX
+  const v = max * 100;    // V = MAX
   const d = max - min;
   const s = max === 0 ? 0 : d / max * 100;
 
