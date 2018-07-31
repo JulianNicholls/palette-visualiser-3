@@ -1,4 +1,10 @@
 const HtmlWebPackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
+const extractSass = new ExtractTextPlugin({
+  filename: '[name].css',
+  disable: process.env.NODE_ENV === 'development'
+});
 
 module.exports = {
   module: {
@@ -6,7 +12,9 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: { loader: 'babel-loader' }
+        use: {
+          loader: 'babel-loader'
+        }
       },
       {
         test: /\.html$/,
@@ -19,11 +27,17 @@ module.exports = {
       },
       {
         test: /\.s?css$/,
-        use: [
-          { loader: 'style-loader' },
-          { loader: 'css-loader' },
-          { loader: 'sass-loader' }
-        ]
+        use: extractSass.extract({
+          use: [
+            {
+              loader: 'css-loader'
+            },
+            {
+              loader: 'sass-loader'
+            }
+          ],
+          fallback: 'style-loader'
+        })
       }
     ]
   },
@@ -31,6 +45,7 @@ module.exports = {
     new HtmlWebPackPlugin({
       template: './src/index.html',
       filename: './index.html'
-    })
+    }),
+    extractSass
   ]
 };
