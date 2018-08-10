@@ -1,8 +1,21 @@
 import React from 'react';
 
+// This component has an interesting lifecycle:
+// * it is initialized with an RGB value like #67AA78, which can then be edited
+//   and will only update centrally when the length is 7 characters
+//   (# + 6 hex digits) because the value is meaningless at other times.
+//
+// * Concurrently, there are a set of three HSL inputs that update the RGB
+//   value, which will come through as new props,
+//   triggering getDerivedStateFromProps().
+//
+// * During editing here, getDerivedStateFromProps() will also fire, but not
+//   with a new value, so it needs to be ignored
+
 class RGBInput extends React.Component {
   state = {
-    value: this.props.initial,
+    value: undefined,
+    previous: undefined,
     index: this.props.index
   };
 
@@ -18,8 +31,11 @@ class RGBInput extends React.Component {
     }
   };
 
-  static getDerivedStateFromProps = newProps => {
-    return { value: newProps.initial };
+  static getDerivedStateFromProps = (newProps, state) => {
+    if (newProps.initial !== state.previous)
+      return { value: newProps.initial, previous: newProps.initial };
+
+    return null;
   };
 
   render() {

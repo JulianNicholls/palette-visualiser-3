@@ -1,51 +1,56 @@
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-const extractSass = new ExtractTextPlugin({
-  filename: '[name].css',
-  disable: process.env.NODE_ENV === 'development'
-});
+module.exports = (env, argv) => {
+  const isProduction = argv.mode === 'production';
 
-module.exports = {
-  module: {
-    rules: [
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader'
-        }
-      },
-      {
-        test: /\.html$/,
-        use: [
-          {
-            loader: 'html-loader',
-            options: { minimize: true }
+  const extractSass = new ExtractTextPlugin({
+    filename: '[name].css'
+  });
+
+  return {
+    module: {
+      rules: [
+        {
+          test: /\.js$/,
+          exclude: /node_modules/,
+          use: {
+            loader: 'babel-loader'
           }
-        ]
-      },
-      {
-        test: /\.s?css$/,
-        use: extractSass.extract({
+        },
+        {
+          test: /\.html$/,
           use: [
             {
-              loader: 'css-loader'
-            },
-            {
-              loader: 'sass-loader'
+              loader: 'html-loader',
+              options: { minimize: true }
             }
-          ],
-          fallback: 'style-loader'
-        })
-      }
-    ]
-  },
-  plugins: [
-    new HtmlWebPackPlugin({
-      template: './src/index.html',
-      filename: './index.html'
-    }),
-    extractSass
-  ]
+          ]
+        },
+        {
+          test: /\.s?css$/,
+          use: extractSass.extract({
+            use: [
+              {
+                loader: 'css-loader'
+              },
+              {
+                loader: 'sass-loader'
+              }
+            ],
+            fallback: 'style-loader'
+          })
+        }
+      ]
+    },
+    plugins: [
+      new HtmlWebPackPlugin({
+        template: './src/index.html',
+        filename: './index.html'
+      }),
+      extractSass
+    ],
+
+    devtool: isProduction ? 'source-map' : 'inline-source-map'
+  };
 };
