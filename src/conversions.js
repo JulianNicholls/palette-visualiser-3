@@ -1,5 +1,5 @@
 export const CONST = {
-  ratio_threshold: 4.4 // Officially, it's 4.5:1
+  ratio_threshold: 4.45 // Officially, it's 4.5:1
 };
 
 /**
@@ -105,9 +105,9 @@ export function RGBtoHSV(colour) {
 
   const max = Math.max(r, g, b);
   const min = Math.min(r, g, b);
-  const v = max * 100;    // V = MAX
+  const v = max * 100; // V = MAX
   const d = max - min;
-  const s = max === 0 ? 0 : d / max * 100;
+  const s = max === 0 ? 0 : (d / max) * 100;
 
   let h = 0;
 
@@ -155,15 +155,15 @@ export function HSVtoHSL(colour) {
     s = colour.s / 100,
     v = colour.v / 100;
 
-  const l = (2 - s) * v / 2; // l -> 0..1
+  const l = ((2 - s) * v) / 2; // l -> 0..1
 
   if (l !== 0) {
     if (l === 1) {
       s = 0;
     } else if (l < 0.5) {
-      s = s * v / (l * 2);
+      s = (s * v) / (l * 2);
     } else {
-      s = s * v / (2 - l * 2);
+      s = (s * v) / (2 - l * 2);
     }
   }
 
@@ -190,7 +190,7 @@ export function HSLtoRGB(colour) {
 
   const c = (1 - Math.abs(2 * l - 1)) * s;
   const hp = h / 60.0;
-  const x = c * (1 - Math.abs(hp % 2 - 1));
+  const x = c * (1 - Math.abs((hp % 2) - 1));
   const m = l - c / 2;
 
   let r, g, b;
