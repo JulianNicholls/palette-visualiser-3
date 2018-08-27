@@ -1,18 +1,17 @@
-:root {
-  --page-bg: hsl(120, 40%, 87%);
-  --input-bg: #111;
-  --input-focus: #444;
-  --section-bg: #f8f8f8;
-  --blocks-bg: #fffcd6;
-  --header-colour: #007;
-}
+$page-bg: hsl(210, 14%, 75%);
+$input-bg: #2f2f4f;  // Dark Slate Grey
+$input-focus: #555591;
+$section-bg: #f8f8f8;
+$blocks-bg: #fffcd6;
+$header-colour: #0f4d8a;
 
+  
 * {
   box-sizing: border-box;
 }
 
 body {
-  background: var(--page-bg);
+  background: $page-bg;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Open Sans',
     'Helvetica Neue', sans-serif;
 }
@@ -30,40 +29,41 @@ body {
 }
 
 h1 {
-  color: var(--header-colour);
+  color: $header-colour;
   font-size: 24px;
   text-align: center;
 }
 
 #input-box {
-  background: var(--section-bg);
-  border: 1px solid var(--input-bg);
+  background: $section-bg;
+  border: 1px solid $input-bg;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.7);
   display: grid;
-  grid-template-columns: 9fr 18fr 3fr 30fr;
+  grid-template-columns: 3fr 6fr 1fr 10fr;
   justify-items: center;
   padding: 10px;
 
   span {
-    color: var(--header-colour);
+    color: $header-colour;
     font-weight: bold;
     margin-bottom: 0.5em;
   }
 
   label {
-    color: var(--header-colour);
+    color: $header-colour;
     justify-self: start;
     align-self: center;
   }
 
   input {
-    background: var(--input-bg);
+    background: $input-bg;
     border: 1px solid #fff;
     color: #fff;
     font-size: 1em;
-    padding: 0.3em 0.5em;
+    padding: 0.25em 0.45em;
 
     &:focus {
-      background: var(--input-focus);
+      background: $input-focus;
     }
   }
 
@@ -76,27 +76,28 @@ h1 {
     width: 4em;
   }
 
-  div.swatch {
+  .swatch {
     align-self: center;
     border: 1px solid black;
-    height: 20px;
-    width: 20px;
+    height: 23px;
+    width: 23px;
   }
 }
 
 #info-table {
-  background: var(--section-bg);
+  background: $section-bg;
   border: 2px solid #000;
   border-collapse: collapse;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.7);
 
   th,
   td {
-    padding: 0.45em 0.3em;
+    padding: 0.38em 0.25em;
   }
   
   th {
-    color: var(--header-colour);
-    border: 2px solid var(--input-bg);
+    color: $header-colour;
+    border: 2px solid $input-bg;
   }
   
   th.luminance {
@@ -104,21 +105,21 @@ h1 {
   }
   
   td {
-    border: 1px solid var(--input-bg);
+    border: 1px solid $input-bg;
     text-align: right;
     padding-right: 0.6em;
   }
 
   td.luminance {
-    border-left: 2px solid var(--input-bg);
-    border-right: 2px solid var(--input-bg);
+    border-left: 2px solid $input-bg;
+    border-right: 2px solid $input-bg;
   }
 }
 
-
 #colour-blocks {
   align-items: center;
-  background: var(--blocks-bg);
+  background: $blocks-bg;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.7);
   display: grid;
   font-size: 1.06em;
   grid-template-columns: 0.6fr repeat(7, 1fr);
@@ -126,7 +127,7 @@ h1 {
   padding: 10px;
 
   span {
-    color: var(--header-colour);
+    color: $header-colour;
     font-weight: bold;
     justify-self: center;
     margin-bottom: 0.5em;
@@ -137,7 +138,7 @@ h1 {
   }
 
   .block {
-    border: 1px solid var(--section-bg);
+    border: 1px solid $input-bg;
     cursor: default;
 
     p {
