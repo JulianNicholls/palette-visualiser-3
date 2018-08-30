@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { CONST, rgbStrToObject, contrastRatio } from '../conversions';
+import { ratioThreshold, rgbStrToObject, contrastRatio } from '../conversions';
 
 const HEADERS = ['First', 'Second', 'Third', 'Fourth', 'Fifth', 'Black', 'White'];
 
@@ -30,7 +30,7 @@ class ColourBlocks extends React.Component {
         if (fgStr === bgStr) {
           bgCol = '#333'; // Grey and invisible
           fgCol = '#333';
-        } else if (cr >= CONST.ratio_threshold) {
+        } else if (cr >= ratioThreshold) {
           bgCol = bgStr; // Selected colours
           fgCol = fgStr;
         } else {
@@ -38,7 +38,9 @@ class ColourBlocks extends React.Component {
           fgCol = '#ccc';
         }
 
-        blocks.push(this.renderBlock(bgCol, fgCol, bgStr, fgStr, cr, `${bg}${fg}`));
+        blocks.push(
+          this.renderBlock(bgCol, fgCol, bgStr, fgStr, cr, `${bg}${fg}`)
+        );
       });
     });
 

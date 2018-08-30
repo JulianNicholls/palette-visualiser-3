@@ -1,6 +1,4 @@
-export const CONST = {
-  ratio_threshold: 4.45 // Officially, it's 4.5:1
-};
+const ratioThreshold = 4.45; // Officially, it's 4.5:1
 
 /**
  * Convert a string representation of a colour in RGB to an array of three
@@ -10,7 +8,7 @@ export const CONST = {
  *
  * @return  {Object}    The RGB representation [0..255, 0..255, 0..255]
  */
-export function rgbStrToObject(colour) {
+function rgbStrToObject(colour) {
   const rgbArray = colour.match(/#?(..)(..)(..)/);
 
   for (let i = 0; i < 3; ++i) {
@@ -31,7 +29,7 @@ export function rgbStrToObject(colour) {
  *
  * @return   {string}    colour
  */
-export function rgbObjectToStr(colour) {
+function rgbObjectToStr(colour) {
   const toHexStr = dec => {
     const str = dec.toString(16).toUpperCase();
 
@@ -49,7 +47,7 @@ export function rgbObjectToStr(colour) {
  *
  * @return  {Number}    Contrast ratio between them
  */
-export function contrastRatio(rgbA, rgbB) {
+function contrastRatio(rgbA, rgbB) {
   const a = sRGBLuminance(rgbA) + 0.05;
   const b = sRGBLuminance(rgbB) + 0.05;
 
@@ -58,7 +56,7 @@ export function contrastRatio(rgbA, rgbB) {
 
 /**
  * The relative brightness of any point in a colourspace, normalised to 0 for
- * darkest black and 1 for lightest white.
+ * darkest black and 1 for lightest white, with a Gamma of 2.4.
  
  * Note 1: For the sRGB colourspace, the relative luminance of a colour is defined as
  *   L = 0.2126 * R + 0.7152 * G + 0.0722 * B where R, G and B are defined as:
@@ -76,9 +74,8 @@ export function contrastRatio(rgbA, rgbB) {
  * (here: http://entropymine.com/imageworsener/srgbformula/)
  * that the cutoff point 0.03928, used with 12.92, is probably 
  * wrong, so I am going to use 0.04045 from now on.
-*/
-
-export function sRGBLuminance(colour) {
+ */
+function sRGBLuminance(colour) {
   const mapColour = value =>
     value <= 0.04045 ? value / 12.92 : Math.pow((value + 0.055) / 1.055, 2.4);
 
@@ -97,8 +94,7 @@ export function sRGBLuminance(colour) {
  *
  * @return  {Object}    The HSV representation  [0..360, 0..100%, 0..100%]
  */
-
-export function RGBtoHSV(colour) {
+function RGBtoHSV(colour) {
   const r = colour.r / 255,
     g = colour.g / 255,
     b = colour.b / 255;
@@ -149,8 +145,7 @@ export function RGBtoHSV(colour) {
  *
  * @return  {Object}    The HSL representation [0..360, 0..100%, 0..100%]
  */
-
-export function HSVtoHSL(colour) {
+function HSVtoHSL(colour) {
   let { h } = colour,
     s = colour.s / 100,
     v = colour.v / 100;
@@ -182,8 +177,7 @@ export function HSVtoHSL(colour) {
  *
  * @return  {Array}     The RGB representation [0..255, 0..255, 0..255]
  */
-
-export function HSLtoRGB(colour) {
+function HSLtoRGB(colour) {
   const { h } = colour,
     s = colour.s / 100, // % -> 0..1
     l = colour.l / 100;
@@ -217,3 +211,14 @@ export function HSLtoRGB(colour) {
     b: Math.round((b + m) * 255)
   };
 }
+
+module.exports = {
+  ratioThreshold,
+  rgbStrToObject,
+  rgbObjectToStr,
+  contrastRatio,
+  sRGBLuminance,
+  RGBtoHSV,
+  HSVtoHSL,
+  HSLtoRGB
+};

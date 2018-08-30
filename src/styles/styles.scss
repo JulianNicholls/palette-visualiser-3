@@ -123,7 +123,7 @@ h1 {
   display: grid;
   font-size: 1.06em;
   grid-template-columns: 0.6fr repeat(7, 1fr);
-  margin: 20px auto;
+  margin: 1rem auto;
   padding: 10px;
 
   span {
@@ -150,5 +150,32 @@ h1 {
 
 .sample-text {
   border: 5px solid black;
-  padding: 10px;
+  padding: 0.5rem;
+}
+
+.html-colour-list {
+  background: #737373;
+  border: 1px solid black;
+  color: white;
+  display: grid;
+  grid-gap: 2px 1px;
+  grid-template-columns: 3fr 2fr 2fr 3fr 3fr;
+  margin-top: 1rem;
+  padding: 0.5rem;
+
+  div {
+    padding: 0.5rem 0;
+    padding-left: 2.5rem;
+  }
+
+  button {
+    background: none;
+    border: none;
+    color: white;
+    outline: none;
+
+    &:hover {
+      color: #ffff8f;
+    }
+  }
 }
