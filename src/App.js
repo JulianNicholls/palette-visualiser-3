@@ -4,6 +4,7 @@ import InputBox from './components/InputBox';
 import ColourInfo from './components/ColourInfo';
 import ColourBlocks from './components/ColourBlocks';
 import SampleText from './components/SampleText';
+import HTMLColourList from './components/HTMLColourList';
 
 import {
   rgbStrToObject,
@@ -109,6 +110,7 @@ class App extends React.Component {
           </div>
           <ColourBlocks rgbs={rgbs} selectColour={this.selectColour} />
           <SampleText bg={selectedBG} fg={selectedFG} />
+          <HTMLColourList />
         </div>
       </div>
     );
