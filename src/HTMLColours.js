@@ -1,7 +1,7 @@
 module.exports = [
   { name: 'Alice Blue', value: '#F0F8FF' },
   { name: 'Antique White', value: '#FAEBD7' },
-  { name: 'Aqua', value: '#00FFFF' },
+  { name: 'Aqua / Cyan', value: '#00FFFF' },
   { name: 'Aquamarine', value: '#7FFFD4' },
   { name: 'Azure', value: '#F0FFFF' },
   { name: 'Beige', value: '#F5F5DC' },
@@ -19,7 +19,6 @@ module.exports = [
   { name: 'Cornflower Blue', value: '#6495ED' },
   { name: 'Cornsilk', value: '#FFF8DC' },
   { name: 'Crimson', value: '#DC143C' },
-  { name: 'Cyan', value: '#00FFFF' },
   { name: 'Dark Blue', value: '#00008B' },
   { name: 'Dark Cyan', value: '#008B8B' },
   { name: 'Dark GoldenRod', value: '#B8860B' },

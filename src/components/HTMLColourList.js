@@ -22,8 +22,7 @@ class HTMLColourList extends React.Component {
 
     colours.forEach(colour => {
       colour.rgb = rgbStrToObject(colour.value);
-      const luminance = sRGBLuminance(colour.rgb);
-      colour.luminance = luminance;
+      colour.luminance = sRGBLuminance(colour.rgb);
     });
 
     this.setState(() => ({ colourList: colours }));
@@ -44,29 +43,44 @@ class HTMLColourList extends React.Component {
     this.setState(() => ({ colourList: colours, sortOrder: 'name' }));
   };
 
+  sortByRGB = () => {
+    const { colourList, sortOrder } = this.state;
+    const colours = [...colourList];
+
+    if (sortOrder === 'value') {
+      colours.sort((a, b) => (a.value > b.value ? -1 : 1));
+
+      return this.setState(() => ({ colourList: colours, sortOrder: 'valuer' }));
+    }
+
+    colours.sort((a, b) => (a.value < b.value ? -1 : 1));
+
+    this.setState(() => ({ colourList: colours, sortOrder: 'value' }));
+  };
+
   sortByLuminance = () => {
     const { colourList, sortOrder } = this.state;
     const colours = [...colourList];
 
-    if (sortOrder === 'luminance') {
-      colours.sort((a, b) => (a.luminance > b.luminance ? -1 : 1));
+    if (sortOrder === 'luminancer') {
+      colours.sort((a, b) => (a.luminance < b.luminance ? -1 : 1));
 
       return this.setState(() => ({
         colourList: colours,
-        sortOrder: 'luminancer'
+        sortOrder: 'luminance'
       }));
     }
 
-    colours.sort((a, b) => (a.luminance < b.luminance ? -1 : 1));
+    colours.sort((a, b) => (a.luminance > b.luminance ? -1 : 1));
 
-    this.setState(() => ({ colourList: colours, sortOrder: 'luminance' }));
+    this.setState(() => ({ colourList: colours, sortOrder: 'luminancer' }));
   };
 
   render() {
     return (
       <div className="html-colour-list">
         <button onClick={this.sortByName}>Colour Name</button>
-        <div>RGB</div>
+        <button onClick={this.sortByRGB}>RGB</button>
         <button onClick={this.sortByLuminance}>Luminance</button>
         <div>Black Contrast Ratio</div>
         <div>White Contrast Ratio</div>
