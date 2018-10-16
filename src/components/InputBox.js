@@ -28,7 +28,7 @@ class InputBox extends React.Component {
   render() {
     return (
       <div id="input-box">
-        <span>Colour</span>
+        <span className="first">Colour</span>
         <span>RGB</span>
         <span />
         <span>HSL</span>
