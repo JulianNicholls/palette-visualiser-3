@@ -18,7 +18,7 @@ class InputBox extends React.Component {
         <div className="swatch" style={{ background: rgbs[index] }} />
         <HSLInputs
           index={index}
-          initial={hsls[index]}
+          colour={hsls[index]}
           handleChangeHSL={this.props.handleChangeHSL}
         />
       </React.Fragment>

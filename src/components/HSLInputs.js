@@ -1,27 +1,18 @@
 import React from 'react';
 
 class HSLInput extends React.Component {
-  state = {
-    colour: this.props.initial,
-    index: this.props.index
-  };
-
   handleChange = event => {
     const { name, value } = event.target;
-    const { colour, index } = this.state;
+    const { colour, index } = this.props;
 
     colour[name] = value;
-
-    this.setState(() => ({ colour }));
 
     this.props.handleChangeHSL(index, colour);
   };
 
-  static getDerivedStateFromProps = nextProps => {
-    return { colour: nextProps.initial };
-  };
-
   render() {
+    const { colour } = this.props;
+
     return (
       <div className="hsl-inputs">
         <input
@@ -30,7 +21,7 @@ class HSLInput extends React.Component {
           min="0"
           max="360"
           name="h"
-          value={this.state.colour.h}
+          value={colour.h}
           onChange={this.handleChange}
         />
         <input
@@ -39,7 +30,7 @@ class HSLInput extends React.Component {
           min="0"
           max="100"
           name="s"
-          value={this.state.colour.s}
+          value={colour.s}
           onChange={this.handleChange}
         />
         <input
@@ -48,7 +39,7 @@ class HSLInput extends React.Component {
           min="0"
           max="100"
           name="l"
-          value={this.state.colour.l}
+          value={colour.l}
           onChange={this.handleChange}
         />
       </div>
