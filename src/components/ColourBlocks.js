@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Consumer, SELECT_COLOUR } from '../context';
+
 import { ratioThreshold, rgbStrToObject, contrastRatio } from '../conversions';
 
 const HEADERS = ['First', 'Second', 'Third', 'Fourth', 'Fifth', 'Black', 'White'];
@@ -12,8 +14,8 @@ class ColourBlocks extends React.Component {
     return contrastRatio(bga, fga).toFixed(2);
   }
 
-  renderBlocks() {
-    const colours = [...this.props.rgbs, '#000000', '#FFFFFF'];
+  renderBlocks(rgbs, dispatch) {
+    const colours = [...rgbs, '#000000', '#FFFFFF'];
     const blocks = [];
 
     colours.forEach((bgStr, bg) => {
@@ -39,7 +41,7 @@ class ColourBlocks extends React.Component {
         }
 
         blocks.push(
-          this.renderBlock(bgCol, fgCol, bgStr, fgStr, cr, `${bg}${fg}`)
+          this.renderBlock(bgCol, fgCol, bgStr, fgStr, cr, `${bg}${fg}`, dispatch)
         );
       });
     });
@@ -47,13 +49,13 @@ class ColourBlocks extends React.Component {
     return blocks;
   }
 
-  renderBlock(bgCol, fgCol, bgStr, fgStr, cr, key) {
+  renderBlock(bgCol, fgCol, bgStr, fgStr, cr, key, dispatch) {
     return (
       <div
         className="block"
         key={key}
         style={{ background: bgCol, color: fgCol }}
-        onClick={() => this.props.selectColour(bgStr, fgStr)}
+        onClick={() => dispatch({ type: SELECT_COLOUR, bg: bgStr, fg: fgStr })}
       >
         <p>
           {bgStr}
@@ -68,11 +70,17 @@ class ColourBlocks extends React.Component {
 
   render() {
     return (
-      <div id="colour-blocks">
-        <span />
-        {HEADERS.map((text, idx) => <span key={idx}>{text}</span>)}
-        {this.renderBlocks()}
-      </div>
+      <Consumer>
+        {context => {
+          return (
+            <div id="colour-blocks">
+              <span />
+              {HEADERS.map((text, idx) => <span key={idx}>{text}</span>)}
+              {this.renderBlocks(context.rgbs, context.dispatch)}
+            </div>
+          );
+        }}
+      </Consumer>
     );
   }
 }
