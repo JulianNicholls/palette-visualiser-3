@@ -71,15 +71,13 @@ class ColourBlocks extends React.Component {
   render() {
     return (
       <Consumer>
-        {context => {
-          return (
-            <div id="colour-blocks">
-              <span />
-              {HEADERS.map((text, idx) => <span key={idx}>{text}</span>)}
-              {this.renderBlocks(context.rgbs, context.dispatch)}
-            </div>
-          );
-        }}
+        {context => (
+          <div id="colour-blocks">
+            <span />
+            {HEADERS.map((text, idx) => <span key={idx}>{text}</span>)}
+            {this.renderBlocks(context.rgbs, context.dispatch)}
+          </div>
+        )}
       </Consumer>
     );
   }
