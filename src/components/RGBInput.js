@@ -30,13 +30,12 @@ class RGBInput extends React.Component {
   };
 
   static getDerivedStateFromProps = (newProps, state) => {
-    const { initial } = newProps;
+    const { rgb } = newProps;
 
-    if (initial !== state.previous)
-      // Ignore recursive calls
-      return { value: initial, previous: initial };
+    // Ignore recursive calls
+    if (rgb === state.previous) return null;
 
-    return null;
+    return { value: rgb, previous: rgb };
   };
 
   render() {
