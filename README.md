@@ -6,10 +6,11 @@ written with React and Webpack 4.
 
 ## Change Log
 
-The functionality is really complete now.
+03/2018: Updated to React 16.3.
+03/2018: Changed the colour conversions to use objects rather than arrays.
 
-Changed the colour conversions to use objects rather than arrays.
+07/2018: The latest (well, next, actually) version of extract-text-webpack-plugin works with Webpack 4 and is now enabled.
 
-Updated to React 16.3.
+08/2018: Display the list of named HTML colours, e.g. Dark Slate Blue
 
-The latest (well, next, actually) version of extract-text-webpack-plugin works with Webpack 4 and is now enabled.
+10/2018: Updated to use the context API.

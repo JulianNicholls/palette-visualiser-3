@@ -1,25 +1,31 @@
 import React from 'react';
 
+import { Consumer, CHANGE_RGB, CHANGE_HSL } from '../context';
+
 import RGBInput from './RGBInput';
-import HSLInputs from './HSLInputs';
+import HSLInput from './HSLInput';
+
+const LABELS = ['First', 'Second', 'Third', 'Fourth', 'Fifth'];
 
 class InputBox extends React.Component {
-  renderSet(index, label) {
-    const { rgbs, hsls } = this.props;
-
+  renderSet(index, label, rgbs, hsls) {
     return (
-      <React.Fragment>
+      <React.Fragment key={index}>
         <label htmlFor={`rgb-${index}`}>{label}</label>
         <RGBInput
           index={index}
-          initial={rgbs[index]}
-          handleChangeRGB={this.props.handleChangeRGB}
+          rgb={rgbs[index]}
+          handleChangeRGB={(index, value) =>
+            this.dispatch({ type: CHANGE_RGB, index, value })
+          }
         />
         <div className="swatch" style={{ background: rgbs[index] }} />
-        <HSLInputs
+        <HSLInput
           index={index}
           colour={hsls[index]}
-          handleChangeHSL={this.props.handleChangeHSL}
+          handleChangeHSL={(index, value) =>
+            this.dispatch({ type: CHANGE_HSL, index, value })
+          }
         />
       </React.Fragment>
     );
@@ -27,18 +33,22 @@ class InputBox extends React.Component {
 
   render() {
     return (
-      <div id="input-box">
-        <span className="first">Colour</span>
-        <span>RGB</span>
-        <span />
-        <span>HSL</span>
+      <Consumer>
+        {({ rgbs, hsls, dispatch }) => {
+          this.dispatch = dispatch;
 
-        {this.renderSet(0, 'First')}
-        {this.renderSet(1, 'Second')}
-        {this.renderSet(2, 'Third')}
-        {this.renderSet(3, 'Fourth')}
-        {this.renderSet(4, 'Fifth')}
-      </div>
+          return (
+            <div id="input-box">
+              <span className="first">Colour</span>
+              <span>RGB</span>
+              <span />
+              <span>HSL</span>
+
+              {LABELS.map((label, idx) => this.renderSet(idx, label, rgbs, hsls))}
+            </div>
+          );
+        }}
+      </Consumer>
     );
   }
 }
