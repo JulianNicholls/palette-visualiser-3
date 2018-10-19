@@ -5,33 +5,31 @@ import { Consumer, CHANGE_RGB, CHANGE_HSL } from '../context';
 import RGBInput from './RGBInput';
 import HSLInput from './HSLInput';
 
+const LABELS = ['First', 'Second', 'Third', 'Fourth', 'Fifth'];
+
 class InputBox extends React.Component {
-  renderSet(index, label, rgbs, hsls, dispatch) {
+  renderSet(index, label, rgbs, hsls) {
     return (
-      <React.Fragment>
+      <React.Fragment key={index}>
         <label htmlFor={`rgb-${index}`}>{label}</label>
         <RGBInput
           index={index}
           rgb={rgbs[index]}
-          handleChangeRGB={this.handleChangeRGB}
+          handleChangeRGB={(index, value) =>
+            this.dispatch({ type: CHANGE_RGB, index, value })
+          }
         />
         <div className="swatch" style={{ background: rgbs[index] }} />
         <HSLInput
           index={index}
           colour={hsls[index]}
-          handleChangeHSL={this.handleChangeHSL}
+          handleChangeHSL={(index, value) =>
+            this.dispatch({ type: CHANGE_HSL, index, value })
+          }
         />
       </React.Fragment>
     );
   }
-
-  handleChangeRGB = (index, value) => {
-    this.dispatch({ type: CHANGE_RGB, index, value });
-  };
-
-  handleChangeHSL = (index, value) => {
-    this.dispatch({ type: CHANGE_HSL, index, value });
-  };
 
   render() {
     return (
@@ -46,11 +44,7 @@ class InputBox extends React.Component {
               <span />
               <span>HSL</span>
 
-              {this.renderSet(0, 'First', rgbs, hsls, dispatch)}
-              {this.renderSet(1, 'Second', rgbs, hsls, dispatch)}
-              {this.renderSet(2, 'Third', rgbs, hsls, dispatch)}
-              {this.renderSet(3, 'Fourth', rgbs, hsls, dispatch)}
-              {this.renderSet(4, 'Fifth', rgbs, hsls, dispatch)}
+              {LABELS.map((label, idx) => this.renderSet(idx, label, rgbs, hsls))}
             </div>
           );
         }}
