@@ -13,6 +13,7 @@ class InputBox extends React.Component {
       <React.Fragment key={index}>
         <label htmlFor={`rgb-${index}`}>{label}</label>
         <RGBInput
+          key={rgbs[index]}
           index={index}
           rgb={rgbs[index]}
           handleChangeRGB={(index, value) =>

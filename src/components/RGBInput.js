@@ -6,15 +6,12 @@ import React from 'react';
 //   (# + 6 hex digits) because the value is meaningless at other times.
 //
 // * Concurrently, there are a set of three HSL inputs that update the RGB value,
-//   which will come through as new props, triggering getDerivedStateFromProps().
-//
-// * During editing here, getDerivedStateFromProps() will also fire, but not
-//   with a new value, so it needs to be ignored.
+//   that will now cause a re-rendering of this component, negating the need for
+//   getDerivedStateFromProps()
 
 class RGBInput extends React.Component {
   state = {
-    value: undefined,
-    previous: undefined
+    value: this.props.rgb
   };
 
   handleChange = () => {
@@ -27,15 +24,6 @@ class RGBInput extends React.Component {
 
       if (value.length === 7) this.props.handleChangeRGB(this.props.index, value);
     }
-  };
-
-  static getDerivedStateFromProps = (newProps, state) => {
-    const { rgb } = newProps;
-
-    // Ignore recursive calls
-    if (rgb === state.previous) return null;
-
-    return { value: rgb, previous: rgb };
   };
 
   render() {
