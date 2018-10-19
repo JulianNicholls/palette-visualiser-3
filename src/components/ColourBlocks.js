@@ -14,7 +14,7 @@ class ColourBlocks extends React.Component {
     return contrastRatio(bga, fga).toFixed(2);
   }
 
-  renderBlocks(rgbs, dispatch) {
+  renderBlocks(rgbs) {
     const colours = [...rgbs, '#000000', '#FFFFFF'];
     const blocks = [];
 
@@ -41,7 +41,7 @@ class ColourBlocks extends React.Component {
         }
 
         blocks.push(
-          this.renderBlock(bgCol, fgCol, bgStr, fgStr, cr, `${bg}${fg}`, dispatch)
+          this.renderBlock(bgCol, fgCol, bgStr, fgStr, cr, `${bg}${fg}`)
         );
       });
     });
@@ -49,13 +49,15 @@ class ColourBlocks extends React.Component {
     return blocks;
   }
 
-  renderBlock(bgCol, fgCol, bgStr, fgStr, cr, key, dispatch) {
+  renderBlock(bgCol, fgCol, bgStr, fgStr, cr, key) {
     return (
       <div
         className="block"
         key={key}
         style={{ background: bgCol, color: fgCol }}
-        onClick={() => dispatch({ type: SELECT_COLOUR, bg: bgStr, fg: fgStr })}
+        onClick={() =>
+          this.dispatch({ type: SELECT_COLOUR, bg: bgStr, fg: fgStr })
+        }
       >
         <p>
           {bgStr}
@@ -71,13 +73,17 @@ class ColourBlocks extends React.Component {
   render() {
     return (
       <Consumer>
-        {context => (
-          <div id="colour-blocks">
-            <span />
-            {HEADERS.map((text, idx) => <span key={idx}>{text}</span>)}
-            {this.renderBlocks(context.rgbs, context.dispatch)}
-          </div>
-        )}
+        {({ rgbs, dispatch }) => {
+          this.dispatch = dispatch;
+
+          return (
+            <div id="colour-blocks">
+              <span />
+              {HEADERS.map((text, idx) => <span key={idx}>{text}</span>)}
+              {this.renderBlocks(rgbs)}
+            </div>
+          );
+        }}
       </Consumer>
     );
   }
