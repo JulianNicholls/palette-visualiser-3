@@ -1,4 +1,5 @@
 const ratioThreshold = 4.45; // Officially, it's 4.5:1
+const largeThreshold = 3; // 3:1 for large text
 
 /**
  * Convert a string representation of a colour in RGB to an array of three
@@ -214,6 +215,7 @@ function HSLtoRGB(colour) {
 
 module.exports = {
   ratioThreshold,
+  largeThreshold,
   rgbStrToObject,
   rgbObjectToStr,
   contrastRatio,

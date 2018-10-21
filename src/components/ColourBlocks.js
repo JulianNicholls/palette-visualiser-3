@@ -2,7 +2,12 @@ import React from 'react';
 
 import { Consumer, SELECT_COLOUR } from '../context';
 
-import { ratioThreshold, rgbStrToObject, contrastRatio } from '../conversions';
+import {
+  ratioThreshold,
+  largeThreshold,
+  rgbStrToObject,
+  contrastRatio
+} from '../conversions';
 
 const HEADERS = ['First', 'Second', 'Third', 'Fourth', 'Fifth', 'Black', 'White'];
 
@@ -27,7 +32,7 @@ class ColourBlocks extends React.Component {
 
       colours.forEach((fgStr, fg) => {
         const cr = this.contrastRatio(bgStr, fgStr);
-        let bgCol, fgCol;
+        let bgCol, fgCol, title;
 
         if (fgStr === bgStr) {
           bgCol = '#333'; // Grey and invisible
@@ -35,13 +40,18 @@ class ColourBlocks extends React.Component {
         } else if (cr >= ratioThreshold) {
           bgCol = bgStr; // Selected colours
           fgCol = fgStr;
+        } else if (cr >= largeThreshold) {
+          bgCol = '#707070'; // Light Grey, sufficiently contrasted
+          fgCol = '#f5f5f5';
+          title = 'Sufficient contrast for large text';
         } else {
           bgCol = '#555'; // Grey, but sufficiently contrasted
           fgCol = '#ccc';
+          title = 'Insufficient contrast';
         }
 
         blocks.push(
-          this.renderBlock(bgCol, fgCol, bgStr, fgStr, cr, `${bg}${fg}`)
+          this.renderBlock(bgCol, fgCol, bgStr, fgStr, cr, title, `${bg}${fg}`)
         );
       });
     });
@@ -49,12 +59,13 @@ class ColourBlocks extends React.Component {
     return blocks;
   }
 
-  renderBlock(bgCol, fgCol, bgStr, fgStr, cr, key) {
+  renderBlock(bgCol, fgCol, bgStr, fgStr, cr, title, key) {
     return (
       <div
         className="block"
         key={key}
         style={{ background: bgCol, color: fgCol }}
+        title={title}
         onClick={() =>
           this.dispatch({ type: SELECT_COLOUR, bg: bgStr, fg: fgStr })
         }
