@@ -15,6 +15,8 @@ class RGBInput extends React.Component {
   };
 
   handleChange = () => {
+    const { handleChangeRGB, index } = this.props;
+
     let value = this.valueRef.value.toUpperCase();
 
     if (value[0] !== '#') value = `#${value}`;
@@ -22,20 +24,17 @@ class RGBInput extends React.Component {
     if (/^#[0-9A-F]{0,6}$/.test(value)) {
       this.setState(() => ({ value }));
 
-      if (value.length === 7) this.props.handleChangeRGB(this.props.index, value);
+      if (value.length === 7) handleChangeRGB(index, value);
     }
   };
 
   render() {
-    const { index } = this.props;
-
     return (
       <input
         type="text"
         className="rgb-input"
         value={this.state.value}
         onChange={this.handleChange}
-        autoFocus={index === 0}
         ref={r => (this.valueRef = r)}
       />
     );
