@@ -20,7 +20,14 @@ class InputBox extends React.Component {
             this.dispatch({ type: CHANGE_RGB, index, value })
           }
         />
-        <div className="swatch" style={{ background: rgbs[index] }} />
+        <input
+          type="color"
+          className="swatch"
+          value={rgbs[index]}
+          onChange={event =>
+            this.dispatch({ type: CHANGE_RGB, index, value: event.target.value })
+          }
+        />
         <HSLInput
           index={index}
           colour={hsls[index]}

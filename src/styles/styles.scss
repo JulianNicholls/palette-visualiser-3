@@ -82,9 +82,13 @@ h1 {
 
   .swatch {
     align-self: center;
-    border: 1px solid black;
-    height: 1.5rem;
-    width: 1.5rem;
+    background: none;
+    border: none;
+    height: 2rem;
+    margin: 0;
+    outline: none;
+    padding: 0;
+    width: 2rem;
   }
 }
 

@@ -6,15 +6,17 @@ written with React and Webpack 4.
 
 ## Change Log
 
-03/2018: Update to React 16.3, removing deprecated functions.
-03/2018: Changed the colour conversions to use objects rather than arrays.
+* 03/2018: Update to React 16.3, removing deprecated functions.
+* 03/2018: Changed the colour conversions to use objects rather than arrays.
 
-07/2018: The latest (well, next, actually) version of extract-text-webpack-plugin works with Webpack 4 and is now enabled.
+* 07/2018: The latest (well, next, actually) version of extract-text-webpack-plugin works with Webpack 4 and is now enabled.
 
-08/2018: Display the list of named HTML colours, e.g. Dark Slate Blue
+* 08/2018: Display the list of named HTML colours, e.g. Dark Slate Blue
 
-10/2018: Update to use the context API.
-10/2018: Add the [xkcd survey colours](https://blog.xkcd.com/2010/05/03/color-survey-results) as another colour list.
+* 10/2018: Update to use the context API.
+* 10/2018: Add the [xkcd survey colours](https://blog.xkcd.com/2010/05/03/color-survey-results) as an alternative colour list.
+
+* 11/2018: Change the read-only swatch between the RGB and HSL inputs into a colorpicker input.
 
 ## Git client
 
