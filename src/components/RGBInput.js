@@ -17,11 +17,11 @@ class RGBInput extends React.Component {
   handleChange = () => {
     const { handleChangeRGB, index } = this.props;
 
-    let value = this.valueRef.value.toUpperCase();
+    let value = this.valueRef.value.toLowerCase();
 
     if (value[0] !== '#') value = `#${value}`;
 
-    if (/^#[0-9A-F]{0,6}$/.test(value)) {
+    if (/^#[0-9a-f]{0,6}$/i.test(value)) {
       this.setState(() => ({ value }));
 
       if (value.length === 7) handleChangeRGB(index, value);

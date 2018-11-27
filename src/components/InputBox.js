@@ -49,7 +49,7 @@ class InputBox extends React.Component {
             <div id="input-box">
               <span className="first">Colour</span>
               <span>RGB</span>
-              <span />
+              <span>Picker</span>
               <span>HSL</span>
 
               {LABELS.map((label, idx) => this.renderSet(idx, label, rgbs, hsls))}

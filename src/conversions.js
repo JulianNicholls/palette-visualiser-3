@@ -32,7 +32,7 @@ function rgbStrToObject(colour) {
  */
 function rgbObjectToStr(colour) {
   const toHexStr = dec => {
-    const str = dec.toString(16).toUpperCase();
+    const str = dec.toString(16).toLowerCase();
 
     return dec < 16 ? '0' + str : str;
   };
