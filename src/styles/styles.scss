@@ -132,7 +132,7 @@ h1 {
   font-size: 1.06rem;
   grid-template-columns: 0.6fr repeat(7, 1fr);
   margin: 1rem auto;
-  padding: 10px;
+  padding: 0.5rem;
 
   span {
     color: $header-colour;
@@ -150,7 +150,8 @@ h1 {
     cursor: pointer;
 
     p {
-      line-height: 21px;
+      margin: 0.6rem 0;
+      line-height: 20px;
       text-align: center;
     }
   }

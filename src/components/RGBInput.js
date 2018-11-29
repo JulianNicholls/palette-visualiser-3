@@ -21,7 +21,7 @@ class RGBInput extends React.Component {
 
     if (value[0] !== '#') value = `#${value}`;
 
-    if (/^#[0-9a-f]{0,6}$/i.test(value)) {
+    if (/^#[0-9a-f]{0,6}$/.test(value)) {
       this.setState(() => ({ value }));
 
       if (value.length === 7) handleChangeRGB(index, value);
