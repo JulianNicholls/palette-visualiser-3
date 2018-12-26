@@ -4,7 +4,7 @@ $input-focus: #555591;
 $section-bg: #f8f8f8;
 $blocks-bg: #fffcd6;
 $header-colour: #0f4d8a;
-
+$header-bg: #fcf9cf;
   
 * {
   box-sizing: border-box;
@@ -98,14 +98,19 @@ h1 {
   border-collapse: collapse;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
 
+  tr.odd {
+    background: #e8e8e8;
+  }
+
   th,
   td {
     padding: 0.38rem 0.25rem;
   }
   
   th {
-    color: $header-colour;
+    background: $header-bg;
     border: 2px solid $input-bg;
+    color: $header-colour;
 
     &.luminance {
       font-size: 90%;

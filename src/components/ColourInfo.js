@@ -18,7 +18,7 @@ class ColourInfo extends React.Component {
 
   line({ rgbs, rlum, hsvs }, idx) {
     return (
-      <tr key={idx}>
+      <tr key={idx} className={idx % 2 ? 'odd' : 'even'}>
         <td>{rgbs.r}</td>
         <td>{rgbs.g}</td>
         <td>{rgbs.b}</td>
