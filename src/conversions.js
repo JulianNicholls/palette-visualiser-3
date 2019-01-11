@@ -108,7 +108,7 @@ function RGBtoHSV(colour) {
 
   let h = 0;
 
-  if (max !== min) {
+  if (d !== 0) {
     switch (max) {
       case r:
         h = (g - b) / d + (g < b ? 6 : 0);
@@ -138,30 +138,35 @@ function RGBtoHSV(colour) {
 }
 
 /**
- * Converts an HSV colour value to HSL. Conversion formula
- * adapted from Bob's answer on
- * https://stackoverflow.com/questions/3423214/convert-hsb-hsv-color-to-hsl
+ * Converts an RGB colour value direct to HSL. Conversion formula
+ * adapted from https://css-tricks.com/converting-color-spaces-in-javascript/
  *
  * @param   {Object}    Colour
  *
- * @return  {Object}    The HSL representation [0..360, 0..100%, 0..100%]
+ * @return  {Object}    The HSL representation  [0..360, 0..100%, 0..100%]
  */
-function HSVtoHSL(colour) {
-  let { h } = colour,
-    s = colour.s / 100,
-    v = colour.v / 100;
+function RGBtoHSL(rgb) {
+  const r = rgb.r / 255,
+    g = rgb.g / 255,
+    b = rgb.b / 255;
 
-  const l = ((2 - s) * v) / 2; // l -> 0..1
+  const min = Math.min(r, g, b);
+  const max = Math.max(r, g, b);
+  const delta = max - min;
+  let h, s, l;
 
-  if (l !== 0) {
-    if (l === 1) {
-      s = 0;
-    } else if (l < 0.5) {
-      s = (s * v) / (l * 2);
-    } else {
-      s = (s * v) / (2 - l * 2);
-    }
-  }
+  if (delta === 0) h = 0;
+  else if (max === r) h = ((g - b) / delta) % 6;
+  else if (max === g) h = (b - r) / delta + 2;
+  else if (max === b) h = (r - g) / delta + 4;
+
+  h = Math.round(h * 60);
+
+  if (h < 0) h += 360;
+
+  l = (max + min) / 2;
+
+  s = delta === 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
 
   return {
     h: Math.round(h),
@@ -169,6 +174,41 @@ function HSVtoHSL(colour) {
     l: Math.round(l * 100)
   };
 }
+
+/**
+ * Converts an HSV colour value to HSL. Conversion formula
+ * adapted from Bob's answer on
+ * https://stackoverflow.com/questions/3423214/convert-hsb-hsv-color-to-hsl
+ *
+ * NO LONGER NEEDED
+ *
+ * @param   {Object}    Colour
+ *
+ * @return  {Object}    The HSL representation [0..360, 0..100%, 0..100%]
+ */
+// function HSVtoHSL(colour) {
+//   let { h } = colour,
+//     s = colour.s / 100,
+//     v = colour.v / 100;
+
+//   const l = ((2 - s) * v) / 2; // l -> 0..1
+
+//   if (l !== 0) {
+//     if (l === 1) {
+//       s = 0;
+//     } else if (l < 0.5) {
+//       s = (s * v) / (l * 2);
+//     } else {
+//       s = (s * v) / (2 - l * 2);
+//     }
+//   }
+
+//   return {
+//     h: Math.round(h),
+//     s: Math.round(s * 100),
+//     l: Math.round(l * 100)
+//   };
+// }
 
 /**
  * Converts an HSL colour value to RGB. Conversion formula
@@ -190,17 +230,17 @@ function HSLtoRGB(colour) {
 
   let r, g, b;
 
-  if (hp >= 0 && hp <= 1) {
+  if (hp >= 0 && hp < 1) {
     [r, g, b] = [c, x, 0];
-  } else if (hp >= 1 && hp <= 2) {
+  } else if (hp >= 1 && hp < 2) {
     [r, g, b] = [x, c, 0];
-  } else if (hp >= 2 && hp <= 3) {
+  } else if (hp >= 2 && hp < 3) {
     [r, g, b] = [0, c, x];
-  } else if (hp >= 3 && hp <= 4) {
+  } else if (hp >= 3 && hp < 4) {
     [r, g, b] = [0, x, c];
-  } else if (hp >= 4 && hp <= 5) {
+  } else if (hp >= 4 && hp < 5) {
     [r, g, b] = [x, 0, c];
-  } else if (hp >= 5 && hp <= 6) {
+  } else if (hp >= 5 && hp < 6) {
     [r, g, b] = [c, 0, x];
   } else {
     [r, g, b] = [0.9, 0.9, 0.9]; // Should never hit this
@@ -221,6 +261,6 @@ module.exports = {
   contrastRatio,
   sRGBLuminance,
   RGBtoHSV,
-  HSVtoHSL,
+  RGBtoHSL,
   HSLtoRGB
 };
