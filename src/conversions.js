@@ -58,15 +58,16 @@ function contrastRatio(rgbA, rgbB) {
 /**
  * The relative brightness of any point in a colourspace, normalised to 0 for
  * darkest black and 1 for lightest white, with a Gamma of 2.4.
- 
+ *
  * Note 1: For the sRGB colourspace, the relative luminance of a colour is defined as
  *   L = 0.2126 * R + 0.7152 * G + 0.0722 * B where R, G and B are defined as:
- 
+ *
  * if RsRGB <= 0.03928 then R = RsRGB/12.92 else R = ((RsRGB+0.055)/1.055) ^ 2.4
  * if GsRGB <= 0.03928 then G = GsRGB/12.92 else G = ((GsRGB+0.055)/1.055) ^ 2.4
  * if BsRGB <= 0.03928 then B = BsRGB/12.92 else B = ((BsRGB+0.055)/1.055) ^ 2.4
+ *
  * and RsRGB, GsRGB, and BsRGB are defined as:
- 
+ *
  * RsRGB = R8bit / 255
  * GsRGB = G8bit / 255
  * BsRGB = B8bit / 255
@@ -174,41 +175,6 @@ function RGBtoHSL(rgb) {
     l: Math.round(l * 100)
   };
 }
-
-/**
- * Converts an HSV colour value to HSL. Conversion formula
- * adapted from Bob's answer on
- * https://stackoverflow.com/questions/3423214/convert-hsb-hsv-color-to-hsl
- *
- * NO LONGER NEEDED
- *
- * @param   {Object}    Colour
- *
- * @return  {Object}    The HSL representation [0..360, 0..100%, 0..100%]
- */
-// function HSVtoHSL(colour) {
-//   let { h } = colour,
-//     s = colour.s / 100,
-//     v = colour.v / 100;
-
-//   const l = ((2 - s) * v) / 2; // l -> 0..1
-
-//   if (l !== 0) {
-//     if (l === 1) {
-//       s = 0;
-//     } else if (l < 0.5) {
-//       s = (s * v) / (l * 2);
-//     } else {
-//       s = (s * v) / (2 - l * 2);
-//     }
-//   }
-
-//   return {
-//     h: Math.round(h),
-//     s: Math.round(s * 100),
-//     l: Math.round(l * 100)
-//   };
-// }
 
 /**
  * Converts an HSL colour value to RGB. Conversion formula
