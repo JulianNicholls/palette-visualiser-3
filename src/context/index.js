@@ -3,8 +3,7 @@ import React, { Component } from 'react';
 import {
   rgbStrToObject,
   rgbObjectToStr,
-  RGBtoHSV,
-  HSVtoHSL,
+  RGBtoHSL,
   HSLtoRGB
 } from '../conversions';
 
@@ -23,7 +22,7 @@ const reducer = (state, action) => {
       const { index, value } = action;
 
       rgbs[index] = value;
-      hsls[index] = RGBtoHSL(value);
+      hsls[index] = RGBtoHSL(rgbStrToObject(value));
       localStorage.setItem(LS_KEY, JSON.stringify(rgbs));
 
       return { rgbs, hsls };
@@ -54,17 +53,10 @@ const HSLsFromRGBs = rgbs => {
   const hsls = [];
 
   for (let idx = 0; idx < rgbs.length; ++idx) {
-    hsls[idx] = RGBtoHSL(rgbs[idx]);
+    hsls[idx] = RGBtoHSL(rgbStrToObject(rgbs[idx]));
   }
 
   return hsls;
-};
-
-const RGBtoHSL = rgbStr => {
-  const rgb = rgbStrToObject(rgbStr);
-  const hsv = RGBtoHSV(rgb);
-
-  return HSVtoHSL(hsv);
 };
 
 export class Provider extends Component {
