@@ -24,7 +24,7 @@ function rgbStrToObject(colour) {
 }
 
 /**
- * Convert an object representation of a colour in RGB to a string
+ * Convert an object representation of a colour in RGB to a #rrggbb string
  *
  * @param    {Object}    The RGB representation [0..255, 0..255, 0..255]
  *
@@ -71,11 +71,15 @@ function contrastRatio(rgbA, rgbB) {
  * RsRGB = R8bit / 255
  * GsRGB = G8bit / 255
  * BsRGB = B8bit / 255
- * 
- * I have subsequently discovered 
+ *
+ * I have subsequently discovered
  * (here: http://entropymine.com/imageworsener/srgbformula/)
- * that the cutoff point 0.03928, used with 12.92, is probably 
- * wrong, so I am going to use 0.04045 from now on.
+ * that the cutoff point 0.03928, used with 12.92, is probably wrong, so I
+ * am using 0.04045 from now on.
+ *
+ * @param   {Object}    Colour
+ *
+ * @return  {Number}    The luminance
  */
 function sRGBLuminance(colour) {
   const mapColour = value =>
@@ -104,35 +108,20 @@ function RGBtoHSV(colour) {
   const max = Math.max(r, g, b);
   const min = Math.min(r, g, b);
   const v = max * 100; // V = MAX
-  const d = max - min;
-  const s = max === 0 ? 0 : (d / max) * 100;
+  const delta = max - min;
+  const s = max === 0 ? 0 : (delta / max) * 100;
 
-  let h = 0;
+  let h;
 
-  if (d !== 0) {
-    switch (max) {
-      case r:
-        h = (g - b) / d + (g < b ? 6 : 0);
-        break;
+  if (delta === 0) h = 0;
+  else if (max === r) h = ((g - b) / delta) % 6;
+  else if (max === g) h = (b - r) / delta + 2;
+  else if (max === b) h = (r - g) / delta + 4;
 
-      case g:
-        h = (b - r) / d + 2;
-        break;
-
-      case b:
-        h = (r - g) / d + 4;
-        break;
-
-      default:
-        // Placate ESLint
-        break;
-    }
-
-    h *= 60;
-  }
+  h = Math.round(h * 60);
 
   return {
-    h: Math.round(h),
+    h,
     s: Math.round(s),
     v: Math.round(v)
   };
@@ -146,10 +135,10 @@ function RGBtoHSV(colour) {
  *
  * @return  {Object}    The HSL representation  [0..360, 0..100%, 0..100%]
  */
-function RGBtoHSL(rgb) {
-  const r = rgb.r / 255,
-    g = rgb.g / 255,
-    b = rgb.b / 255;
+function RGBtoHSL(colour) {
+  const r = colour.r / 255,
+    g = colour.g / 255,
+    b = colour.b / 255;
 
   const min = Math.min(r, g, b);
   const max = Math.max(r, g, b);
