@@ -1,10 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const HSLInput = ({ colour, index, handleChangeHSL }) => {
   const handleChange = event => {
     const { name, value } = event.target;
 
-    colour[name] = value;
+    colour[name] = Number(value);
 
     handleChangeHSL(index, colour);
   };
@@ -40,6 +41,16 @@ const HSLInput = ({ colour, index, handleChangeHSL }) => {
       />
     </div>
   );
+};
+
+HSLInput.propTypes = {
+  index: PropTypes.number.isRequired,
+  colour: PropTypes.shape({
+    h: PropTypes.number.isRequired,
+    s: PropTypes.number.isRequired,
+    l: PropTypes.number.isRequired,
+  }),
+  handleChangeHSL: PropTypes.func.isRequired,
 };
 
 export default HSLInput;

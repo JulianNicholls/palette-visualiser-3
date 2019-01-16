@@ -18,6 +18,9 @@ written with React and Webpack 4.
 
 * 11/2018: Change the read-only swatch between the RGB and HSL inputs into a colorpicker input.
 
+* 01/2019: Add PropTypes. As a result, found a bug which didn't seem to manifest itself, 
+but fixed anyway
+
 ## Git client
 
 I have used Git at the command-line for 10 years.
