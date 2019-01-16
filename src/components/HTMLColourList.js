@@ -1,23 +1,65 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import HTMLColours from '../HTMLColours';
 import XKCDColours from '../XKCDColours';
 
-import {
-  ratioThreshold,
-  rgbStrToObject,
-  sRGBLuminance,
-  contrastRatio
-} from '../conversions';
+import { ratioThreshold, rgbStrToObject, sRGBLuminance } from '../conversions';
 
-const black = { r: 0, g: 0, b: 0 };
-const white = { r: 255, g: 255, b: 255 };
+// Luminance of Black and White + 0.05 for the contrast calculation
+const BLACK = 0.05;
+const WHITE = 1.05;
+
+const ColourListLine = ({ name, value, luminance }) => {
+  const blackRatio = (luminance + 0.05) / BLACK;
+  const whiteRatio = WHITE / (luminance + 0.05);
+
+  // Choose the colour for the name based on the better ratio
+  const nameColour = blackRatio > whiteRatio ? 'black' : 'white';
+
+  // Display black and white on the colour, if the ratio is good then use
+  // black or white, otherwise use a mid-grey, biased toward the opposite
+  const blackColour = blackRatio > ratioThreshold ? 'black' : '#b0b0b0';
+  const whiteColour = whiteRatio > ratioThreshold ? 'white' : '#505050';
+
+  const baseStyle = { background: value, color: nameColour };
+
+  return [
+    <div key={name} style={baseStyle}>
+      {name}
+    </div>,
+    <div key={value} style={baseStyle}>
+      {value}
+    </div>,
+    <div key={`${name}-luminance`} style={baseStyle}>
+      {luminance.toFixed(3)}
+    </div>,
+    <div
+      key={`${name}-black-ratio`}
+      style={{ background: value, color: blackColour }}
+    >
+      Black {blackRatio.toFixed(2)}:1
+    </div>,
+    <div
+      key={`${name}-white-ratio`}
+      style={{ background: value, color: whiteColour }}
+    >
+      White {whiteRatio.toFixed(2)}:1
+    </div>,
+  ];
+};
+
+ColourListLine.propTypes = {
+  name: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  luminance: PropTypes.number.isRequired,
+};
 
 class HTMLColourList extends React.Component {
   state = {
     selected: 'html',
     colourList: [],
-    sortOrder: 'name'
+    sortOrder: 'name',
   };
 
   componentDidMount() {
@@ -28,8 +70,7 @@ class HTMLColourList extends React.Component {
     const colours = selected === 'xkcd' ? [...XKCDColours] : [...HTMLColours];
 
     colours.forEach(colour => {
-      colour.rgb = rgbStrToObject(colour.value);
-      colour.luminance = sRGBLuminance(colour.rgb);
+      colour.luminance = sRGBLuminance(rgbStrToObject(colour.value));
     });
 
     this.setState(() => ({ colourList: colours }));
@@ -74,7 +115,7 @@ class HTMLColourList extends React.Component {
 
       return this.setState(() => ({
         colourList: colours,
-        sortOrder: 'luminance'
+        sortOrder: 'luminance',
       }));
     }
 
@@ -109,45 +150,14 @@ class HTMLColourList extends React.Component {
         <div>Black Contrast Ratio</div>
         <div>White Contrast Ratio</div>
 
-        {colourList.map(({ name, value, rgb, luminance }) => {
-          const blackRatio = contrastRatio(rgb, black);
-          const whiteRatio = contrastRatio(rgb, white);
-
-          // Choose the colour for the name based on the better ratio
-          const nameColour = blackRatio > whiteRatio ? 'black' : 'white';
-
-          // Display black and white on the colour, if the ratio is good then use
-          // black or white, otherwise use a mid-grey biased toward the opposite
-          const blackColour = blackRatio > ratioThreshold ? 'black' : '#a0a0a0';
-          const whiteColour = whiteRatio > ratioThreshold ? 'white' : '#606060';
-
-          return [
-            <div key={name} style={{ background: value, color: nameColour }}>
-              {name}
-            </div>,
-            <div key={value} style={{ background: value, color: nameColour }}>
-              {value}
-            </div>,
-            <div
-              key={`${name}-luminance`}
-              style={{ background: value, color: nameColour }}
-            >
-              {luminance.toFixed(3)}
-            </div>,
-            <div
-              key={`${name}-black-ratio`}
-              style={{ background: value, color: blackColour }}
-            >
-              Black {blackRatio.toFixed(2)}:1
-            </div>,
-            <div
-              key={`${name}-white-ratio`}
-              style={{ background: value, color: whiteColour }}
-            >
-              White {whiteRatio.toFixed(2)}:1
-            </div>
-          ];
-        })}
+        {colourList.map(({ name, value, luminance }) => (
+          <ColourListLine
+            key={`${name}-line`}
+            name={name}
+            value={value}
+            luminance={luminance}
+          />
+        ))}
       </div>
     );
   }

@@ -30,6 +30,7 @@ ColourInfoLine.propTypes = {
       v: PropTypes.number.isRequired,
     }).isRequired,
   }).isRequired,
+  index: PropTypes.number.isRequired,
 };
 
 class ColourInfo extends React.Component {
