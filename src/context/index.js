@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import {
   rgbStrToObject,
   rgbObjectToStr,
   RGBtoHSL,
-  HSLtoRGB
+  HSLtoRGB,
 } from '../conversions';
 
-const LS_KEY = 'pv31';
+const lsPaletteKey = 'pv31';
 
 const Context = React.createContext();
 
@@ -23,7 +24,7 @@ const reducer = (state, action) => {
 
       rgbs[index] = value;
       hsls[index] = RGBtoHSL(rgbStrToObject(value));
-      localStorage.setItem(LS_KEY, JSON.stringify(rgbs));
+      localStorage.setItem(lsPaletteKey, JSON.stringify(rgbs));
 
       return { rgbs, hsls };
     }
@@ -36,7 +37,7 @@ const reducer = (state, action) => {
 
       hsls[index] = value;
       rgbs[index] = rgbObjectToStr(rgb);
-      localStorage.setItem(LS_KEY, JSON.stringify(rgbs));
+      localStorage.setItem(lsPaletteKey, JSON.stringify(rgbs));
 
       return { hsls, rgbs };
     }
@@ -63,7 +64,7 @@ export class Provider extends Component {
   constructor(props) {
     super(props);
 
-    const saveData = localStorage.getItem(LS_KEY);
+    const saveData = localStorage.getItem(lsPaletteKey);
 
     const rgbs = saveData
       ? JSON.parse(saveData)
@@ -74,7 +75,7 @@ export class Provider extends Component {
       hsls: HSLsFromRGBs(rgbs),
       selectedBG: '#000000',
       selectedFG: '#ffffff',
-      dispatch: action => this.setState(state => reducer(state, action))
+      dispatch: action => this.setState(state => reducer(state, action)),
     };
   }
 
@@ -86,5 +87,9 @@ export class Provider extends Component {
     );
   }
 }
+
+Provider.propTypes = {
+  children: PropTypes.element,
+};
 
 export const Consumer = Context.Consumer;

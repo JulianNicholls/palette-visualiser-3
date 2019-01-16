@@ -1,7 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 // This component has an interesting lifecycle:
-// * it is initialized with an RGB value like #67AA78, which can then be edited
+// * it is initialized with an RGB value like #67aa7b, which can then be edited
 //   and will only update centrally when the length is 7 characters
 //   (# + 6 hex digits) because the value is meaningless at other times.
 //
@@ -11,7 +12,7 @@ import React from 'react';
 
 class RGBInput extends React.Component {
   state = {
-    value: this.props.rgb
+    value: this.props.rgb,
   };
 
   handleChange = () => {
@@ -40,5 +41,11 @@ class RGBInput extends React.Component {
     );
   }
 }
+
+RGBInput.propTypes = {
+  index: PropTypes.number.isRequired,
+  rgb: PropTypes.string.isRequired,
+  handleChangeRGB: PropTypes.func.isRequired,
+};
 
 export default RGBInput;
