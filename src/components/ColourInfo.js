@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 
-import { Consumer } from '../context';
+import { ColourContext } from '../context';
 import { rgbStrToObject, sRGBLuminance, RGBtoHSV } from '../conversions';
 
 const ColourInfoLine = ({ colour: { rgbs, luminance, hsvs }, index }) => (
@@ -33,8 +33,10 @@ ColourInfoLine.propTypes = {
   index: PropTypes.number.isRequired,
 };
 
-class ColourInfo extends React.Component {
-  lines(rgbs) {
+const ColourInfo = () => {
+  const { rgbs } = useContext(ColourContext);
+
+  const lines = () => {
     return rgbs.map(rgbStr => {
       const rgb = rgbStrToObject(rgbStr);
 
@@ -44,30 +46,24 @@ class ColourInfo extends React.Component {
         hsvs: RGBtoHSV(rgb),
       };
     });
-  }
+  };
 
-  render() {
-    return (
-      <Consumer>
-        {({ rgbs }) => (
-          <table id="info-table">
-            <thead>
-              <tr>
-                <th colSpan="3">RGB</th>
-                <th className="luminance">sRGB Lum</th>
-                <th colSpan="3">HSV</th>
-              </tr>
-            </thead>
-            <tbody>
-              {this.lines(rgbs).map((colour, index) => (
-                <ColourInfoLine colour={colour} key={index} index={index} />
-              ))}
-            </tbody>
-          </table>
-        )}
-      </Consumer>
-    );
-  }
-}
+  return (
+    <table id="info-table">
+      <thead>
+        <tr>
+          <th colSpan="3">RGB</th>
+          <th className="luminance">sRGB Lum</th>
+          <th colSpan="3">HSV</th>
+        </tr>
+      </thead>
+      <tbody>
+        {lines().map((colour, index) => (
+          <ColourInfoLine colour={colour} key={index} index={index} />
+        ))}
+      </tbody>
+    </table>
+  );
+};
 
 export default ColourInfo;
