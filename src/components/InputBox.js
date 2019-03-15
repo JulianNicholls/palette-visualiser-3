@@ -1,6 +1,6 @@
 import React, { Fragment, useContext } from 'react';
 
-import { ColourContext, CHANGE_RGB, CHANGE_HSL } from '../context';
+import { ColourContext } from '../context';
 
 import RGBInput from './RGBInput';
 import HSLInput from './HSLInput';
@@ -8,7 +8,7 @@ import HSLInput from './HSLInput';
 const LABELS = ['First', 'Second', 'Third', 'Fourth', 'Fifth'];
 
 const InputBox = () => {
-  const { rgbs, hsls, dispatch } = useContext(ColourContext);
+  const { rgbs, hsls, changeRGB, changeHSL } = useContext(ColourContext);
 
   const renderSet = (index, label) => {
     return (
@@ -18,24 +18,18 @@ const InputBox = () => {
           key={rgbs[index]}
           index={index}
           rgb={rgbs[index]}
-          handleChangeRGB={(index, value) =>
-            dispatch({ type: CHANGE_RGB, index, value })
-          }
+          handleChangeRGB={(index, value) => changeRGB(index, value)}
         />
         <input
           type="color"
           className="swatch"
           value={rgbs[index]}
-          onChange={event =>
-            dispatch({ type: CHANGE_RGB, index, value: event.target.value })
-          }
+          onChange={event => changeRGB(index, event.target.value)}
         />
         <HSLInput
           index={index}
           colour={hsls[index]}
-          handleChangeHSL={(index, value) =>
-            dispatch({ type: CHANGE_HSL, index, value })
-          }
+          handleChangeHSL={(index, value) => changeHSL(index, value)}
         />
       </Fragment>
     );

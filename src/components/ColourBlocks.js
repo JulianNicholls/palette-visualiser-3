@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 
-import { ColourContext, SELECT_COLOUR } from '../context';
+import { ColourContext } from '../context';
 
 import {
   ratioThreshold,
@@ -12,7 +12,7 @@ import {
 const HEADERS = ['First', 'Second', 'Third', 'Fourth', 'Fifth', 'Black', 'White'];
 
 const ColourBlocks = () => {
-  const { rgbs, dispatch } = useContext(ColourContext);
+  const { rgbs, selectColour } = useContext(ColourContext);
 
   const ratio = (bg, fg) => {
     const bga = rgbStrToObject(bg);
@@ -68,7 +68,7 @@ const ColourBlocks = () => {
         key={key}
         style={{ background: bgCol, color: fgCol }}
         title={title}
-        onClick={() => dispatch({ type: SELECT_COLOUR, bg: bgStr, fg: fgStr })}
+        onClick={() => selectColour(bgStr, fgStr)}
       >
         <p>
           {bgStr}
