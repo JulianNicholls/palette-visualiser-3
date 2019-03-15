@@ -16,7 +16,7 @@ const HSLInput = ({ colour, index, handleChangeHSL }) => {
         className="hsl-input"
         type="number"
         min="0"
-        max="360"
+        max="359"
         name="h"
         value={colour.h}
         onChange={handleChange}

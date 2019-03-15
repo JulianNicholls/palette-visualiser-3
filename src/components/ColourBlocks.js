@@ -1,25 +1,27 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
-import { Consumer, SELECT_COLOUR } from '../context';
+import { ColourContext } from '../context';
 
 import {
   ratioThreshold,
   largeThreshold,
   rgbStrToObject,
-  contrastRatio
+  contrastRatio,
 } from '../conversions';
 
 const HEADERS = ['First', 'Second', 'Third', 'Fourth', 'Fifth', 'Black', 'White'];
 
-class ColourBlocks extends React.Component {
-  contrastRatio(bg, fg) {
+const ColourBlocks = () => {
+  const { rgbs, selectColour } = useContext(ColourContext);
+
+  const ratio = (bg, fg) => {
     const bga = rgbStrToObject(bg);
     const fga = rgbStrToObject(fg);
 
     return contrastRatio(bga, fga).toFixed(2);
-  }
+  };
 
-  renderBlocks(rgbs) {
+  const renderBlocks = () => {
     const colours = [...rgbs, '#000000', '#FFFFFF'];
     const blocks = [];
 
@@ -31,7 +33,7 @@ class ColourBlocks extends React.Component {
       );
 
       colours.forEach((fgStr, fg) => {
-        const cr = this.contrastRatio(bgStr, fgStr);
+        const cr = ratio(bgStr, fgStr);
         let bgCol, fgCol, title;
 
         if (fgStr === bgStr) {
@@ -51,24 +53,22 @@ class ColourBlocks extends React.Component {
         }
 
         blocks.push(
-          this.renderBlock(bgCol, fgCol, bgStr, fgStr, cr, title, `${bg}${fg}`)
+          renderBlock(bgCol, fgCol, bgStr, fgStr, cr, title, `${bg}${fg}`)
         );
       });
     });
 
     return blocks;
-  }
+  };
 
-  renderBlock(bgCol, fgCol, bgStr, fgStr, cr, title, key) {
+  const renderBlock = (bgCol, fgCol, bgStr, fgStr, cr, title, key) => {
     return (
       <div
         className="block"
         key={key}
         style={{ background: bgCol, color: fgCol }}
         title={title}
-        onClick={() =>
-          this.dispatch({ type: SELECT_COLOUR, bg: bgStr, fg: fgStr })
-        }
+        onClick={() => selectColour(bgStr, fgStr)}
       >
         <p>
           {bgStr}
@@ -79,25 +79,17 @@ class ColourBlocks extends React.Component {
         </p>
       </div>
     );
-  }
+  };
 
-  render() {
-    return (
-      <Consumer>
-        {({ rgbs, dispatch }) => {
-          this.dispatch = dispatch;
-
-          return (
-            <div id="colour-blocks">
-              <span />
-              {HEADERS.map((text, idx) => <span key={idx}>{text}</span>)}
-              {this.renderBlocks(rgbs)}
-            </div>
-          );
-        }}
-      </Consumer>
-    );
-  }
-}
+  return (
+    <div id="colour-blocks">
+      <span />
+      {HEADERS.map((text, idx) => (
+        <span key={idx}>{text}</span>
+      ))}
+      {renderBlocks()}
+    </div>
+  );
+};
 
 export default ColourBlocks;

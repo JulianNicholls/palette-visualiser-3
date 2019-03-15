@@ -19,7 +19,7 @@ function rgbStrToObject(colour) {
   return {
     r: rgbArray[0],
     g: rgbArray[1],
-    b: rgbArray[2]
+    b: rgbArray[2],
   };
 }
 
@@ -114,7 +114,7 @@ function RGBtoHSV(colour) {
   let h;
 
   if (delta === 0) h = 0;
-  else if (max === r) h = ((g - b) / delta) % 6;
+  else if (max === r) h = (g - b) / delta + (b > g ? 6 : 0);
   else if (max === g) h = (b - r) / delta + 2;
   else if (max === b) h = (r - g) / delta + 4;
 
@@ -123,7 +123,7 @@ function RGBtoHSV(colour) {
   return {
     h,
     s: Math.round(s),
-    v: Math.round(v)
+    v: Math.round(v),
   };
 }
 
@@ -161,7 +161,7 @@ function RGBtoHSL(colour) {
   return {
     h: Math.round(h),
     s: Math.round(s * 100),
-    l: Math.round(l * 100)
+    l: Math.round(l * 100),
   };
 }
 
@@ -204,7 +204,7 @@ function HSLtoRGB(colour) {
   return {
     r: Math.round((r + m) * 255),
     g: Math.round((g + m) * 255),
-    b: Math.round((b + m) * 255)
+    b: Math.round((b + m) * 255),
   };
 }
 
@@ -217,5 +217,5 @@ module.exports = {
   sRGBLuminance,
   RGBtoHSV,
   RGBtoHSL,
-  HSLtoRGB
+  HSLtoRGB,
 };

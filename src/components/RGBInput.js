@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 
 // This component has an interesting lifecycle:
@@ -10,37 +10,32 @@ import PropTypes from 'prop-types';
 //   that will now cause a re-rendering of this component, negating the need for
 //   getDerivedStateFromProps()
 
-class RGBInput extends React.Component {
-  state = {
-    value: this.props.rgb,
-  };
+const RGBInput = ({ rgb, index, handleChangeRGB }) => {
+  const [value, setValue] = useState(rgb);
+  const valueRef = useRef();
 
-  handleChange = () => {
-    const { handleChangeRGB, index } = this.props;
+  const handleChange = () => {
+    let inputValue = valueRef.current.value.toLowerCase();
 
-    let value = this.valueRef.value.toLowerCase();
-
-    if (value[0] !== '#') value = `#${value}`;
+    if (inputValue[0] !== '#') inputValue = `#${inputValue}`;
 
     if (/^#[0-9a-f]{0,6}$/.test(value)) {
-      this.setState(() => ({ value }));
+      setValue(inputValue);
 
-      if (value.length === 7) handleChangeRGB(index, value);
+      if (inputValue.length === 7) handleChangeRGB(index, inputValue);
     }
   };
 
-  render() {
-    return (
-      <input
-        type="text"
-        className="rgb-input"
-        value={this.state.value}
-        onChange={this.handleChange}
-        ref={r => (this.valueRef = r)}
-      />
-    );
-  }
-}
+  return (
+    <input
+      type="text"
+      className="rgb-input"
+      value={value}
+      onChange={handleChange}
+      ref={r => (valueRef.current = r)}
+    />
+  );
+};
 
 RGBInput.propTypes = {
   index: PropTypes.number.isRequired,

@@ -21,12 +21,13 @@ written with React and Webpack 4.
 * 01/2019: Add PropTypes. As a result, found a bug which didn't seem to manifest itself, 
 but fixed anyway
 
+* 03/2019: Convert to React Hooks.
+
 ## Git client
 
-I have used Git at the command-line for 10 years.
-Over that time, I have tried many different graphical shells for Git,
-without finding one that was easier and nicer to use than the command-line
-(in my view).
+I have used Git at the command-line for 10 years. Over that time, I have tried 
+many different graphical shells for Git, without finding one that was easier
+and nicer to use than the command-line (in my view).
 
 I have now found that [GitKraken](https://www.gitkraken.com) is an excellent
 Git shell and would advise using it to everyone.
