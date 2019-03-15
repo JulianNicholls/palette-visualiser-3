@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import {
@@ -8,88 +8,77 @@ import {
   HSLtoRGB,
 } from '../conversions';
 
-const lsPaletteKey = 'pv31';
+const LS_PALETTE_KEY = 'pv31';
+const DEFAULT_RGBS = ['#336699', '#669933', '#996633', '#663399', '#339966'];
+const DEFAULT_SELECT = { bg: '#000000', fg: '#ffffff' };
 
-const Context = React.createContext();
+const HSLsFromRGBs = rgbs =>
+  rgbs.reduce((hsls, rgb) => {
+    hsls.push(RGBtoHSL(rgbStrToObject(rgb)));
 
-export const SELECT_COLOUR = 'SELECT_COLOUR';
-export const CHANGE_RGB = 'CHANGE_RGB';
-export const CHANGE_HSL = 'CHANGE_HSL';
+    return hsls;
+  }, []);
 
-const reducer = (state, action) => {
-  switch (action.type) {
-    case CHANGE_RGB: {
-      const { rgbs, hsls } = state;
-      const { index, value } = action;
+export const ColourContext = React.createContext();
 
-      rgbs[index] = value;
-      hsls[index] = RGBtoHSL(rgbStrToObject(value));
-      localStorage.setItem(lsPaletteKey, JSON.stringify(rgbs));
+export const Provider = ({ children }) => {
+  const [rgbs, setRGBs] = useState(DEFAULT_RGBS);
 
-      return { rgbs, hsls };
+  const [hsls, setHSLs] = useState(HSLsFromRGBs(rgbs));
+  const [selected, setSelected] = useState(DEFAULT_SELECT);
+
+  const initialLoad = () => {
+    const saveData = localStorage.getItem(LS_PALETTE_KEY);
+
+    if (saveData) {
+      setRGBs(JSON.parse(saveData));
+      setHSLs(HSLsFromRGBs(rgbs));
     }
+  };
 
-    case CHANGE_HSL: {
-      const { rgbs, hsls } = state;
-      const { index, value } = action;
+  useEffect(initialLoad, []);
 
-      const rgb = HSLtoRGB(value);
+  const changeRGB = (index, value) => {
+    const newRGBs = [...rgbs];
+    newRGBs[index] = value;
 
-      hsls[index] = value;
-      rgbs[index] = rgbObjectToStr(rgb);
-      localStorage.setItem(lsPaletteKey, JSON.stringify(rgbs));
+    setRGBs(newRGBs);
+    setHSLs(HSLsFromRGBs(newRGBs));
+    localStorage.setItem(LS_PALETTE_KEY, JSON.stringify(newRGBs));
+  };
 
-      return { hsls, rgbs };
-    }
+  const changeHSL = (index, value) => {
+    const rgb = HSLtoRGB(value);
 
-    case SELECT_COLOUR:
-      return { selectedBG: action.bg, selectedFG: action.fg };
+    const newRGBs = [...rgbs];
+    const newHSLs = [...hsls];
 
-    default:
-      return state;
-  }
+    newHSLs[index] = value;
+    newRGBs[index] = rgbObjectToStr(rgb);
+
+    setRGBs(newRGBs);
+    setHSLs(newHSLs);
+
+    localStorage.setItem(LS_PALETTE_KEY, JSON.stringify(newRGBs));
+  };
+
+  const selectColour = (bg, fg) => setSelected({ bg, fg });
+
+  const state = {
+    rgbs,
+    hsls,
+    selectedBG: selected.bg,
+    selectedFG: selected.fg,
+    changeRGB,
+    changeHSL,
+    selectColour,
+  };
+
+  return (
+    <ColourContext.Provider value={state}>{children}</ColourContext.Provider>
+  );
 };
-
-const HSLsFromRGBs = rgbs => {
-  const hsls = [];
-
-  for (let idx = 0; idx < rgbs.length; ++idx) {
-    hsls[idx] = RGBtoHSL(rgbStrToObject(rgbs[idx]));
-  }
-
-  return hsls;
-};
-
-export class Provider extends Component {
-  constructor(props) {
-    super(props);
-
-    const saveData = localStorage.getItem(lsPaletteKey);
-
-    const rgbs = saveData
-      ? JSON.parse(saveData)
-      : ['#336699', '#669933', '#996633', '#663399', '#339966'];
-
-    this.state = {
-      rgbs,
-      hsls: HSLsFromRGBs(rgbs),
-      selectedBG: '#000000',
-      selectedFG: '#ffffff',
-      dispatch: action => this.setState(state => reducer(state, action)),
-    };
-  }
-
-  render() {
-    return (
-      <Context.Provider value={this.state}>
-        {this.props.children}
-      </Context.Provider>
-    );
-  }
-}
 
 Provider.propTypes = {
   children: PropTypes.element,
 };
-
-export const Consumer = Context.Consumer;
