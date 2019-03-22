@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 // This component has an interesting lifecycle:
@@ -12,10 +12,9 @@ import PropTypes from 'prop-types';
 
 const RGBInput = ({ rgb, index, handleChangeRGB }) => {
   const [value, setValue] = useState(rgb);
-  const valueRef = useRef();
 
-  const handleChange = () => {
-    let inputValue = valueRef.current.value.toLowerCase();
+  const handleChange = e => {
+    let inputValue = e.target.value.toLowerCase();
 
     if (inputValue[0] !== '#') inputValue = `#${inputValue}`;
 
@@ -32,7 +31,6 @@ const RGBInput = ({ rgb, index, handleChangeRGB }) => {
       className="rgb-input"
       value={value}
       onChange={handleChange}
-      ref={r => (valueRef.current = r)}
     />
   );
 };
