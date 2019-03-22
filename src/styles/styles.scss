@@ -4,7 +4,7 @@ $input-focus: #555591;
 $section-bg: #f8f8f8;
 $blocks-bg: #fffcd6;
 $header-colour: #0f4d8a;
-$header-bg: #fcf9cf;
+$odd-colour: #e8e8f8;
   
 * {
   box-sizing: border-box;
@@ -31,6 +31,7 @@ body {
 h1 {
   color: $header-colour;
   font-size: 1.7rem;
+    letter-spacing: 1px;
   text-align: center;
 }
 
@@ -99,7 +100,7 @@ h1 {
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
 
   tr.odd {
-    background: #e8e8e8;
+    background: $odd-colour
   }
 
   th,
@@ -108,7 +109,7 @@ h1 {
   }
   
   th {
-    background: $header-bg;
+    background: darken($odd-colour, 5);
     border: 2px solid $input-bg;
     color: $header-colour;
 
