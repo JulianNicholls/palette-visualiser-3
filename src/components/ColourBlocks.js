@@ -22,7 +22,7 @@ const ColourBlocks = () => {
   };
 
   const renderBlocks = () => {
-    const colours = [...rgbs, '#000000', '#FFFFFF'];
+    const colours = [...rgbs, '#000000', '#ffffff'];
     const blocks = [];
 
     colours.forEach((bgStr, bg) => {
