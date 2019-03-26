@@ -34,51 +34,31 @@ const HTMLColourList = () => {
   };
 
   const sortByName = () => {
-    const colours = [...colourList];
+    if (sortOrder === 'name')
+      return sort((a, b) => (a.name > b.name ? -1 : 1), 'namer');
 
-    if (sortOrder === 'name') {
-      colours.sort((a, b) => (a.name > b.name ? -1 : 1));
-
-      setColourList(colours);
-      return setSortOrder('namer');
-    }
-
-    colours.sort((a, b) => (a.name < b.name ? -1 : 1));
-
-    setColourList(colours);
-    setSortOrder('name');
+    sort((a, b) => (a.name < b.name ? -1 : 1), 'name');
   };
 
   const sortByRGB = () => {
-    const colours = [...colourList];
+    if (sortOrder === 'value')
+      return sort((a, b) => (a.value > b.value ? -1 : 1), 'valuer');
 
-    if (sortOrder === 'value') {
-      colours.sort((a, b) => (a.value > b.value ? -1 : 1));
-
-      setColourList(colours);
-      return setSortOrder('valuer');
-    }
-
-    colours.sort((a, b) => (a.value < b.value ? -1 : 1));
-
-    setColourList(colours);
-    setSortOrder('value');
+    sort((a, b) => (a.value < b.value ? -1 : 1), 'value');
   };
 
   const sortByLuminance = () => {
-    const colours = [...colourList];
+    if (sortOrder === 'luminancer')
+      return sort((a, b) => (a.luminance < b.luminance ? -1 : 1), 'luminance');
 
-    if (sortOrder === 'luminancer') {
-      colours.sort((a, b) => (a.luminance < b.luminance ? -1 : 1));
+    sort((a, b) => (a.luminance > b.luminance ? -1 : 1), 'luminancer');
+  };
 
-      setColourList(colours);
-      return setSortOrder('luminance');
-    }
-
-    colours.sort((a, b) => (a.luminance > b.luminance ? -1 : 1));
+  const sort = (compare, order) => {
+    const colours = [...colourList].sort(compare);
 
     setColourList(colours);
-    setSortOrder('luminancer');
+    setSortOrder(order);
   };
 
   return (
@@ -90,9 +70,18 @@ const HTMLColourList = () => {
         Swap to {selected === 'xkcd' ? 'HTML' : 'XKCD'}
       </button>
 
-      <button onClick={sortByName}>Colour Name</button>
-      <button onClick={sortByRGB}>RGB</button>
-      <button onClick={sortByLuminance}>Luminance</button>
+      <button onClick={sortByName}>
+        Colour Name {sortOrder === 'name' && '⬆️'}
+        {sortOrder === 'namer' && '⬇️'}
+      </button>
+      <button onClick={sortByRGB}>
+        RGB {sortOrder === 'value' && '⬆️'}
+        {sortOrder === 'valuer' && '⬇️'}
+      </button>
+      <button onClick={sortByLuminance}>
+        Luminance {sortOrder === 'luminance' && '⬆️'}
+        {sortOrder === 'luminancer' && '⬇️'}
+      </button>
       <div>Black Contrast Ratio</div>
       <div>White Contrast Ratio</div>
 
