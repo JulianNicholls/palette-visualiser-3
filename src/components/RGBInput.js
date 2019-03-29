@@ -27,6 +27,7 @@ const RGBInput = ({ rgb, index, handleChangeRGB }) => {
 
   return (
     <input
+      id={`rgb-${index}`}
       type="text"
       className="rgb-input"
       value={value}
