@@ -31,8 +31,9 @@ export const Provider = ({ children }) => {
     const saveData = localStorage.getItem(LS_PALETTE_KEY);
 
     if (saveData) {
-      setRGBs(JSON.parse(saveData));
-      setHSLs(HSLsFromRGBs(rgbs));
+      const loadedRGBs = JSON.parse(saveData);
+      setRGBs(loadedRGBs);
+      setHSLs(HSLsFromRGBs(loadedRGBs));
     }
   };
 
