@@ -82,13 +82,13 @@ const ColourBlocks = () => {
   };
 
   return (
-    <div id="colour-blocks">
+    <section id="colour-blocks">
       <span />
       {HEADERS.map((text, idx) => (
         <span key={idx}>{text}</span>
       ))}
       {renderBlocks()}
-    </div>
+    </section>
   );
 };
 

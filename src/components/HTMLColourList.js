@@ -62,7 +62,7 @@ const HTMLColourList = () => {
   };
 
   return (
-    <div className="html-colour-list">
+    <section className="html-colour-list">
       <span className="html-colour-list__title">
         {selected.toUpperCase()} Colours
       </span>
@@ -93,7 +93,7 @@ const HTMLColourList = () => {
           luminance={luminance}
         />
       ))}
-    </div>
+    </section>
   );
 };
 

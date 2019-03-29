@@ -36,14 +36,14 @@ const InputBox = () => {
   };
 
   return (
-    <div id="input-box">
+    <section id="input-box">
       <span className="first">Colour</span>
       <span>RGB</span>
       <span>Picker</span>
       <span>HSL</span>
 
       {LABELS.map((label, idx) => renderSet(idx, label))}
-    </div>
+    </section>
   );
 };
 

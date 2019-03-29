@@ -7,18 +7,18 @@ import SampleText from './components/SampleText';
 import HTMLColourList from './components/HTMLColourList';
 
 const App = () => (
-  <div>
+  <main>
     <h1>Palette Visualiser</h1>
     <div className="container">
-      <div id="top-section">
+      <section id="top-section">
         <InputBox />
         <ColourInfo />
-      </div>
+      </section>
       <ColourBlocks />
       <SampleText />
       <HTMLColourList />
     </div>
-  </div>
+  </main>
 );
 
 export default App;
