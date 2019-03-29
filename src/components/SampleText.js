@@ -6,7 +6,7 @@ const SampleText = () => {
   const context = useContext(ColourContext);
 
   return (
-    <div
+    <section
       className="sample-text"
       style={{ background: context.selectedBG, color: context.selectedFG }}
     >
@@ -18,12 +18,17 @@ const SampleText = () => {
       </p>
 
       <p>
-        This is another paragraph.{' '}
-        <em>This text is emphasised, so italic, maybe?</em>,{' '}
-        <strong>This text is strong, so bold perhaps?</strong>{' '}
-        <i>This text should be italic.</i>.
+        This is another paragraph with differently styled text.{' '}
+        <em>
+          This text is &lt;em&gt;phasised, which is usually displayed as italic.
+        </em>
+        ,br />
+        <strong>
+          This text is &lt;strong&gt;, so generally it is shown as bold.
+        </strong>{' '}
+        <i>This part should be in &lt;i&gt;talic text.</i>.
       </p>
-    </div>
+    </section>
   );
 };
 
