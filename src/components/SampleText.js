@@ -22,7 +22,7 @@ const SampleText = () => {
         <em>
           This text is &lt;em&gt;phasised, which is usually displayed as italic.
         </em>
-        ,br />
+        <br />
         <strong>
           This text is &lt;strong&gt;, so generally it is shown as bold.
         </strong>{' '}
