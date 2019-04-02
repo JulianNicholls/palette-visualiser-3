@@ -157,8 +157,14 @@ h1 {
 
     p {
       margin: 0.6rem 0;
-      line-height: 20px;
+      line-height: 1.15;
       text-align: center;
+    }
+
+    span.access {
+      color: inherit;
+      font-size: 0.8em;
+      font-weight: normal;
     }
   }
 }
@@ -192,7 +198,7 @@ h1 {
   }
 
   div {
-    padding: 0.5rem 0;
+    padding: 0.4rem 0;
     padding-left: 2.5rem;
   }
 
