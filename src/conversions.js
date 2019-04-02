@@ -1,4 +1,5 @@
-const ratioThreshold = 4.45; // Officially, it's 4.5:1
+const AAAThreshold = 7;
+const AAThreshold = 4.45; // Officially, it's 4.5:1
 const largeThreshold = 3; // 3:1 for large text
 
 /**
@@ -209,7 +210,8 @@ function HSLtoRGB(colour) {
 }
 
 module.exports = {
-  ratioThreshold,
+  AAAThreshold,
+  AAThreshold,
   largeThreshold,
   rgbStrToObject,
   rgbObjectToStr,

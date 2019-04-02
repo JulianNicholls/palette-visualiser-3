@@ -32,6 +32,7 @@ export const Provider = ({ children }) => {
 
     if (saveData) {
       const loadedRGBs = JSON.parse(saveData);
+
       setRGBs(loadedRGBs);
       setHSLs(HSLsFromRGBs(loadedRGBs));
     }
