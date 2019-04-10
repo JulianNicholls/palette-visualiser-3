@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { ratioThreshold } from '../conversions';
+import { AAThreshold } from '../conversions';
 
 // Luminance of Black and White + 0.05 for the contrast calculation
 const BLACK = 0.05;
@@ -16,8 +16,8 @@ const ColourListLine = ({ name, value, luminance }) => {
 
   // Display black and white on the colour, if the ratio is good then use
   // black or white, otherwise use a mid-grey, biased toward the opposite
-  const blackColour = blackRatio > ratioThreshold ? 'black' : '#b0b0b0';
-  const whiteColour = whiteRatio > ratioThreshold ? 'white' : '#505050';
+  const blackColour = blackRatio > AAThreshold ? 'black' : '#b0b0b0';
+  const whiteColour = whiteRatio > AAThreshold ? 'white' : '#505050';
 
   const baseStyle = { background: value, color: nameColour };
 
