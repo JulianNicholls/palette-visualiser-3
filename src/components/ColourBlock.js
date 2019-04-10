@@ -9,6 +9,8 @@ import {
   contrastRatio,
 } from '../conversions';
 
+const AA_LargeNormal = 'AA Large/Normal';
+
 const ColourBlock = ({ bgStr, fgStr, selectColour }) => {
   const ratio = (bg, fg) => {
     const bga = rgbStrToObject(bg);
@@ -25,16 +27,14 @@ const ColourBlock = ({ bgStr, fgStr, selectColour }) => {
   let title;
 
   if (fgStr === bgStr) {
-    bgCol = '#333'; // Grey and invisible
+    bgCol = '#333'; // Dark Grey and invisible
     fgCol = '#333';
   } else if (cr >= AAAThreshold) {
     AAAText = 'AAA Large/Normal';
-    AAText = 'AA Large/Normal';
+    AAText = AA_LargeNormal;
   } else if (cr >= AAThreshold) {
-    bgCol = bgStr; // Selected colours
-    fgCol = fgStr;
     AAAText = 'AAA Large';
-    AAText = 'AA Large/Normal';
+    AAText = AA_LargeNormal;
   } else if (cr >= largeThreshold) {
     bgCol = '#707070'; // Light Grey, sufficiently contrasted
     fgCol = '#f5f5f5';
@@ -73,3 +73,5 @@ ColourBlock.propTypes = {
   fgStr: PropTypes.string.isRequired,
   selectColour: PropTypes.func.isRequired,
 };
+
+export default ColourBlock;
