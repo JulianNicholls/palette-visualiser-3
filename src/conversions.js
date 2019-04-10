@@ -1,5 +1,5 @@
-const AAAThreshold = 7;
-const AAThreshold = 4.45; // Officially, it's 4.5:1
+const AAAThreshold = 7;   // 7:1 for AAA Text
+const AAThreshold = 4.5;  // 4.5:1 for AA Text
 const largeThreshold = 3; // 3:1 for large text
 
 /**
