@@ -18,7 +18,7 @@ const RGBInput = ({ rgb, index, handleChangeRGB }) => {
 
     if (inputValue[0] !== '#') inputValue = `#${inputValue}`;
 
-    if (/^#[0-9a-f]{0,6}$/.test(value)) {
+    if (/^#[0-9a-f]{0,6}$/.test(inputValue)) {
       setValue(inputValue);
 
       if (inputValue.length === 7) handleChangeRGB(index, inputValue);
