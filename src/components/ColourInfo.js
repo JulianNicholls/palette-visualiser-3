@@ -1,12 +1,12 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
 import ColourInfoLine from './ColourInfoLine';
 
-import { ColourContext } from '../context';
+import { useColours } from '../context';
 import { rgbStrToObject, sRGBLuminance, RGBtoHSV } from '../conversions';
 
 const ColourInfo = () => {
-  const { rgbs } = useContext(ColourContext);
+  const { rgbs } = useColours();
 
   const lines = () => {
     return rgbs.map(rgbStr => {

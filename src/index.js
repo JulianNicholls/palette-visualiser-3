@@ -3,14 +3,14 @@ import ReactDOM from 'react-dom';
 
 import App from './App';
 
-import { Provider } from './context';
+import { ColourProvider } from './context';
 
 import 'normalize.css/normalize.css';
 import './styles/styles.scss';
 
 ReactDOM.render(
-  <Provider>
+  <ColourProvider>
     <App />
-  </Provider>,
+  </ColourProvider>,
   document.getElementById('root')
 );

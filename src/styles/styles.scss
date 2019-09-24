@@ -1,11 +1,11 @@
-$page-bg: hsl(210, 14%, 75%);
+$page-bg: hsl(210, 68%, 80%);
 $input-bg: #2f2f4f;  // Dark Slate Grey
 $input-focus: #555591;
 $section-bg: #f8f8f8;
 $blocks-bg: #fffcd6;
-$header-colour: #0f4d8a;
-$odd-colour: #e8e8f8;
-  
+$header-colour: hsl(210, 68%, 30%);
+$odd-colour: hsl(210, 68%, 92%);
+
 * {
   box-sizing: border-box;
 }
@@ -31,7 +31,7 @@ body {
 h1 {
   color: $header-colour;
   font-size: 1.7rem;
-    letter-spacing: 1px;
+  letter-spacing: 1px;
   text-align: center;
 }
 
@@ -105,9 +105,9 @@ h1 {
 
   th,
   td {
-    padding: 0.38rem 0.25rem;
+    padding: 0.38em 0.25em;
   }
-  
+
   th {
     background: darken($odd-colour, 5);
     border: 2px solid $input-bg;
@@ -117,12 +117,12 @@ h1 {
       font-size: 90%;
     }
   }
-  
+
   td {
     border: 1px solid $input-bg;
     text-align: right;
-    padding-right: 0.6rem;
-  
+    padding-right: 0.6em;
+
     &.luminance {
       border-left: 2px solid $input-bg;
       border-right: 2px solid $input-bg;
@@ -175,7 +175,7 @@ h1 {
   font-size: 1rem;
   padding: 1rem 1.5rem;;
 
-  h1 { 
+  h1 {
     margin: 0;
   }
 }
@@ -198,8 +198,8 @@ h1 {
   }
 
   div {
-    padding: 0.4rem 0;
-    padding-left: 2.5rem;
+    padding: 0.4em 0;
+    padding-left: 2.5em;
   }
 
   button {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 
 import {
@@ -8,7 +8,7 @@ import {
   HSLtoRGB,
 } from '../conversions';
 
-const LS_PALETTE_KEY = 'pv31';
+const LS_PALETTE_KEY = 'pv33';
 const DEFAULT_RGBS = ['#336699', '#669933', '#996633', '#663399', '#339966'];
 const DEFAULT_SELECT = { bg: '#000000', fg: '#ffffff' };
 
@@ -19,9 +19,9 @@ const HSLsFromRGBs = rgbs =>
     return hsls;
   }, []);
 
-export const ColourContext = React.createContext();
+const ColourContext = React.createContext();
 
-export const Provider = ({ children }) => {
+export const ColourProvider = ({ children }) => {
   const [rgbs, setRGBs] = useState(DEFAULT_RGBS);
 
   const [hsls, setHSLs] = useState(HSLsFromRGBs(rgbs));
@@ -81,6 +81,15 @@ export const Provider = ({ children }) => {
   );
 };
 
-Provider.propTypes = {
+ColourProvider.propTypes = {
   children: PropTypes.element,
+};
+
+export const useColours = () => {
+  const context = useContext(ColourContext);
+
+  if (context === undefined)
+    throw new Error('useColours() must be used within a ColourProvider block');
+
+  return context;
 };

@@ -1,12 +1,12 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
-import { ColourContext } from '../context';
+import { useColours } from '../context';
 import ColourBlock from './ColourBlock';
 
 const HEADERS = ['First', 'Second', 'Third', 'Fourth', 'Fifth', 'Black', 'White'];
 
 const ColourBlocks = () => {
-  const { rgbs, selectColour } = useContext(ColourContext);
+  const { rgbs, selectColour } = useColours();
 
   const renderBlocks = () => {
     const colours = [...rgbs, '#000000', '#ffffff'];

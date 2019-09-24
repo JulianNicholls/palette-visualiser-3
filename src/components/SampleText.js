@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
-import { ColourContext } from '../context';
+import { useColours } from '../context';
 
 const SampleText = () => {
-  const context = useContext(ColourContext);
+  const context = useColours();
 
   return (
     <section

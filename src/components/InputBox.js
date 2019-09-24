@@ -1,6 +1,6 @@
-import React, { Fragment, useContext } from 'react';
+import React, { Fragment } from 'react';
 
-import { ColourContext } from '../context';
+import { useColours } from '../context';
 
 import RGBInput from './RGBInput';
 import HSLInput from './HSLInput';
@@ -8,7 +8,7 @@ import HSLInput from './HSLInput';
 const LABELS = ['First', 'Second', 'Third', 'Fourth', 'Fifth'];
 
 const InputBox = () => {
-  const { rgbs, hsls, changeRGB, changeHSL } = useContext(ColourContext);
+  const { rgbs, hsls, changeRGB, changeHSL } = useColours();
 
   const renderSet = (index, label) => {
     return (
