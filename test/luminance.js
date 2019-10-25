@@ -33,7 +33,7 @@ function contrastRatio(rgbA, rgbB) {
  * (here: http://entropymine.com/imageworsener/srgbformula/)
  * that the cutoff point 0.03928, used with 12.92, is probably
  * wrong, so I am going to use 0.04045 from now on.
- * 
+ *
  * @param   {Object}    Colour
  *
  * @return  {Number}    The luminance
@@ -59,7 +59,7 @@ function sRGBLuminance(colour) {
 function W3CLuminance(colour) {
   const { r, g, b } = colour;
 
-  return (299 * r + 587 * g + 114 * b) / 1000;
+  return (299 * r + 587 * g + 114 * b) / 255000;
 }
 
 /**
@@ -90,5 +90,5 @@ module.exports = {
   contrastRatio,
   sRGBLuminance,
   W3CLuminance,
-  ColourDifference
+  ColourDifference,
 };
