@@ -1,5 +1,5 @@
-const AAAThreshold = 7;   // 7:1 for AAA Text
-const AAThreshold = 4.5;  // 4.5:1 for AA Text
+const AAAThreshold = 7; // 7:1 for AAA Text
+const AAThreshold = 4.5; // 4.5:1 for AA Text
 const largeThreshold = 3; // 3:1 for large text
 
 /**
@@ -17,11 +17,9 @@ function rgbStrToObject(colour) {
     rgbArray[i] = parseInt(rgbArray[i + 1], 16);
   }
 
-  return {
-    r: rgbArray[0],
-    g: rgbArray[1],
-    b: rgbArray[2],
-  };
+  const [r, g, b] = rgbArray;
+
+  return { r, g, b };
 }
 
 /**
