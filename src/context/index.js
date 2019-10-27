@@ -23,7 +23,6 @@ const ColourContext = React.createContext();
 
 export const ColourProvider = ({ children }) => {
   const [rgbs, setRGBs] = useState(DEFAULT_RGBS);
-
   const [hsls, setHSLs] = useState(HSLsFromRGBs(rgbs));
   const [selected, setSelected] = useState(DEFAULT_SELECT);
 

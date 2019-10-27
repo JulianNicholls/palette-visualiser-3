@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 
 import ColourListLine from './ColourListLine';
 
-import HTMLColours from '../HTMLColours';
-import XKCDColours from '../XKCDColours';
+import HTMLColours from '../colours/HTMLColours';
+import XKCDColours from '../colours/XKCDColours';
 
 import { rgbStrToObject, sRGBLuminance } from '../conversions';
 

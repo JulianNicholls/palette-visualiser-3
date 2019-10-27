@@ -16,14 +16,18 @@ const ColourListLine = ({ name, value, luminance }) => {
 
   // Display black and white on the colour, if the ratio is good then use
   // black or white, otherwise use a mid-grey, biased toward the opposite
-  const blackColour = blackRatio > AAThreshold ? 'black' : '#b0b0b0';
+  const blackColour = blackRatio > AAThreshold ? 'black' : '#a0a0a0';
   const whiteColour = whiteRatio > AAThreshold ? 'white' : '#505050';
 
   const baseStyle = { background: value, color: nameColour };
 
   return [
-    <div key={name} style={baseStyle}>{name}</div>,
-    <div key={value} style={baseStyle}>{value}</div>,
+    <div key={name} style={baseStyle}>
+      {name}
+    </div>,
+    <div key={value} style={baseStyle}>
+      {value}
+    </div>,
     <div key={`${name}-luminance`} style={baseStyle}>
       {luminance.toFixed(3)}
     </div>,
