@@ -12,7 +12,7 @@ module.exports = (env, argv) => {
     module: {
       rules: [
         {
-          test: /\.js$/,
+          test: /\.[jt]sx?$/,
           exclude: /node_modules/,
           use: { loader: 'babel-loader' },
         },
@@ -33,6 +33,9 @@ module.exports = (env, argv) => {
           }),
         },
       ],
+    },
+    resolve: {
+      extensions: ['.js', '.jsx', '.ts', '.tsx'],
     },
     plugins: [
       new HtmlWebPackPlugin({
