@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useColours } from '../context';
 
-const SampleText = () => {
+const SampleText = (): JSX.Element => {
   const context = useColours();
 
   return (

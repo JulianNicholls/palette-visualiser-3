@@ -5,7 +5,7 @@ import ColourInfoLine from './ColourInfoLine';
 import { useColours } from '../context';
 import { rgbStrToObject, sRGBLuminance, RGBtoHSV } from '../conversions';
 
-const ColourInfo = () => {
+const ColourInfo = (): JSX.Element => {
   const { rgbs } = useColours();
 
   const lines = () => {
