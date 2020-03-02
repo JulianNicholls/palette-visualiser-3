@@ -1,6 +1,6 @@
-const AAAThreshold = 7; // 7:1 for AAA Text
-const AAThreshold = 4.5; // 4.5:1 for AA Text
-const largeThreshold = 3; // 3:1 for large text
+const AAAThreshold: number = 7; // 7:1 for AAA Text
+const AAThreshold: number = 4.5; // 4.5:1 for AA Text
+const largeThreshold: number = 3; // 3:1 for large text
 
 /**
  * Convert a string representation of a colour in RGB to an array of three
@@ -10,14 +10,15 @@ const largeThreshold = 3; // 3:1 for large text
  *
  * @return  {Object}    The RGB representation [0..255, 0..255, 0..255]
  */
-function rgbStrToObject(colour) {
+function rgbStrToObject(colour: string): RGB {
   const rgbArray = colour.match(/#?(..)(..)(..)/);
+  const values: number[] = [];
 
   for (let i = 0; i < 3; ++i) {
-    rgbArray[i] = parseInt(rgbArray[i + 1], 16);
+    values[i] = parseInt(rgbArray[i + 1], 16);
   }
 
-  const [r, g, b] = rgbArray;
+  const [r, g, b] = values;
 
   return { r, g, b };
 }
@@ -29,8 +30,8 @@ function rgbStrToObject(colour) {
  *
  * @return   {string}    colour
  */
-function rgbObjectToStr(colour) {
-  const toHexStr = dec => {
+function rgbObjectToStr(colour: RGB): string {
+  const toHexStr = (dec: number): string => {
     const str = dec.toString(16).toLowerCase();
 
     return dec < 16 ? '0' + str : str;
@@ -47,7 +48,7 @@ function rgbObjectToStr(colour) {
  *
  * @return  {Number}    Contrast ratio between them
  */
-function contrastRatio(rgbA, rgbB) {
+function contrastRatio(rgbA: RGB, rgbB: RGB) {
   const a = sRGBLuminance(rgbA) + 0.05;
   const b = sRGBLuminance(rgbB) + 0.05;
 
@@ -80,7 +81,7 @@ function contrastRatio(rgbA, rgbB) {
  *
  * @return  {Number}    The luminance
  */
-function sRGBLuminance(colour) {
+function sRGBLuminance(colour: RGB): number {
   const mapColour = value =>
     value <= 0.04045 ? value / 12.92 : Math.pow((value + 0.055) / 1.055, 2.4);
 
@@ -99,7 +100,7 @@ function sRGBLuminance(colour) {
  *
  * @return  {Object}    The HSV representation  [0..360, 0..100%, 0..100%]
  */
-function RGBtoHSV(colour) {
+function RGBtoHSV(colour: RGB): HSV {
   const r = colour.r / 255,
     g = colour.g / 255,
     b = colour.b / 255;
@@ -134,7 +135,7 @@ function RGBtoHSV(colour) {
  *
  * @return  {Object}    The HSL representation  [0..360, 0..100%, 0..100%]
  */
-function RGBtoHSL(colour) {
+function RGBtoHSL(colour: RGB): HSL {
   const r = colour.r / 255,
     g = colour.g / 255,
     b = colour.b / 255;
@@ -172,7 +173,7 @@ function RGBtoHSL(colour) {
  *
  * @return  {Array}     The RGB representation [0..255, 0..255, 0..255]
  */
-function HSLtoRGB(colour) {
+function HSLtoRGB(colour: HSL): RGB {
   const { h } = colour,
     s = colour.s / 100, // % -> 0..1
     l = colour.l / 100;

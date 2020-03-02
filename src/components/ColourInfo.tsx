@@ -9,24 +9,26 @@ const ColourInfo = () => {
   const { rgbs } = useColours();
 
   const lines = () => {
-    return rgbs.map(rgbStr => {
-      const rgb = rgbStrToObject(rgbStr);
+    return rgbs.map(
+      (rgbStr: string): ColourInfoData => {
+        const rgb = rgbStrToObject(rgbStr);
 
-      return {
-        rgbs: rgb,
-        luminance: sRGBLuminance(rgb).toFixed(3),
-        hsvs: RGBtoHSV(rgb),
-      };
-    });
+        return {
+          rgbs: rgb,
+          luminance: sRGBLuminance(rgb).toFixed(3),
+          hsvs: RGBtoHSV(rgb),
+        };
+      }
+    );
   };
 
   return (
     <table id="info-table">
       <thead>
         <tr>
-          <th colSpan="3">RGB</th>
+          <th colSpan={3}>RGB</th>
           <th className="luminance">sRGB Lum</th>
-          <th colSpan="3">HSV</th>
+          <th colSpan={3}>HSV</th>
         </tr>
       </thead>
       <tbody>
