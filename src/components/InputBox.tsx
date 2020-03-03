@@ -7,10 +7,10 @@ import HSLInput from './HSLInput';
 
 const LABELS = ['First', 'Second', 'Third', 'Fourth', 'Fifth'];
 
-const InputBox = () => {
+const InputBox = (): JSX.Element => {
   const { rgbs, hsls, changeRGB, changeHSL } = useColours();
 
-  const renderSet = (index, label) => {
+  const renderSet = (index: number, label: string): JSX.Element => {
     return (
       <Fragment key={index}>
         <label htmlFor={`rgb-${index}`}>{label}</label>
@@ -18,18 +18,24 @@ const InputBox = () => {
           key={rgbs[index]}
           index={index}
           rgb={rgbs[index]}
-          handleChangeRGB={(index, value) => changeRGB(index, value)}
+          handleChangeRGB={(index: number, value: string) =>
+            changeRGB(index, value)
+          }
         />
         <input
           type="color"
           className="swatch"
           value={rgbs[index]}
-          onChange={event => changeRGB(index, event.target.value)}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+            changeRGB(index, event.target.value)
+          }
         />
         <HSLInput
           index={index}
           colour={hsls[index]}
-          handleChangeHSL={(index, value) => changeHSL(index, value)}
+          handleChangeHSL={(index: number, value: string) =>
+            changeHSL(index, value)
+          }
         />
       </Fragment>
     );

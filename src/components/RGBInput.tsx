@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 
 // This component has an interesting lifecycle:
 // * it is initialized with an RGB value like #67aa7b, which can then be edited
@@ -10,11 +9,17 @@ import PropTypes from 'prop-types';
 //   that will now cause a re-rendering of this component, negating the need for
 //   getDerivedStateFromProps()
 
-const RGBInput = ({ rgb, index, handleChangeRGB }) => {
-  const [value, setValue] = useState(rgb);
+interface RGBInputProps {
+  rgb: string;
+  index: number;
+  handleChangeRGB: (index: number, value: string) => void;
+}
 
-  const handleChange = e => {
-    let inputValue = e.target.value.toLowerCase();
+const RGBInput = ({ rgb, index, handleChangeRGB }: RGBInputProps): JSX.Element => {
+  const [value, setValue] = useState<string>(rgb);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    let inputValue: string = e.target.value.toLowerCase();
 
     if (inputValue[0] !== '#') inputValue = `#${inputValue}`;
 
@@ -34,12 +39,6 @@ const RGBInput = ({ rgb, index, handleChangeRGB }) => {
       onChange={handleChange}
     />
   );
-};
-
-RGBInput.propTypes = {
-  index: PropTypes.number.isRequired,
-  rgb: PropTypes.string.isRequired,
-  handleChangeRGB: PropTypes.func.isRequired,
 };
 
 export default RGBInput;
