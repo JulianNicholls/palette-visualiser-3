@@ -10,6 +10,7 @@ interface CLLProps {
   name: string;
   value: string;
   luminance: number;
+  key?: string;
 }
 
 const ColourListLine = ({ name, value, luminance }: CLLProps): JSX.Element => {

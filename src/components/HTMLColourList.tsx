@@ -7,13 +7,20 @@ import XKCDColours from '../colours/XKCDColours';
 
 import { rgbStrToObject, sRGBLuminance } from '../conversions';
 
-const HTMLColourList = () => {
-  const [selected, setSelected] = useState('html');
-  const [colourList, setColourList] = useState([]);
-  const [sortOrder, setSortOrder] = useState('name');
+interface NamedColour {
+  name: string;
+  value: string;
+  luminance?: number;
+}
 
-  const loadColours = (newSelected = selected) => {
-    const colours = newSelected === 'xkcd' ? [...XKCDColours] : [...HTMLColours];
+const HTMLColourList = (): JSX.Element => {
+  const [selected, setSelected] = useState<string>('html');
+  const [colourList, setColourList] = useState<Array<NamedColour>>([]);
+  const [sortOrder, setSortOrder] = useState<string>('name');
+
+  const loadColours = (newSelected = selected): void => {
+    const colours: Array<NamedColour> =
+      newSelected === 'xkcd' ? [...XKCDColours] : [...HTMLColours];
 
     colours.forEach(colour => {
       colour.luminance = sRGBLuminance(rgbStrToObject(colour.value));
@@ -24,8 +31,8 @@ const HTMLColourList = () => {
 
   useEffect(loadColours, []);
 
-  const swapColours = () => {
-    const newSelected = selected === 'xkcd' ? 'html' : 'xkcd';
+  const swapColours = (): void => {
+    const newSelected: string = selected === 'xkcd' ? 'html' : 'xkcd';
 
     loadColours(newSelected);
 
@@ -33,28 +40,46 @@ const HTMLColourList = () => {
     setSortOrder('name');
   };
 
-  const sortByName = () => {
+  const sortByName = (): void => {
     if (sortOrder === 'name')
-      return sort((a, b) => (a.name > b.name ? -1 : 1), 'namer');
+      return sort(
+        (a: NamedColour, b: NamedColour) => (a.name > b.name ? -1 : 1),
+        'namer'
+      );
 
-    sort((a, b) => (a.name < b.name ? -1 : 1), 'name');
+    sort((a: NamedColour, b: NamedColour) => (a.name < b.name ? -1 : 1), 'name');
   };
 
-  const sortByRGB = () => {
+  const sortByRGB = (): void => {
     if (sortOrder === 'value')
-      return sort((a, b) => (a.value > b.value ? -1 : 1), 'valuer');
+      return sort(
+        (a: NamedColour, b: NamedColour) => (a.value > b.value ? -1 : 1),
+        'valuer'
+      );
 
-    sort((a, b) => (a.value < b.value ? -1 : 1), 'value');
+    sort(
+      (a: NamedColour, b: NamedColour) => (a.value < b.value ? -1 : 1),
+      'value'
+    );
   };
 
-  const sortByLuminance = () => {
+  const sortByLuminance = (): void => {
     if (sortOrder === 'luminancer')
-      return sort((a, b) => (a.luminance < b.luminance ? -1 : 1), 'luminance');
+      return sort(
+        (a: NamedColour, b: NamedColour) => (a.luminance < b.luminance ? -1 : 1),
+        'luminance'
+      );
 
-    sort((a, b) => (a.luminance > b.luminance ? -1 : 1), 'luminancer');
+    sort(
+      (a: NamedColour, b: NamedColour) => (a.luminance > b.luminance ? -1 : 1),
+      'luminancer'
+    );
   };
 
-  const sort = (compare, order) => {
+  const sort = (
+    compare: (a: NamedColour, b: NamedColour) => number,
+    order: string
+  ): void => {
     const colours = [...colourList].sort(compare);
 
     setColourList(colours);
@@ -85,7 +110,7 @@ const HTMLColourList = () => {
       <div>Black Contrast Ratio</div>
       <div>White Contrast Ratio</div>
 
-      {colourList.map(({ name, value, luminance }) => (
+      {colourList.map(({ name, value, luminance }: NamedColour) => (
         <ColourListLine
           key={`${name}-${value}-line`}
           name={name}
