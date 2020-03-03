@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import {
   AAAThreshold,
@@ -11,12 +10,22 @@ import {
 
 const AA_LargeNormal = 'AA Large/Normal';
 
-const ColourBlock = ({ bgStr, fgStr, selectColour }) => {
-  const ratio = (bg, fg) => {
+interface ColourBlockProps {
+  bgStr: string;
+  fgStr: string;
+  selectColour: (bg: string, fg: string) => void;
+}
+
+const ColourBlock = ({
+  bgStr,
+  fgStr,
+  selectColour,
+}: ColourBlockProps): JSX.Element => {
+  const ratio = (bg: string, fg: string): number => {
     const bga = rgbStrToObject(bg);
     const fga = rgbStrToObject(fg);
 
-    return contrastRatio(bga, fga).toFixed(2);
+    return contrastRatio(bga, fga);
   };
 
   const cr = ratio(bgStr, fgStr);
@@ -24,7 +33,7 @@ const ColourBlock = ({ bgStr, fgStr, selectColour }) => {
   let fgCol = fgStr;
   let AAAText = '';
   let AAText = '';
-  let title;
+  let title: string;
 
   if (fgStr === bgStr) {
     bgCol = '#333'; // Dark Grey and invisible
@@ -58,7 +67,7 @@ const ColourBlock = ({ bgStr, fgStr, selectColour }) => {
         <br />
         {fgStr}
         <br />
-        {cr}:1
+        {cr.toFixed(2)}:1
         <br />
         <span className="access">&nbsp;{AAAText}</span>
         <br />
@@ -66,12 +75,6 @@ const ColourBlock = ({ bgStr, fgStr, selectColour }) => {
       </p>
     </div>
   );
-};
-
-ColourBlock.propTypes = {
-  bgStr: PropTypes.string.isRequired,
-  fgStr: PropTypes.string.isRequired,
-  selectColour: PropTypes.func.isRequired,
 };
 
 export default ColourBlock;

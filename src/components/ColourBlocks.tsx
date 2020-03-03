@@ -5,21 +5,21 @@ import ColourBlock from './ColourBlock';
 
 const HEADERS = ['First', 'Second', 'Third', 'Fourth', 'Fifth', 'Black', 'White'];
 
-const ColourBlocks = () => {
+const ColourBlocks = (): JSX.Element => {
   const { rgbs, selectColour } = useColours();
 
-  const renderBlocks = () => {
+  const renderBlocks = (): Array<JSX.Element> => {
     const colours = [...rgbs, '#000000', '#ffffff'];
-    const blocks = [];
+    const blocks: Array<JSX.Element> = [];
 
-    colours.forEach((bgStr, bg) => {
+    colours.forEach((bgStr: string, bg: number) => {
       blocks.push(
         <span className="line" key={bg}>
           {HEADERS[bg]}
         </span>
       );
 
-      colours.forEach((fgStr, fg) => {
+      colours.forEach((fgStr: string, fg: number) => {
         blocks.push(
           <ColourBlock
             bgStr={bgStr}
