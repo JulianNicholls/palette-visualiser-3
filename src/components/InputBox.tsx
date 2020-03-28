@@ -33,9 +33,7 @@ const InputBox = (): JSX.Element => {
         <HSLInput
           index={index}
           colour={hsls[index]}
-          handleChangeHSL={(index: number, value: string) =>
-            changeHSL(index, value)
-          }
+          handleChangeHSL={(index: number, value: HSL) => changeHSL(index, value)}
         />
       </Fragment>
     );

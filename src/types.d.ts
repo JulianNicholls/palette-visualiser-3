@@ -21,3 +21,8 @@ interface ColourInfoData {
   luminance: string;
   hsvs: HSV;
 }
+
+interface SelectedColour {
+  bg: string;
+  fg: string;
+}
