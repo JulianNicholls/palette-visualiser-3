@@ -6,12 +6,20 @@ interface HSLInputProps {
   handleChangeHSL: (index: number, value: string) => void;
 }
 
+const limits = {
+  h: { max: 359 },
+  s: { max: 100 },
+  l: { max: 100 },
+};
+
 const HSLInput = ({ colour, index, handleChangeHSL }): JSX.Element => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    const { name, value } = event.target;
+    let { name, value } = event.target;
+
+    if (value > limits[name].max) value = limits[name].max;
+    else if (value < 0) value = 0;
 
     colour[name] = Number(value);
-
     handleChangeHSL(index, colour);
   };
 
