@@ -30,9 +30,11 @@ written with React and Webpack 4.
 * 04/2019: Add explicit AAA and AA text to colour blocks. Re-factoring and some
            bug fixes.
 
+* 03/2020: Convert to Typescript
+
 ## Git client
 
-I have used Git at the command-line for 10 years. Over that time, I have tried
+I have used Git at the command-line for more than 10 years. Over that time, I have tried
 many different graphical shells for Git, without finding one that was easier
 and nicer to use than the command-line (in my view).
 
