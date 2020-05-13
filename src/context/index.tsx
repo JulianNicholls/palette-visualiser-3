@@ -28,7 +28,7 @@ interface ColourState {
   selectColour: (bg: string, fg: string) => void;
 }
 
-const ColourContext = React.createContext<ColourState>();
+const ColourContext = React.createContext<ColourState>({} as ColourState);
 
 interface ColourProviderProps {
   children: JSX.Element;
