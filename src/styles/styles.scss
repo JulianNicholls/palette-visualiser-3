@@ -202,15 +202,19 @@ h1 {
     padding-left: 2.5em;
   }
 
-  button {
+  .html-colour-list__header {
     background: none;
     border: none;
     color: white;
     outline: none;
 
     &:hover {
-      color:aquamarine;
-      outline: 1px solid aquamarine;
+      color:aqua;
+      outline: 1px solid aqua;
+    }
+
+    span {
+      font-size: 1.4em;
     }
   }
 }
