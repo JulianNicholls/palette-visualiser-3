@@ -213,8 +213,12 @@ h1 {
       outline: 1px solid aqua;
     }
 
-    span {
-      font-size: 1.4em;
-    }
+    // span {
+    //   font-size: 1.4em;
+    // }
+  }
+
+  .html-colour-list__colour-name {
+    cursor: pointer;
   }
 }

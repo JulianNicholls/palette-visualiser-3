@@ -6,14 +6,16 @@ import HTMLColours from '../colours/HTMLColours';
 import XKCDColours from '../colours/XKCDColours';
 
 import { rgbStrToObject, sRGBLuminance } from '../conversions';
+import { useColours } from '../context';
 
-interface NamedColour {
+type NamedColour = {
   name: string;
   value: string;
   luminance?: number;
-}
+};
 
 const HTMLColourList = (): JSX.Element => {
+  const { changeRGB } = useColours();
   const [selected, setSelected] = useState<string>('html');
   const [colourList, setColourList] = useState<Array<NamedColour>>([]);
   const [sortOrder, setSortOrder] = useState<string>('name');
@@ -22,7 +24,7 @@ const HTMLColourList = (): JSX.Element => {
     const colours: Array<NamedColour> =
       newSelected === 'xkcd' ? [...XKCDColours] : [...HTMLColours];
 
-    colours.forEach(colour => {
+    colours.forEach((colour) => {
       colour.luminance = sRGBLuminance(rgbStrToObject(colour.value));
     });
 
@@ -43,11 +45,11 @@ const HTMLColourList = (): JSX.Element => {
   const sortByName = (): void => {
     if (sortOrder === 'name')
       return sort(
-        (a: NamedColour, b: NamedColour) => (a.name > b.name ? -1 : 1),
+        (a: NamedColour, b: NamedColour) => b.name.localeCompare(a.name),
         'namer'
       );
 
-    sort((a: NamedColour, b: NamedColour) => (a.name < b.name ? -1 : 1), 'name');
+    sort((a: NamedColour, b: NamedColour) => a.name.localeCompare(b.name), 'name');
   };
 
   const sortByRGB = (): void => {
@@ -86,6 +88,10 @@ const HTMLColourList = (): JSX.Element => {
     setSortOrder(order);
   };
 
+  const insertColour = (colour: string): void => {
+    changeRGB(4, colour);
+  };
+
   return (
     <section className="html-colour-list">
       <span className="html-colour-list__title">
@@ -95,17 +101,17 @@ const HTMLColourList = (): JSX.Element => {
         Swap to {selected === 'xkcd' ? 'HTML' : 'XKCD'}
       </button>
 
-      <button onClick={sortByName}>
-        Colour Name {sortOrder === 'name' && '⬆️'}
-        {sortOrder === 'namer' && '⬇️'}
+      <button className="html-colour-list__header" onClick={sortByName}>
+        Colour Name {sortOrder === 'name' && '🔼'}
+        {sortOrder === 'namer' && '🔽'}
       </button>
-      <button onClick={sortByRGB}>
-        RGB {sortOrder === 'value' && '⬆️'}
-        {sortOrder === 'valuer' && '⬇️'}
+      <button className="html-colour-list__header" onClick={sortByRGB}>
+        RGB {sortOrder === 'value' && '🔼'}
+        {sortOrder === 'valuer' && '🔽'}
       </button>
-      <button onClick={sortByLuminance}>
-        Luminance {sortOrder === 'luminance' && '⬆️'}
-        {sortOrder === 'luminancer' && '⬇️'}
+      <button className="html-colour-list__header" onClick={sortByLuminance}>
+        Luminance {sortOrder === 'luminance' && '🔼'}
+        {sortOrder === 'luminancer' && '🔽'}
       </button>
       <div>Black Contrast Ratio</div>
       <div>White Contrast Ratio</div>
@@ -116,6 +122,7 @@ const HTMLColourList = (): JSX.Element => {
           name={name}
           value={value}
           luminance={luminance}
+          click={insertColour}
         />
       ))}
     </section>

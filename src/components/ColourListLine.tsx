@@ -10,10 +10,15 @@ interface CLLProps {
   name: string;
   value: string;
   luminance: number;
-  key?: string;
+  click: (colour: string) => void;
 }
 
-const ColourListLine = ({ name, value, luminance }: CLLProps): JSX.Element => {
+const ColourListLine = ({
+  name,
+  value,
+  luminance,
+  click,
+}: CLLProps): JSX.Element => {
   const blackRatio: number = (luminance + 0.05) / BLACK;
   const whiteRatio: number = WHITE / (luminance + 0.05);
 
@@ -27,9 +32,18 @@ const ColourListLine = ({ name, value, luminance }: CLLProps): JSX.Element => {
 
   const baseStyle = { background: value, color: nameColour };
 
+  const insertColour = (colour: string): void => {
+    click(colour);
+  };
+
   return (
     <>
-      <div key={name} style={baseStyle}>
+      <div
+        key={name}
+        className="html-colour-list__colour-name"
+        style={baseStyle}
+        onClick={() => insertColour(value)}
+      >
         {name}
       </div>
       <div key={value} style={baseStyle}>

@@ -13,9 +13,7 @@ const DEFAULT_SELECT: SelectedColour = { bg: '#000000', fg: '#ffffff' };
 
 const HSLsFromRGBs = (rgbs: Array<string>): Array<HSL> =>
   rgbs.reduce((hsls, rgb) => {
-    hsls.push(RGBtoHSL(rgbStrToObject(rgb)));
-
-    return hsls;
+    return hsls.concat(RGBtoHSL(rgbStrToObject(rgb)));
   }, []);
 
 interface ColourState {

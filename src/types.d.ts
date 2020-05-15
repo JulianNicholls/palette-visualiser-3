@@ -1,28 +1,28 @@
-interface RGB {
+type RGB = {
   r: number;
   g: number;
   b: number;
-}
+};
 
-interface HSL {
+type HSL = {
   h: number;
   s: number;
   l: number;
-}
+};
 
-interface HSV {
+type HSV = {
   h: number;
   s: number;
   v: number;
-}
+};
 
-interface ColourInfoData {
+type ColourInfoData = {
   rgbs: RGB;
   luminance: string;
   hsvs: HSV;
-}
+};
 
-interface SelectedColour {
+type SelectedColour = {
   bg: string;
   fg: string;
-}
+};
