@@ -22,9 +22,9 @@ body {
 }
 
 #top-section {
-  display: grid;
-  grid-gap: 20px;
-  grid-template-columns: 1fr 1fr;
+  // display: grid;
+  // grid-gap: 20px;
+  // grid-template-columns: 1fr 1fr;
   margin: 1rem 0;
 }
 
@@ -40,7 +40,7 @@ h1 {
   border: 1px solid $input-bg;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
   display: grid;
-  grid-template-columns: 3fr 6fr 1fr 10fr;
+  grid-template-columns: 3fr 6fr 1fr 10fr 10fr 4fr 10fr;
   justify-items: center;
   padding: 0.5rem;
 
@@ -77,10 +77,6 @@ h1 {
     text-transform: lowercase;
   }
 
-  .hsl-input {
-    width: 4rem;
-  }
-
   .swatch {
     align-self: center;
     background: none;
@@ -91,44 +87,67 @@ h1 {
     padding: 0;
     width: 2.5rem;
   }
-}
 
-#info-table {
-  background: $section-bg;
-  border: 2px solid #000;
-  border-collapse: collapse;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
-
-  tr.odd {
-    background: $odd-colour
+  .hsl-input {
+    width: 4rem;
   }
 
-  th,
-  td {
-    padding: 0.38em 0.25em;
-  }
-
-  th {
-    background: darken($odd-colour, 5);
-    border: 2px solid $input-bg;
-    color: $header-colour;
-
-    &.luminance {
-      font-size: 90%;
-    }
-  }
-
-  td {
-    border: 1px solid $input-bg;
+  span.info {
+    padding: 0.2rem 0.45rem;
+    background: #ddd;
+    border: 1px solid grey;
+    display: inline-block;
     text-align: right;
-    padding-right: 0.6em;
+  }
 
-    &.luminance {
-      border-left: 2px solid $input-bg;
-      border-right: 2px solid $input-bg;
+  .three-field {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    span.info {
+      width: 30%;
     }
   }
 }
+
+// #info-table {
+//   background: $section-bg;
+//   border: 2px solid #000;
+//   border-collapse: collapse;
+//   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+
+//   tr.odd {
+//     background: $odd-colour
+//   }
+
+//   th,
+//   td {
+//     padding: 0.38em 0.25em;
+//   }
+
+//   th {
+//     background: darken($odd-colour, 5);
+//     border: 2px solid $input-bg;
+//     color: $header-colour;
+
+//     &.luminance {
+//       font-size: 90%;
+//     }
+//   }
+
+//   td {
+//     border: 1px solid $input-bg;
+//     text-align: right;
+//     padding-right: 0.6em;
+
+//     &.luminance {
+//       border-left: 2px solid $input-bg;
+//       border-right: 2px solid $input-bg;
+//     }
+//   }
+// }
 
 #colour-blocks {
   align-items: center;
@@ -212,10 +231,6 @@ h1 {
       color:aqua;
       outline: 1px solid aqua;
     }
-
-    // span {
-    //   font-size: 1.4em;
-    // }
   }
 
   .html-colour-list__colour-name {

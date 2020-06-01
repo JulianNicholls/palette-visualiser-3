@@ -12,7 +12,7 @@ const App = () => (
     <div className="container">
       <section id="top-section">
         <InputBox />
-        <ColourInfo />
+        {/* <ColourInfo /> */}
       </section>
       <ColourBlocks />
       <SampleText />
