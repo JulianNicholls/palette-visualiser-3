@@ -9,7 +9,7 @@ import HSLInput from './HSLInput';
 const LABELS = ['First', 'Second', 'Third', 'Fourth', 'Fifth'];
 
 const InputBox = (): JSX.Element => {
-  const { rgbs, hsls, changeRGB, changeHSL } = useColours();
+  const { rgbs, hsls, changeRGB, changeHSL, addColour } = useColours();
 
   const renderSet = (index: number, label: string): JSX.Element => {
     const rgb = rgbStrToObject(rgbs[index]);
@@ -17,6 +17,7 @@ const InputBox = (): JSX.Element => {
 
     return (
       <Fragment key={index}>
+        <span />
         <label htmlFor={`rgb-${index}`}>{label}</label>
         <RGBInput
           key={rgbs[index]}
@@ -56,6 +57,7 @@ const InputBox = (): JSX.Element => {
 
   return (
     <section id="input-box">
+      <span />
       <span className="first">Colour</span>
       <span>RGB</span>
       <span>Picker</span>
@@ -65,6 +67,9 @@ const InputBox = (): JSX.Element => {
       <span>HSV</span>
 
       {LABELS.map((label, idx) => renderSet(idx, label))}
+      <button className="action" onClick={addColour}>
+        +
+      </button>
     </section>
   );
 };

@@ -12,7 +12,7 @@ const DEFAULT_RGBS = ['#336699', '#669933', '#996633', '#663399', '#339966'];
 const DEFAULT_SELECT: SelectedColour = { bg: '#000000', fg: '#ffffff' };
 
 const HSLsFromRGBs = (rgbs: Array<string>): Array<HSL> =>
-  rgbs.reduce((hsls, rgb) => {
+  rgbs.reduce((hsls: Array<HSL>, rgb) => {
     return hsls.concat(RGBtoHSL(rgbStrToObject(rgb)));
   }, []);
 
@@ -24,6 +24,7 @@ interface ColourState {
   changeRGB: (index: number, value: string) => void;
   changeHSL: (index: number, value: HSL) => void;
   selectColour: (bg: string, fg: string) => void;
+  addColour: () => void;
 }
 
 const ColourContext = React.createContext<ColourState>({} as ColourState);
@@ -60,6 +61,14 @@ export const ColourProvider = ({ children }: ColourProviderProps): JSX.Element =
     localStorage.setItem(LS_PALETTE_KEY, JSON.stringify(newRGBs));
   };
 
+  const addColour = () => {
+    const rgbsUpdated = [...rgbs, '#000000'];
+    const hslsUpdated = [...hsls, { h: 0, s: 0, l: 0 }];
+
+    setRGBs(rgbsUpdated);
+    setHSLs(hslsUpdated);
+  };
+
   const changeHSL = (index: number, value: HSL): void => {
     const rgb = HSLtoRGB(value);
 
@@ -85,6 +94,7 @@ export const ColourProvider = ({ children }: ColourProviderProps): JSX.Element =
     changeRGB,
     changeHSL,
     selectColour,
+    addColour,
   };
 
   return <ColourContext.Provider value={state}>{children}</ColourContext.Provider>;
