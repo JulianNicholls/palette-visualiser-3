@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 
+import useLocalStorage from '../hooks/useLocalStorage';
+
 import {
   rgbStrToObject,
   rgbObjectToStr,
@@ -12,7 +14,7 @@ const DEFAULT_RGBS = ['#336699', '#669933', '#996633', '#663399', '#339966'];
 const DEFAULT_SELECT: SelectedColour = { bg: '#000000', fg: '#ffffff' };
 
 const HSLsFromRGBs = (rgbs: Array<string>): Array<HSL> =>
-  rgbs.reduce((hsls, rgb) => {
+  rgbs.reduce((hsls: Array<HSL>, rgb: string) => {
     return hsls.concat(RGBtoHSL(rgbStrToObject(rgb)));
   }, []);
 
@@ -24,6 +26,7 @@ interface ColourState {
   changeRGB: (index: number, value: string) => void;
   changeHSL: (index: number, value: HSL) => void;
   selectColour: (bg: string, fg: string) => void;
+  addColour: () => void;
 }
 
 const ColourContext = React.createContext<ColourState>({} as ColourState);
@@ -33,22 +36,9 @@ interface ColourProviderProps {
 }
 
 export const ColourProvider = ({ children }: ColourProviderProps): JSX.Element => {
-  const [rgbs, setRGBs] = useState<Array<string>>(DEFAULT_RGBS);
+  const [rgbs, setRGBs] = useLocalStorage(LS_PALETTE_KEY, DEFAULT_RGBS);
   const [hsls, setHSLs] = useState<Array<HSL>>(HSLsFromRGBs(rgbs));
   const [selected, setSelected] = useState<SelectedColour>(DEFAULT_SELECT);
-
-  const initialLoad = (): void => {
-    const saveData = localStorage.getItem(LS_PALETTE_KEY);
-
-    if (saveData) {
-      const loadedRGBs = JSON.parse(saveData);
-
-      setRGBs(loadedRGBs);
-      setHSLs(HSLsFromRGBs(loadedRGBs));
-    }
-  };
-
-  useEffect(initialLoad, []);
 
   const changeRGB = (index: number, value: string): void => {
     const newRGBs = [...rgbs];
@@ -56,8 +46,6 @@ export const ColourProvider = ({ children }: ColourProviderProps): JSX.Element =
 
     setRGBs(newRGBs);
     setHSLs(HSLsFromRGBs(newRGBs));
-
-    localStorage.setItem(LS_PALETTE_KEY, JSON.stringify(newRGBs));
   };
 
   const changeHSL = (index: number, value: HSL): void => {
@@ -71,11 +59,14 @@ export const ColourProvider = ({ children }: ColourProviderProps): JSX.Element =
 
     setRGBs(newRGBs);
     setHSLs(newHSLs);
-
-    localStorage.setItem(LS_PALETTE_KEY, JSON.stringify(newRGBs));
   };
 
   const selectColour = (bg: string, fg: string) => setSelected({ bg, fg });
+
+  const addColour = () => {
+    setRGBs(rgbs.concat('#000000'));
+    setHSLs(hsls.concat({ h: 0, s: 0, l: 0 }));
+  };
 
   const state: ColourState = {
     rgbs,
@@ -85,6 +76,7 @@ export const ColourProvider = ({ children }: ColourProviderProps): JSX.Element =
     changeRGB,
     changeHSL,
     selectColour,
+    addColour,
   };
 
   return <ColourContext.Provider value={state}>{children}</ColourContext.Provider>;
