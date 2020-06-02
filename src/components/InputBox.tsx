@@ -1,12 +1,24 @@
 import React, { Fragment } from 'react';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/pro-regular-svg-icons';
 import { rgbStrToObject, sRGBLuminance, RGBtoHSV } from '../conversions';
 import { useColours } from '../context';
 
 import RGBInput from './RGBInput';
 import HSLInput from './HSLInput';
 
-const LABELS = ['First', 'Second', 'Third', 'Fourth', 'Fifth'];
+const LABELS = [
+  'First',
+  'Second',
+  'Third',
+  'Fourth',
+  'Fifth',
+  'Sixth',
+  'Seventh',
+  'Eighth',
+  'Ninth',
+  'Tenth',
+];
 
 const InputBox = (): JSX.Element => {
   const { rgbs, hsls, changeRGB, changeHSL, addColour } = useColours();
@@ -66,9 +78,12 @@ const InputBox = (): JSX.Element => {
       <span>sRGB Lum</span>
       <span>HSV</span>
 
-      {LABELS.map((label, idx) => renderSet(idx, label))}
+      {rgbs.map((rgb: string, idx: number) =>
+        renderSet(idx, idx < LABELS.length ? LABELS[idx] : 'Another')
+      )}
+
       <button className="action" onClick={addColour}>
-        +
+        <FontAwesomeIcon icon={faPlus} />
       </button>
     </section>
   );
