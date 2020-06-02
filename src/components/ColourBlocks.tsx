@@ -9,7 +9,7 @@ const ColourBlocks = (): JSX.Element => {
   const { rgbs, selectColour } = useColours();
 
   const renderBlocks = (): Array<JSX.Element> => {
-    const colours = [...rgbs, '#000000', '#ffffff'];
+    const colours = [...rgbs.slice(0, 5), '#000000', '#ffffff'];
     const blocks: Array<JSX.Element> = [];
 
     colours.forEach((bgStr: string, bg: number) => {
