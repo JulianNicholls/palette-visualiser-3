@@ -27,16 +27,18 @@ interface ColourState {
   changeHSL: (index: number, value: HSL) => void;
   selectColour: (bg: string, fg: string) => void;
   addColour: () => void;
+  removeColour: (index: number) => void;
 }
 
 const ColourContext = React.createContext<ColourState>({} as ColourState);
 
-interface ColourProviderProps {
-  children: JSX.Element;
-}
-
-export const ColourProvider = ({ children }: ColourProviderProps): JSX.Element => {
-  const [rgbs, setRGBs] = useLocalStorage(LS_PALETTE_KEY, DEFAULT_RGBS);
+export const ColourProvider = ({
+  children,
+}: JSX.ElementChildrenAttribute): JSX.Element => {
+  const [rgbs, setRGBs] = useLocalStorage<Array<string>>(
+    LS_PALETTE_KEY,
+    DEFAULT_RGBS
+  );
   const [hsls, setHSLs] = useState<Array<HSL>>(HSLsFromRGBs(rgbs));
   const [selected, setSelected] = useState<SelectedColour>(DEFAULT_SELECT);
 
@@ -68,6 +70,17 @@ export const ColourProvider = ({ children }: ColourProviderProps): JSX.Element =
     setHSLs(hsls.concat({ h: 0, s: 0, l: 0 }));
   };
 
+  const removeColour = (idx: number) => {
+    const newRGBs = [...rgbs];
+    const newHSLs = [...hsls];
+
+    newRGBs.splice(idx, 1);
+    newHSLs.splice(idx, 1);
+
+    setRGBs(newRGBs);
+    setHSLs(newHSLs);
+  };
+
   const state: ColourState = {
     rgbs,
     hsls,
@@ -77,6 +90,7 @@ export const ColourProvider = ({ children }: ColourProviderProps): JSX.Element =
     changeHSL,
     selectColour,
     addColour,
+    removeColour,
   };
 
   return <ColourContext.Provider value={state}>{children}</ColourContext.Provider>;
