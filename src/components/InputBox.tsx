@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus } from '@fortawesome/pro-regular-svg-icons';
+import { faPlusSquare, faTrashAlt } from '@fortawesome/pro-regular-svg-icons';
 import { rgbStrToObject, sRGBLuminance, RGBtoHSV } from '../conversions';
 import { useColours } from '../context';
 
@@ -21,7 +21,14 @@ const LABELS = [
 ];
 
 const InputBox = (): JSX.Element => {
-  const { rgbs, hsls, changeRGB, changeHSL, addColour } = useColours();
+  const {
+    rgbs,
+    hsls,
+    changeRGB,
+    changeHSL,
+    addColour,
+    removeColour,
+  } = useColours();
 
   const renderSet = (index: number, label: string): JSX.Element => {
     const rgb = rgbStrToObject(rgbs[index]);
@@ -29,7 +36,13 @@ const InputBox = (): JSX.Element => {
 
     return (
       <Fragment key={index}>
-        <span />
+        {rgbs.length > 5 ? (
+          <button className="action delete" onClick={() => removeColour(index)}>
+            <FontAwesomeIcon icon={faTrashAlt} />
+          </button>
+        ) : (
+          <span />
+        )}
         <label htmlFor={`rgb-${index}`}>{label}</label>
         <RGBInput
           key={rgbs[index]}
@@ -82,8 +95,9 @@ const InputBox = (): JSX.Element => {
         renderSet(idx, idx < LABELS.length ? LABELS[idx] : 'Another')
       )}
 
-      <button className="action" onClick={addColour}>
-        <FontAwesomeIcon icon={faPlus} />
+      <button className="action span-2" onClick={addColour}>
+        <FontAwesomeIcon icon={faPlusSquare} />
+        &nbsp;Add Colour
       </button>
     </section>
   );

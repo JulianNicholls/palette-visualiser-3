@@ -18,8 +18,8 @@ const SampleText = (): JSX.Element => {
       </p>
 
       <p>
-        Click on a colour name in the list below to change the fifth colour above
-        to that colour.
+        Click on a colour name in the list below to add the colour into the list
+        above.
       </p>
 
       <p>
