@@ -11,22 +11,31 @@ import { useColours } from '../context';
 type NamedColour = {
   name: string;
   value: string;
-  luminance?: number;
+  luminance: number;
 };
 
+interface ListColour {
+  name: string;
+  value: string;
+}
+
+const withLuminance = ({ name, value }: ListColour): NamedColour => ({
+  name,
+  value,
+  luminance: sRGBLuminance(rgbStrToObject(value)),
+});
+
 const HTMLColourList = (): JSX.Element => {
-  const { changeRGB } = useColours();
+  const { changeRGB, addColour } = useColours();
   const [selected, setSelected] = useState<string>('html');
   const [colourList, setColourList] = useState<Array<NamedColour>>([]);
   const [sortOrder, setSortOrder] = useState<string>('name');
 
   const loadColours = (newSelected = selected): void => {
     const colours: Array<NamedColour> =
-      newSelected === 'xkcd' ? [...XKCDColours] : [...HTMLColours];
-
-    colours.forEach((colour) => {
-      colour.luminance = sRGBLuminance(rgbStrToObject(colour.value));
-    });
+      newSelected === 'xkcd'
+        ? [...XKCDColours].map(withLuminance)
+        : [...HTMLColours].map(withLuminance);
 
     setColourList(colours);
   };
@@ -89,7 +98,8 @@ const HTMLColourList = (): JSX.Element => {
   };
 
   const insertColour = (colour: string): void => {
-    changeRGB(4, colour);
+    const idx = addColour();
+    changeRGB(idx, colour);
   };
 
   return (
