@@ -26,7 +26,7 @@ interface ColourState {
   changeRGB: (index: number, value: string) => void;
   changeHSL: (index: number, value: HSL) => void;
   selectColour: (bg: string, fg: string) => void;
-  addColour: () => void;
+  addColour: () => number;
   removeColour: (index: number) => void;
 }
 
@@ -65,9 +65,11 @@ export const ColourProvider = ({
 
   const selectColour = (bg: string, fg: string) => setSelected({ bg, fg });
 
-  const addColour = () => {
+  const addColour = (): number => {
     setRGBs(rgbs.concat('#000000'));
     setHSLs(hsls.concat({ h: 0, s: 0, l: 0 }));
+
+    return rgbs.length;
   };
 
   const removeColour = (idx: number) => {
