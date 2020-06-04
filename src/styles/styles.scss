@@ -6,10 +6,8 @@ $blocks-bg: #fffcd6;
 $header-colour: hsl(210, 68%, 30%);
 $odd-colour: hsl(210, 68%, 92%);
 
-$action-bg: hsl(130, 80%, 70%);
-$action-fg: hsl(130, 80, 37);
-$action-delete-bg: hsl(10, 80%, 70%);
-$action-delete-fg: hsl(60, 80%, 23%);
+$action-fg: hsl(130, 85%, 20%);
+$action-delete-fg: hsl(10, 85%, 32%);
 
 * {
   box-sizing: border-box;
@@ -204,7 +202,6 @@ button.action {
   border: none;
   display: inline-flex;
   align-items: center;
-  // background: $action-bg;
   background: transparent;
   color: $action-fg;
   font-size: 1em;
@@ -212,7 +209,11 @@ button.action {
   margin-right: 0.2em;
 
   &.delete {
-    // background: $action-delete-bg;
     color: $action-delete-fg;
   }
+}
+
+.span-2 {
+  grid-column: span 3;
+  justify-self: start;
 }

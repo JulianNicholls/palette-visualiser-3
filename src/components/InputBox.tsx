@@ -36,9 +36,13 @@ const InputBox = (): JSX.Element => {
 
     return (
       <Fragment key={index}>
-        <button className="action delete" onClick={() => removeColour(index)}>
-          <FontAwesomeIcon icon={faTrashAlt} />
-        </button>
+        {rgbs.length > 5 ? (
+          <button className="action delete" onClick={() => removeColour(index)}>
+            <FontAwesomeIcon icon={faTrashAlt} />
+          </button>
+        ) : (
+          <span />
+        )}
         <label htmlFor={`rgb-${index}`}>{label}</label>
         <RGBInput
           key={rgbs[index]}
@@ -91,8 +95,9 @@ const InputBox = (): JSX.Element => {
         renderSet(idx, idx < LABELS.length ? LABELS[idx] : 'Another')
       )}
 
-      <button className="action" onClick={addColour}>
+      <button className="action span-2" onClick={addColour}>
         <FontAwesomeIcon icon={faPlusSquare} />
+        &nbsp;Add Colour
       </button>
     </section>
   );
