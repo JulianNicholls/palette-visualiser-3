@@ -33,7 +33,7 @@ const ColourBlock = ({
   let fgCol = fgStr;
   let AAAText = '';
   let AAText = '';
-  let title: string;
+  let title: string = '';
 
   if (fgStr === bgStr) {
     bgCol = '#333'; // Dark Grey and invisible
