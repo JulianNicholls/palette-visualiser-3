@@ -1,6 +1,6 @@
 export const AAAThreshold: number = 7; // 7:1 for AAA Text
 export const AAThreshold: number = 4.5; // 4.5:1 for AA Text
-export const largeThreshold: number = 3; // 3:1 for large text
+export const largeThreshold: number = 3; // 3:1 for large text (18pt or 14pt bold)
 
 /**
  * Convert a string representation of a colour in RGB to an array of three
@@ -82,7 +82,7 @@ export function contrastRatio(rgbA: RGB, rgbB: RGB) {
  * @return  {Number}    The luminance
  */
 export function sRGBLuminance(colour: RGB): number {
-  const mapColour = value =>
+  const mapColour = (value: number) =>
     value <= 0.04045 ? value / 12.92 : Math.pow((value + 0.055) / 1.055, 2.4);
 
   const r = mapColour(colour.r / 255);
@@ -111,12 +111,13 @@ export function RGBtoHSV(colour: RGB): HSV {
   const delta = max - min;
   const s = max === 0 ? 0 : (delta / max) * 100;
 
-  let h;
+  let h = 0;
 
-  if (delta === 0) h = 0;
-  else if (max === r) h = (g - b) / delta + (b > g ? 6 : 0);
-  else if (max === g) h = (b - r) / delta + 2;
-  else if (max === b) h = (r - g) / delta + 4;
+  if (delta !== 0) {
+    if (max === r) h = (g - b) / delta + (b > g ? 6 : 0);
+    else if (max === g) h = (b - r) / delta + 2;
+    else if (max === b) h = (r - g) / delta + 4;
+  }
 
   h = Math.round(h * 60);
 
@@ -128,7 +129,7 @@ export function RGBtoHSV(colour: RGB): HSV {
 }
 
 /**
- * Converts an RGB colour value direct to HSL. Conversion formula
+ * Converts an RGB colour value to HSL. Conversion formula
  * adapted from https://css-tricks.com/converting-color-spaces-in-javascript/
  *
  * @param   {Object}    Colour
@@ -143,20 +144,20 @@ export function RGBtoHSL(colour: RGB): HSL {
   const min = Math.min(r, g, b);
   const max = Math.max(r, g, b);
   const delta = max - min;
-  let h, s, l;
+  let h = 0;
 
-  if (delta === 0) h = 0;
-  else if (max === r) h = ((g - b) / delta) % 6;
-  else if (max === g) h = (b - r) / delta + 2;
-  else if (max === b) h = (r - g) / delta + 4;
+  if (delta !== 0) {
+    if (max === r) h = ((g - b) / delta) % 6;
+    else if (max === g) h = (b - r) / delta + 2;
+    else if (max === b) h = (r - g) / delta + 4;
+  }
 
   h = Math.round(h * 60);
 
   if (h < 0) h += 360;
 
-  l = (max + min) / 2;
-
-  s = delta === 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
+  const l = (max + min) / 2;
+  const s = delta === 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
 
   return {
     h: Math.round(h),
