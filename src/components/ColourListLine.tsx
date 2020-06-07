@@ -32,17 +32,13 @@ const ColourListLine = ({
 
   const baseStyle = { background: value, color: nameColour };
 
-  const insertColour = (colour: string): void => {
-    click(colour);
-  };
-
   return (
     <>
       <div
         key={name}
         className="html-colour-list__colour-name"
         style={baseStyle}
-        onClick={() => insertColour(value)}
+        onClick={() => click(value)}
       >
         {name}
       </div>

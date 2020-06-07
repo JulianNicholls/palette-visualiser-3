@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 
 import useLocalStorage from '../hooks/useLocalStorage';
 
@@ -26,7 +26,7 @@ interface ColourState {
   changeRGB: (index: number, value: string) => void;
   changeHSL: (index: number, value: HSL) => void;
   selectColour: (bg: string, fg: string) => void;
-  addColour: () => number;
+  addColour: (colour: string) => void;
   removeColour: (index: number) => void;
 }
 
@@ -65,14 +65,12 @@ export const ColourProvider = ({
 
   const selectColour = (bg: string, fg: string) => setSelected({ bg, fg });
 
-  const addColour = (): number => {
-    setRGBs(rgbs.concat('#000000'));
-    setHSLs(hsls.concat({ h: 0, s: 0, l: 0 }));
-
-    return rgbs.length;
+  const addColour = (colour: string): void => {
+    setRGBs(rgbs.concat(colour));
+    setHSLs(hsls.concat(RGBtoHSL(rgbStrToObject(colour))));
   };
 
-  const removeColour = (idx: number) => {
+  const removeColour = (idx: number): void => {
     const newRGBs = [...rgbs];
     const newHSLs = [...hsls];
 

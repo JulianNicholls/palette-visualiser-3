@@ -95,7 +95,7 @@ const InputBox = (): JSX.Element => {
         renderSet(idx, idx < LABELS.length ? LABELS[idx] : 'Another')
       )}
 
-      <button className="action span-2" onClick={addColour}>
+      <button className="action span-2" onClick={() => addColour('#000000')}>
         <FontAwesomeIcon icon={faPlusSquare} />
         &nbsp;Add Colour
       </button>

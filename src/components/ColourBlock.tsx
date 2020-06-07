@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { useColours } from '../context';
+
 import {
   AAAThreshold,
   AAThreshold,
@@ -13,14 +15,11 @@ const AA_LargeNormal = 'AA Large/Normal';
 interface ColourBlockProps {
   bgStr: string;
   fgStr: string;
-  selectColour: (bg: string, fg: string) => void;
 }
 
-const ColourBlock = ({
-  bgStr,
-  fgStr,
-  selectColour,
-}: ColourBlockProps): JSX.Element => {
+const ColourBlock = ({ bgStr, fgStr }: ColourBlockProps): JSX.Element => {
+  const { selectColour } = useColours();
+
   const ratio = (bg: string, fg: string): number => {
     const bga = rgbStrToObject(bg);
     const fga = rgbStrToObject(fg);
@@ -33,7 +32,7 @@ const ColourBlock = ({
   let fgCol = fgStr;
   let AAAText = '';
   let AAText = '';
-  let title: string = '';
+  let title = '';
 
   if (fgStr === bgStr) {
     bgCol = '#333'; // Dark Grey and invisible
@@ -48,9 +47,9 @@ const ColourBlock = ({
     bgCol = '#707070'; // Light Grey, sufficiently contrasted
     fgCol = '#f5f5f5';
     AAText = 'AA Large';
-    title = 'Sufficient contrast for large text';
+    title = 'Sufficient contrast for large text (18 point or 14 point bold)';
   } else {
-    bgCol = '#555'; // Grey, but sufficiently contrasted
+    bgCol = '#555'; // Mid-Grey, still sufficiently contrasted
     fgCol = '#ccc';
     title = 'Insufficient contrast';
   }

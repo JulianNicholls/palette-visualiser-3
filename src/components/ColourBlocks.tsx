@@ -6,7 +6,7 @@ import ColourBlock from './ColourBlock';
 const HEADERS = ['First', 'Second', 'Third', 'Fourth', 'Fifth', 'Black', 'White'];
 
 const ColourBlocks = (): JSX.Element => {
-  const { rgbs, selectColour } = useColours();
+  const { rgbs } = useColours();
 
   const renderBlocks = (): Array<JSX.Element> => {
     const colours = [...rgbs.slice(0, 5), '#000000', '#ffffff'];
@@ -21,12 +21,7 @@ const ColourBlocks = (): JSX.Element => {
 
       colours.forEach((fgStr: string, fg: number) => {
         blocks.push(
-          <ColourBlock
-            bgStr={bgStr}
-            fgStr={fgStr}
-            key={`${bg}${fg}`}
-            selectColour={selectColour}
-          />
+          <ColourBlock bgStr={bgStr} fgStr={fgStr} key={`${bg}${fg}`} />
         );
       });
     });

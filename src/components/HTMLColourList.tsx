@@ -98,8 +98,7 @@ const HTMLColourList = (): JSX.Element => {
   };
 
   const insertColour = (colour: string): void => {
-    const idx = addColour();
-    changeRGB(idx, colour);
+    addColour(colour);
   };
 
   return (
