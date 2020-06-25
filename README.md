@@ -32,6 +32,11 @@ written with React and Webpack 4.
 
 * 03/2020: Convert to Typescript
 
+* 05/2020: Clicking a colour in the colour lists sets the fifth palette colour.
+
+* 06/2020: Change top section to become one. The palette colours can now be added to 
+*          and deleted meaning that there can be more than 5 at a time.       
+
 ## Git client
 
 I have used Git at the command-line for more than 10 years. Over that time, I have tried
