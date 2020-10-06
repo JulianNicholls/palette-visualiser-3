@@ -15,7 +15,11 @@ interface RGBInputProps {
   handleChangeRGB: (index: number, value: string) => void;
 }
 
-const RGBInput = ({ rgb, index, handleChangeRGB }: RGBInputProps): JSX.Element => {
+const RGBHexInput = ({
+  rgb,
+  index,
+  handleChangeRGB,
+}: RGBInputProps): JSX.Element => {
   const [value, setValue] = useState<string>(rgb);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -41,4 +45,4 @@ const RGBInput = ({ rgb, index, handleChangeRGB }: RGBInputProps): JSX.Element =
   );
 };
 
-export default RGBInput;
+export default RGBHexInput;

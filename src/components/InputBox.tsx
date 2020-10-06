@@ -4,7 +4,7 @@ import { faPlusSquare, faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 import { rgbStrToObject, sRGBLuminance, RGBtoHSV } from '../conversions';
 import { useColours } from '../context';
 
-import RGBInput from './RGBInput';
+import RGBHexInput from './RGBHexInput';
 import HSLInput from './HSLInput';
 
 const LABELS = [
@@ -44,7 +44,7 @@ const InputBox = (): JSX.Element => {
           <span />
         )}
         <label htmlFor={`rgb-${index}`}>{label}</label>
-        <RGBInput
+        <RGBHexInput
           key={rgbs[index]}
           index={index}
           rgb={rgbs[index]}
