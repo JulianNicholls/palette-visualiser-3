@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlusSquare, faTrashAlt } from '@fortawesome/pro-regular-svg-icons';
+import { faPlusSquare, faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 import { rgbStrToObject, sRGBLuminance, RGBtoHSV } from '../conversions';
 import { useColours } from '../context';
 
