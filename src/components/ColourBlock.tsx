@@ -15,9 +15,10 @@ const AA_LargeNormal = 'AA Large/Normal';
 interface ColourBlockProps {
   bgStr: string;
   fgStr: string;
+  compact: boolean;
 }
 
-const ColourBlock = ({ bgStr, fgStr }: ColourBlockProps): JSX.Element => {
+const ColourBlock = ({ bgStr, fgStr, compact }: ColourBlockProps): JSX.Element => {
   const { selectColour } = useColours();
 
   const ratio = (bg: string, fg: string): number => {
@@ -54,6 +55,7 @@ const ColourBlock = ({ bgStr, fgStr }: ColourBlockProps): JSX.Element => {
     title = 'Insufficient contrast';
   }
 
+  // Compact mode omits the two colour hex values
   return (
     <div
       className="block"
@@ -62,15 +64,19 @@ const ColourBlock = ({ bgStr, fgStr }: ColourBlockProps): JSX.Element => {
       onClick={() => selectColour(bgStr, fgStr)}
     >
       <p>
-        {bgStr}
-        <br />
-        {fgStr}
-        <br />
+        {!compact && (
+          <>
+            {bgStr}
+            <br />
+            {fgStr}
+            <br />
+          </>
+        )}
         {cr.toFixed(2)}:1
         <br />
         <span className="access">&nbsp;{AAAText}</span>
         <br />
-        <span className="access">&nbsp;{AAText || ' '}</span>
+        <span className="access">&nbsp;{AAText ?? ' '}</span>
       </p>
     </div>
   );

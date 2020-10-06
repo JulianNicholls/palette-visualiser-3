@@ -6,7 +6,7 @@ import ColourBlock from './ColourBlock';
 const HEADERS = ['First', 'Second', 'Third', 'Fourth', 'Fifth', 'Black', 'White'];
 
 const ColourBlocks = (): JSX.Element => {
-  const { rgbs } = useColours();
+  const { rgbs, compactMode, toggleCompactMode } = useColours();
 
   const renderBlocks = (): Array<JSX.Element> => {
     const colours = [...rgbs.slice(0, 5), '#000000', '#ffffff'];
@@ -21,7 +21,12 @@ const ColourBlocks = (): JSX.Element => {
 
       colours.forEach((fgStr: string, fg: number) => {
         blocks.push(
-          <ColourBlock bgStr={bgStr} fgStr={fgStr} key={`${bg}${fg}`} />
+          <ColourBlock
+            bgStr={bgStr}
+            fgStr={fgStr}
+            compact={compactMode}
+            key={`${bg}${fg}`}
+          />
         );
       });
     });
@@ -31,7 +36,9 @@ const ColourBlocks = (): JSX.Element => {
 
   return (
     <section id="colour-blocks">
-      <span />
+      <button onClick={toggleCompactMode}>
+        {compactMode ? 'Full' : 'Compact'}
+      </button>
       {HEADERS.map((text, idx) => (
         <span key={idx}>{text}</span>
       ))}
