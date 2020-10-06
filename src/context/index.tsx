@@ -23,11 +23,15 @@ interface ColourState {
   hsls: Array<HSL>;
   selectedBG: string;
   selectedFG: string;
+  rgbHexMode: boolean;
+  compactMode: boolean;
   changeRGB: (index: number, value: string) => void;
   changeHSL: (index: number, value: HSL) => void;
   selectColour: (bg: string, fg: string) => void;
   addColour: (colour: string) => void;
   removeColour: (index: number) => void;
+  toggleHexMode: () => void;
+  toggleCompactMode: () => void;
 }
 
 const ColourContext = React.createContext<ColourState>({} as ColourState);
@@ -41,6 +45,8 @@ export const ColourProvider = ({
   );
   const [hsls, setHSLs] = useState<Array<HSL>>(HSLsFromRGBs(rgbs));
   const [selected, setSelected] = useState<SelectedColour>(DEFAULT_SELECT);
+  const [rgbHexMode, setHexMode] = useState<boolean>(true);
+  const [compactMode, setCompactMode] = useState<boolean>(false);
 
   const changeRGB = (index: number, value: string): void => {
     const newRGBs = [...rgbs];
@@ -81,16 +87,23 @@ export const ColourProvider = ({
     setHSLs(newHSLs);
   };
 
+  const toggleHexMode = () => setHexMode(!rgbHexMode);
+  const toggleCompactMode = () => setCompactMode(!compactMode);
+
   const state: ColourState = {
     rgbs,
     hsls,
     selectedBG: selected.bg,
     selectedFG: selected.fg,
+    rgbHexMode,
+    compactMode,
     changeRGB,
     changeHSL,
     selectColour,
     addColour,
     removeColour,
+    toggleHexMode,
+    toggleCompactMode,
   };
 
   return <ColourContext.Provider value={state}>{children}</ColourContext.Provider>;
