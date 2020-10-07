@@ -12,13 +12,7 @@ export const largeThreshold: number = 3; // 3:1 for large text (18pt or 14pt bol
  */
 export function rgbStrToObject(colour: string): RGB {
   const rgbArray = colour.match(/#?(..)(..)(..)/);
-  const values: number[] = [];
-
-  for (let i = 0; i < 3; ++i) {
-    values[i] = parseInt(rgbArray[i + 1], 16);
-  }
-
-  const [r, g, b] = values;
+  const [r, g, b] = rgbArray.slice(1, 4).map((part) => parseInt(part, 16));
 
   return { r, g, b };
 }
@@ -37,7 +31,8 @@ export function rgbObjectToStr(colour: RGB): string {
     return dec < 16 ? '0' + str : str;
   };
 
-  return '#' + toHexStr(colour.r) + toHexStr(colour.g) + toHexStr(colour.b);
+  const { r, g, b } = colour;
+  return `#${toHexStr(r)}${toHexStr(g)}${toHexStr(b)}`;
 }
 
 /**
