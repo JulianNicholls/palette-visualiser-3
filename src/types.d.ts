@@ -26,3 +26,9 @@ type SelectedColour = {
   bg: string;
   fg: string;
 };
+
+interface RGBInputProps {
+  rgb: string;
+  index: number;
+  handleChangeRGB: (index: number, value: string) => void;
+}

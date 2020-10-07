@@ -50,6 +50,10 @@ h1 {
     }
   }
 
+  button {
+    margin: -5px 0 2px 0;
+  }
+
   label {
     color: $header-colour;
     justify-self: start;
@@ -156,7 +160,7 @@ h1 {
   border: 2px solid black;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
   font-size: 1rem;
-  padding: 1rem 1.5rem;;
+  padding: 0.5rem 1rem 0;
 
   h1 {
     margin: 0;

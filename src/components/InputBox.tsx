@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { useState, Fragment } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusSquare, faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 import { rgbStrToObject, sRGBLuminance, RGBtoHSV } from '../conversions';
@@ -30,6 +30,12 @@ const InputBox = (): JSX.Element => {
     addColour,
     removeColour,
   } = useColours();
+  const [hexMode, setHexMode] = useState<boolean>(true);
+
+  const handleChangeRGB = (index: number, value: string) =>
+    changeRGB(index, value);
+
+  const toggleHexMode = () => setHexMode(!hexMode);
 
   const renderSet = (index: number, label: string): JSX.Element => {
     const rgb = rgbStrToObject(rgbs[index]);
@@ -45,14 +51,21 @@ const InputBox = (): JSX.Element => {
           <span />
         )}
         <label htmlFor={`rgb-${index}`}>{label}</label>
-        <RGB3Input
-          key={rgbs[index]}
-          index={index}
-          rgb={rgbs[index]}
-          handleChangeRGB={(index: number, value: string) =>
-            changeRGB(index, value)
-          }
-        />
+        {hexMode ? (
+          <RGBHexInput
+            key={rgbs[index]}
+            index={index}
+            rgb={rgbs[index]}
+            handleChangeRGB={handleChangeRGB}
+          />
+        ) : (
+          <RGB3Input
+            key={rgbs[index]}
+            index={index}
+            rgb={rgbs[index]}
+            handleChangeRGB={handleChangeRGB}
+          />
+        )}
         <input
           type="color"
           className="swatch"
@@ -85,7 +98,7 @@ const InputBox = (): JSX.Element => {
     <section id="input-box">
       <span />
       <span className="first">Colour</span>
-      <span>RGB</span>
+      <button onClick={toggleHexMode}>{hexMode ? 'R, G, B' : '#RRGGBB'}</button>
       <span>Picker</span>
       <span>HSL</span>
       <span>RGB</span>

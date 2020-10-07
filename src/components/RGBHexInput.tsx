@@ -9,12 +9,6 @@ import React, { useState } from 'react';
 //   that will now cause a re-rendering of this component, negating the need for
 //   getDerivedStateFromProps()
 
-interface RGBInputProps {
-  rgb: string;
-  index: number;
-  handleChangeRGB: (index: number, value: string) => void;
-}
-
 const RGBHexInput = ({
   rgb,
   index,
