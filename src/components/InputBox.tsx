@@ -5,6 +5,7 @@ import { rgbStrToObject, sRGBLuminance, RGBtoHSV } from '../conversions';
 import { useColours } from '../context';
 
 import RGBHexInput from './RGBHexInput';
+import RGB3Input from './RGB3Input';
 import HSLInput from './HSLInput';
 
 const LABELS = [
@@ -44,7 +45,7 @@ const InputBox = (): JSX.Element => {
           <span />
         )}
         <label htmlFor={`rgb-${index}`}>{label}</label>
-        <RGBHexInput
+        <RGB3Input
           key={rgbs[index]}
           index={index}
           rgb={rgbs[index]}
