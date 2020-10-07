@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { useColours } from '../context';
 import ColourBlock from './ColourBlock';
@@ -6,7 +6,8 @@ import ColourBlock from './ColourBlock';
 const HEADERS = ['First', 'Second', 'Third', 'Fourth', 'Fifth', 'Black', 'White'];
 
 const ColourBlocks = (): JSX.Element => {
-  const { rgbs, compactMode, toggleCompactMode } = useColours();
+  const { rgbs } = useColours();
+  const [compactMode, setCompactMode] = useState<boolean>(false);
 
   const renderBlocks = (): Array<JSX.Element> => {
     const colours = [...rgbs.slice(0, 5), '#000000', '#ffffff'];
@@ -36,7 +37,7 @@ const ColourBlocks = (): JSX.Element => {
 
   return (
     <section id="colour-blocks">
-      <button onClick={toggleCompactMode}>
+      <button onClick={() => setCompactMode(!compactMode)}>
         {compactMode ? 'Full' : 'Compact'}
       </button>
       {HEADERS.map((text, idx) => (

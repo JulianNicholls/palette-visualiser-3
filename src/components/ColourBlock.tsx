@@ -63,7 +63,7 @@ const ColourBlock = ({ bgStr, fgStr, compact }: ColourBlockProps): JSX.Element =
       title={title}
       onClick={() => selectColour(bgStr, fgStr)}
     >
-      <p>
+      <p className={compact ? 'compact' : ''}>
         {!compact && (
           <>
             {bgStr}
