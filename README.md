@@ -34,8 +34,13 @@ written with React and Webpack 4.
 
 * 05/2020: Clicking a colour in the colour lists sets the fifth palette colour.
 
-* 06/2020: Change top section to become one. The palette colours can now be added to 
-*          and deleted meaning that there can be more than 5 at a time.       
+* 06/2020: Change top section to become one. The palette colours can now be added to
+           and deleted, meaning that there can be more than 5 at a time. Clicking a
+           colour in the colour lists now adds a colour, rather than replacing colour
+           five.
+
+* 10/2020: Add compact mode, which removes the colour hex codes from the colour
+           blocks.
 
 ## Git client
 
