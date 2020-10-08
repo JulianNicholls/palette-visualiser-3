@@ -40,7 +40,7 @@ written with React and Webpack 4.
            five.
 
 * 10/2020: Add compact mode, which removes the colour hex codes from the colour
-           blocks.
+           blocks. Add 3 value decimal edit mode for RGB.
 
 ## Git client
 
