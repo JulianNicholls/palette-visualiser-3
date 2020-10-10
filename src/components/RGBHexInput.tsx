@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import {useDebounce} from 'react-use'
 
 // This component has an interesting lifecycle:
 // * it is initialized with an RGB value like #67aa7b, which can then be edited
@@ -16,16 +17,18 @@ const RGBHexInput = ({
 }: RGBInputProps): JSX.Element => {
   const [value, setValue] = useState<string>(rgb);
 
+  // Setting a new value centrally is now split into two parts, allowing a
+  // 600ms grace period after it matches #rrggbb
+  useDebounce(() => {
+    if (value.length === 7) handleChangeRGB(index, value);
+  }, 600, [value]);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     let inputValue: string = e.target.value.toLowerCase();
 
     if (inputValue[0] !== '#') inputValue = `#${inputValue}`;
 
-    if (/^#[0-9a-f]{0,6}$/.test(inputValue)) {
-      setValue(inputValue);
-
-      if (inputValue.length === 7) handleChangeRGB(index, inputValue);
-    }
+    if (/^#[0-9a-f]{0,6}$/.test(inputValue)) setValue(inputValue);
   };
 
   return (

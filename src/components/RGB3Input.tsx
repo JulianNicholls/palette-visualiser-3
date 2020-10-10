@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import {useDebounce } from 'react-use';
 
 import { rgbStrToObject, rgbObjectToStr } from '../conversions';
 
@@ -15,19 +16,25 @@ const RGB3Input = ({
     return `${rgbo.r}, ${rgbo.g}, ${rgbo.b}`;
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const inputValue = e.target.value;
-    const parts = inputValue.match(/(\d{1,3})[, ]+(\d{1,3})[, ]+(\d{1,3})/);
+  // Allow 600ms before updating the RGB colour centrally, otherwise the
+  // millisecond that it matches rrr, ggg, bbb it will be snatched.
+  useDebounce(() => {
+    const parts = value.split(/[, ]+/);
 
-    if (parts) {
-      const values = parts.slice(1, 4).map((part) => parseInt(part, 10));
+    if (parts.length === 3) {
+      const values = parts.map((part) => parseInt(part, 10));
       const rgbStr = rgbObjectToStr({ r: values[0], g: values[1], b: values[2] });
 
       handleChangeRGB(index, rgbStr);
     }
+  }, 600, [value])
 
-    setValue(inputValue);
-  };
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    const entered = e.target.value;
+
+    if (/^[0-9, ]*$/.test(entered))
+      setValue(entered);
+  }
 
   return (
     <input
