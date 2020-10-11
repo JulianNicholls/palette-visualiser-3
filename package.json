@@ -1,6 +1,6 @@
 {
   "name": "palette-visualiser",
-  "version": "5.0.2",
+  "version": "5.1.0",
   "description": "Palette Visualiser",
   "scripts": {
     "build:dev": "webpack --mode development",
