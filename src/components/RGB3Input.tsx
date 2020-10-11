@@ -3,7 +3,7 @@ import {useDebounce } from 'react-use';
 
 import { rgbStrToObject, rgbObjectToStr } from '../conversions';
 
-// This component has the same lifecycle as RGBHexInput:
+// This component has the same lifecycle as RGBHexInput.
 
 const RGB3Input = ({
   rgb,
@@ -29,6 +29,7 @@ const RGB3Input = ({
     }
   }, 600, [value])
 
+  // Update the value, as long as the entered text has only good characters
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const entered = e.target.value;
 
