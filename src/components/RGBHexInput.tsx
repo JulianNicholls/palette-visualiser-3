@@ -24,7 +24,7 @@ const RGBHexInput = ({
   }, 600, [value]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    let inputValue: string = e.target.value.toLowerCase();
+    let inputValue = e.target.value.toLowerCase();
 
     if (inputValue[0] !== '#') inputValue = `#${inputValue}`;
 
