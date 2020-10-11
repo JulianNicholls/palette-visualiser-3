@@ -29,10 +29,10 @@ const RGB3Input = ({
     }
   }, 600, [value])
 
-  // Update the value, as long as the entered text has only good characters
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const entered = e.target.value;
 
+    // Check that all the characters are OK before adding the last edit.
     if (/^[0-9, ]*$/.test(entered))
       setValue(entered);
   }
