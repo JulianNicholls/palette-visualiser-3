@@ -32,9 +32,6 @@ const InputBox = (): JSX.Element => {
   } = useColours();
   const [hexMode, setHexMode] = useState<boolean>(true);
 
-  const handleChangeRGB = (index: number, value: string) =>
-    changeRGB(index, value);
-
   const toggleHexMode = () => setHexMode(!hexMode);
 
   const renderSet = (index: number, label: string): JSX.Element => {
@@ -44,7 +41,11 @@ const InputBox = (): JSX.Element => {
     return (
       <Fragment key={index}>
         {rgbs.length > 5 ? (
-          <button className="action delete" onClick={() => removeColour(index)}>
+          <button
+            title="Remove colour from the palette"
+            className="action delete"
+            onClick={() => removeColour(index)}
+          >
             <FontAwesomeIcon icon={faTrashAlt} />
           </button>
         ) : (
@@ -56,14 +57,14 @@ const InputBox = (): JSX.Element => {
             key={rgbs[index]}
             index={index}
             rgb={rgbs[index]}
-            handleChangeRGB={handleChangeRGB}
+            handleChangeRGB={changeRGB}
           />
         ) : (
           <RGB3Input
             key={rgbs[index]}
             index={index}
             rgb={rgbs[index]}
-            handleChangeRGB={handleChangeRGB}
+            handleChangeRGB={changeRGB}
           />
         )}
         <input
@@ -77,7 +78,7 @@ const InputBox = (): JSX.Element => {
         <HSLInput
           index={index}
           colour={hsls[index]}
-          handleChangeHSL={(index: number, value: HSL) => changeHSL(index, value)}
+          handleChangeHSL={changeHSL}
         />
         <div className="three-field">
           <span className="info">{rgb.r}</span>
@@ -98,7 +99,7 @@ const InputBox = (): JSX.Element => {
     <section id="input-box">
       <span />
       <span className="first">Colour</span>
-      <button onClick={toggleHexMode}>{hexMode ? 'R, G, B' : '#RRGGBB'}</button>
+      <button title="Toggle between decimal and hex mode" onClick={toggleHexMode}>{hexMode ? 'R, G, B' : '#RRGGBB'}</button>
       <span>Picker</span>
       <span>HSL</span>
       <span>RGB</span>
@@ -109,9 +110,8 @@ const InputBox = (): JSX.Element => {
         renderSet(idx, idx < LABELS.length ? LABELS[idx] : 'Another')
       )}
 
-      <button className="action span-2" onClick={() => addColour('#000000')}>
-        <FontAwesomeIcon icon={faPlusSquare} />
-        &nbsp;Add Colour
+      <button title="Add a colour to the palette" className="action span-2" onClick={() => addColour('#000000')}>
+        <FontAwesomeIcon icon={faPlusSquare} />&nbsp;Add Colour
       </button>
     </section>
   );

@@ -39,6 +39,7 @@ const ColourListLine = ({
         className="html-colour-list__colour-name"
         style={baseStyle}
         onClick={() => click(value)}
+        title="Add to palette"
       >
         {name}
       </div>

@@ -37,7 +37,7 @@ const ColourBlocks = (): JSX.Element => {
 
   return (
     <section id="colour-blocks">
-      <button onClick={() => setCompactMode(!compactMode)}>
+      <button title="Toggle between compact and full mode" onClick={() => setCompactMode(!compactMode)}>
         {compactMode ? 'Full' : 'Compact'}
       </button>
       {HEADERS.map((text, idx) => (
