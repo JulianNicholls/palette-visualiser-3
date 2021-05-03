@@ -3,14 +3,14 @@ import React from 'react';
 import { useColours } from '../context';
 
 const SampleText = (): JSX.Element => {
-  const context = useColours();
+  const { selectedBG, selectedFG } = useColours();
 
   return (
     <section
       className="sample-text"
-      style={{ background: context.selectedBG, color: context.selectedFG }}
+      style={{ background: selectedBG, color: selectedFG }}
     >
-      <h1 style={{ color: context.selectedFG }}>Large Heading</h1>
+      <h1 style={{ color: selectedFG }}>Large Heading</h1>
       <p>
         Click on a colour combination block above to show that combination here.
         That will work with both the sufficiently contrasted and the ones which are
@@ -33,7 +33,7 @@ const SampleText = (): JSX.Element => {
           This text is &lt;strong&gt;, so generally it is shown as bold.
         </strong>
         <br />
-        <i>This part should be in &lt;i&gt;talic text.</i>.
+        <i>This line is explicitly in &lt;i&gt;talic text.</i>.
       </p>
     </section>
   );

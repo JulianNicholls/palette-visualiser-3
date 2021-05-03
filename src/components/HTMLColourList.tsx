@@ -8,6 +8,8 @@ import XKCDColours from '../colours/XKCDColours';
 import { rgbStrToObject, sRGBLuminance } from '../conversions';
 import { useColours } from '../context';
 
+type ListName = 'xkcd' | 'html';
+
 type NamedColour = {
   name: string;
   value: string;
@@ -27,7 +29,7 @@ const withLuminance = ({ name, value }: ListColour): NamedColour => ({
 
 const HTMLColourList = (): JSX.Element => {
   const { addColour } = useColours();
-  const [selected, setSelected] = useState<string>('html');
+  const [selected, setSelected] = useState<ListName>('html');
   const [colourList, setColourList] = useState<Array<NamedColour>>([]);
   const [sortOrder, setSortOrder] = useState<string>('name');
 
@@ -43,7 +45,7 @@ const HTMLColourList = (): JSX.Element => {
   useEffect(loadColours, []);
 
   const swapColours = (): void => {
-    const newSelected: string = selected === 'xkcd' ? 'html' : 'xkcd';
+    const newSelected: ListName = selected === 'xkcd' ? 'html' : 'xkcd';
 
     loadColours(newSelected);
 
@@ -106,19 +108,34 @@ const HTMLColourList = (): JSX.Element => {
       <span className="html-colour-list__title">
         {selected.toUpperCase()} Colours
       </span>
-      <button title="Toggle between HTML colours and XKCD colour list" onClick={swapColours}>
+      <button
+        title="Toggle between HTML colours and XKCD colour list"
+        onClick={swapColours}
+      >
         Swap to {selected === 'xkcd' ? 'HTML' : 'XKCD'}
       </button>
 
-      <button title="Sort by name" className="html-colour-list__header" onClick={sortByName}>
+      <button
+        title="Sort by name"
+        className="html-colour-list__header"
+        onClick={sortByName}
+      >
         Colour Name {sortOrder === 'name' && '🔼'}
         {sortOrder === 'namer' && '🔽'}
       </button>
-      <button title="Sort by hex RGB value" className="html-colour-list__header" onClick={sortByRGB}>
+      <button
+        title="Sort by hex RGB value"
+        className="html-colour-list__header"
+        onClick={sortByRGB}
+      >
         RGB {sortOrder === 'value' && '🔼'}
         {sortOrder === 'valuer' && '🔽'}
       </button>
-      <button title="Sort by luminance" className="html-colour-list__header" onClick={sortByLuminance}>
+      <button
+        title="Sort by luminance"
+        className="html-colour-list__header"
+        onClick={sortByLuminance}
+      >
         Luminance {sortOrder === 'luminance' && '🔼'}
         {sortOrder === 'luminancer' && '🔽'}
       </button>

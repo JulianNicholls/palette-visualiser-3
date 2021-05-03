@@ -1,9 +1,9 @@
-$page-bg: hsl(210, 68%, 80%);
+$page-bg: hsl(210, 68%, 85%);
 $input-bg: #2f2f4f;     // Dark Slate Grey
 $input-focus: #555591;
 $section-bg: #f8f8f8;
 $blocks-bg: #fffcd6;
-$header-colour: hsl(210, 68%, 30%);
+$header-colour: hsl(210, 75%, 25%);
 $odd-colour: hsl(210, 68%, 92%);
 
 $action-fg: hsl(130, 85%, 20%);
@@ -26,8 +26,7 @@ body {
 
 h1 {
   color: $header-colour;
-  font-size: 1.8rem;
-  letter-spacing: 1px;
+  font-size: 2rem;
   text-align: center;
 }
 
@@ -225,4 +224,10 @@ button.action {
 .span-2 {
   grid-column: span 3;
   justify-self: start;
+}
+
+@media (min-width: 1150px) {
+  .container {
+    width: 1080px;
+  }
 }

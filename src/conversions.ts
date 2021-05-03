@@ -96,9 +96,9 @@ export function sRGBLuminance(colour: RGB): number {
  * @return  {Object}    The HSV representation  [0..360, 0..100%, 0..100%]
  */
 export function RGBtoHSV(colour: RGB): HSV {
-  const r = colour.r / 255,
-    g = colour.g / 255,
-    b = colour.b / 255;
+  const r = colour.r / 255;
+  const g = colour.g / 255;
+  const b = colour.b / 255;
 
   const max = Math.max(r, g, b);
   const min = Math.min(r, g, b);
@@ -132,9 +132,9 @@ export function RGBtoHSV(colour: RGB): HSV {
  * @return  {Object}    The HSL representation  [0..360, 0..100%, 0..100%]
  */
 export function RGBtoHSL(colour: RGB): HSL {
-  const r = colour.r / 255,
-    g = colour.g / 255,
-    b = colour.b / 255;
+  const r = colour.r / 255;
+  const g = colour.g / 255;
+  const b = colour.b / 255;
 
   const min = Math.min(r, g, b);
   const max = Math.max(r, g, b);

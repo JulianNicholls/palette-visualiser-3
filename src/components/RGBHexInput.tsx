@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {useDebounce} from 'react-use'
+import { useDebounce } from 'react-use'
 
 // This component has an interesting lifecycle:
 // * it is initialized with an RGB value like #67aa7b, which can then be edited
