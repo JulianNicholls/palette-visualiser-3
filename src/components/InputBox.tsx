@@ -111,6 +111,7 @@ const InputBox = (): JSX.Element => {
       <button
         title="Add a colour to the palette"
         className="action span-2"
+        id="add"
         onClick={() => addColour('#000000')}
       >
         <FontAwesomeIcon icon={faPlusSquare} />

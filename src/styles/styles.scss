@@ -2,7 +2,7 @@ $page-bg: hsl(210, 68%, 85%);
 $input-bg: #2f2f4f;     // Dark Slate Grey
 $input-focus: #555591;
 $section-bg: #f8f8f8;
-$blocks-bg: #fffcd6;
+$blocks-bg: hsl(56, 100%, 94%);
 $header-colour: hsl(210, 75%, 25%);
 $odd-colour: hsl(210, 68%, 92%);
 
@@ -51,6 +51,15 @@ h1 {
 
   button {
     margin: -5px 0 2px 0;
+  }
+
+  #add {
+    margin-top: 0.5em;
+  }
+
+  .span-2 {
+    grid-column: 2 / 4;
+    justify-self: start;
   }
 
   label {
@@ -219,11 +228,6 @@ button.action {
   &.delete {
     color: $action-delete-fg;
   }
-}
-
-.span-2 {
-  grid-column: span 3;
-  justify-self: start;
 }
 
 @media (min-width: 1150px) {
