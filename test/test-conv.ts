@@ -1,16 +1,17 @@
+/// <reference path="src/types.d.ts" />
 const {
   rgbStrToObject,
   RGBtoHSV,
   RGBtoHSL,
   RGBtoHSL2,
   HSLtoRGB,
-} = require('../src/conversions');
+} = require('./src/conversions');
 const {
   contrastRatio,
   sRGBLuminance,
   W3CLuminance,
   ColourDifference,
-} = require('./luminance');
+} = require('./test/luminance');
 
 let rgbi = rgbStrToObject('#A130D6');
 let rgbi2 = null;
@@ -68,3 +69,5 @@ if (rgbi2) {
   console.log('W3C Difference:   ', Math.abs(wLum2 - wLum).toFixed(3));
   console.log('Colour Difference:', ColourDifference(rgbi, rgbi2).toFixed(1));
 }
+
+export {};
