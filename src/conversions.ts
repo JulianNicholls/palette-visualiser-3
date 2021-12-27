@@ -12,6 +12,9 @@ export const largeThreshold: number = 3; // 3:1 for large text (18pt or 14pt bol
  */
 export function rgbStrToObject(colour: string): RGB {
   const rgbArray = colour.match(/#?(..)(..)(..)/);
+
+  if(!rgbArray) throw new Error('Empty or invalid string passed to rgbStrToObject');
+
   const [r, g, b] = rgbArray.slice(1, 4).map((part) => parseInt(part, 16));
 
   return { r, g, b };
@@ -158,6 +161,40 @@ export function RGBtoHSL(colour: RGB): HSL {
     h: Math.round(h),
     s: Math.round(s * 100),
     l: Math.round(l * 100),
+  };
+}
+
+export function RGBtoHSL2(colour: RGB): HSL {
+  const r = colour.r / 255;
+  const g = colour.g / 255;
+  const b = colour.b / 255;
+
+  const max = Math.max(r, g, b);
+  const min = Math.min(r, g, b);
+  let [hue, sat, light] = [NaN, 0, (max + min) / 2];
+  const d = max - min;
+
+  if (d !== 0) {
+    sat = (light === 0 || light === 1) ? 0 : (max - light) / Math.min(light, 1-light);
+
+    switch(max) {
+      case r: hue = (g - b) / d + (g < b ? 6 : 0);
+      break;
+
+      case g: hue = (b - r) / d + 2;
+      break;
+
+      case b: hue = (r - g) / d + 4;
+      break;
+    }
+
+    hue = hue * 60;
+  }
+
+  return {
+    h: Math.round(hue),
+    s: Math.round(sat * 100),
+    l: Math.round(light * 100),
   };
 }
 
